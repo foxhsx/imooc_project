@@ -13,7 +13,9 @@ module.exports = {
   resolve: {
     alias: {
       page: path.resolve(__dirname, 'src/page'),
-      component: path.resolve(__dirname, 'src/component')
+      component: path.resolve(__dirname, 'src/component'),
+      service: path.resolve(__dirname, 'src/service'),
+      util: path.resolve(__dirname, 'src/util')
     }
   },
   module: {
@@ -86,6 +88,19 @@ module.exports = {
     port: 8086,
     historyApiFallback:{
       index: '/dist/index.html'
+    },
+    // 解决跨域
+    proxy: {
+      '/manage': {
+        target: "http://admintest.happymmall.com",
+        // 请求的时候认为是拿上面的地址请求的
+        changeOrigin: true
+      },
+      '/user/logout.do': {
+        target: "http://admintest.happymmall.com",
+        // 请求的时候认为是拿上面的地址请求的
+        changeOrigin: true
+      }
     }
   }
 }
