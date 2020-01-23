@@ -98,6 +98,15 @@ class Product {
     })
   }
 
+  // 更新品类名称
+  updateCategoryName (category) {
+    return _mm.request({
+      type: 'post',
+      url: '/manage/category/set_category_name.do',
+      data: category
+    })
+  }
+
   // 品类相关
   getCategoryList(parentCategoryId) {
     return _mm.request({
@@ -106,6 +115,14 @@ class Product {
       data: {
         categoryId: parentCategoryId || 0
       }
+    })
+  }
+  // 添加品类
+  saveCategory (category) {
+    return _mm.request({
+      type: 'post',
+      url: '/manage/category/add_category.do',
+      data: category
     })
   }
 }

@@ -50,14 +50,6 @@ class ProductDetail extends React.Component {
       })
     }
   }
-  // 品类选择器得变化
-  onCategoryChange (categoryId, parentCategoryId) {
-    
-    this.setState({
-      categoryId: categoryId,
-      parentCategoryId: parentCategoryId
-    })
-  }
   render() {
     return (
       <div id="page-wrapper">
@@ -121,6 +113,7 @@ class ProductDetail extends React.Component {
           </div>
           <div className="form-group">
             <label className="col-md-2 control-label">商品详情</label>
+            {/* dangerouslySetInnerHTML将html格式的数据渲染到页面上 */}
             <div className="col-md-10" dangerouslySetInnerHTML={{__html:this.state.detail}}></div>
           </div>
         </div>
