@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 let WEBPACK_ENV = process.env.WEBPACK_ENV || 'dev';
-console.log(WEBPACK_ENV);
+
 module.exports = {
   entry: './src/app.jsx',
   output: {
