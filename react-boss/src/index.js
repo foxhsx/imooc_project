@@ -9,7 +9,9 @@ import './axios.config'
 import reducers from './reducer'
 import Login from './container/login/Login';
 import BossInfo from './container/bossinfo/BossInfo'
+import GenuisInfo from './container/genuisinfo/GenuisInfo'
 import Register from './container/register/Register';
+import AuthRoute from './component/AuthRoute/AuthRoute'
 
 const reduxDevTools = window.devToolsExtension ? window.devToolsExtension() : () => {}
 const store = createStore(reducers, compose(
@@ -23,9 +25,13 @@ ReactDom.render(
       <BrowserRouter>
         <div>
           {/* 检验路由 */}
-          <Route path="/bossinfo" component={BossInfo}></Route>
-          <Route path="/login" component={Login}></Route>
-          <Route path="/register" component={Register}></Route>
+          <AuthRoute></AuthRoute>
+          <Switch>
+            <Route path="/bossinfo" component={BossInfo}></Route>
+            <Route path="/genuisinfo" component={GenuisInfo}></Route>
+            <Route path="/login" component={Login}></Route>
+            <Route path="/register" component={Register}></Route>
+          </Switch>
         </div>
       </BrowserRouter>
     </Provider>

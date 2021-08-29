@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { ImagePicker } from 'antd-mobile'
+import PropTypes from 'prop-types'
 
 const data = [{
   url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',
@@ -10,6 +11,9 @@ const data = [{
 }];
 
 class AvatarSelector extends Component {
+  static propTypes = {
+    onChange: PropTypes.func
+  }
   constructor(props) {
     super(props)
     this.state = {
@@ -22,6 +26,7 @@ class AvatarSelector extends Component {
     this.setState({
       files,
     });
+    this.props.onChange(files[0])
   }
   render() {
     const { files } = this.state

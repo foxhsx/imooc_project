@@ -9,12 +9,11 @@ import { Redirect } from "react-router-dom";
   state => state.user,
   { update }
 )
-class BossInfo extends Component {
+class GenuisInfo extends Component {
   constructor(props) {
     super(props)
     this.state = {
       title: '',
-      company: '',
       money: '',
       desc: '',
       avatar: ''
@@ -39,19 +38,16 @@ class BossInfo extends Component {
         }
         <NavBar
           mode="dark"
-        >BOSS完善信息页面</NavBar>
+        >牛人完善信息页面</NavBar>
         <AvatarSelector onChange={(file) => this.changAvatar(file)} />
         <InputItem
           onChange={(v) => this.onChange('title', v)}
-        >招聘职位</InputItem>
-        <InputItem
-          onChange={(v) => this.onChange('company', v)}
-        >公司名称</InputItem>
+        >应聘职位</InputItem>
         <InputItem
           onChange={(v) => this.onChange('money', v)}
-        >职位薪资</InputItem>
+        >期望薪资</InputItem>
         <TextareaItem
-          title="职位要求"
+          title="个人简介"
           rows={3}
           autoHeight
           onChange={(v) => this.onChange('desc', v)}
@@ -66,4 +62,4 @@ class BossInfo extends Component {
   }
 }
 
-export default BossInfo
+export default GenuisInfo

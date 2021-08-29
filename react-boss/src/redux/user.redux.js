@@ -1,14 +1,12 @@
 import axios from "axios"
 import { getRedirectPath } from '../utils'
 
-const RESISTER_SUCCESS = 'RESISTER_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+const AUTH_SUCCESS = 'AUTH_SUCCESS'
 const USER_DATA = 'USER_DATA'
 
 const initState = {
   redirectTo: '',
-  isAuth: false,
   msg: '',
   user: '',
   pwd: '',
@@ -18,10 +16,8 @@ const initState = {
 // reducer
 export function user(state = initState, action) {
   switch (action.type) {
-    case RESISTER_SUCCESS:
-      return { ...state, msg: '', redirectTo: getRedirectPath(action.data), isAuth: true, ...action.data }
-    case LOGIN_SUCCESS:
-      return { ...state, msg: '', redirectTo: getRedirectPath(action.data), isAuth: true, ...action.data }
+    case AUTH_SUCCESS:
+      return { ...state, msg: '', redirectTo: getRedirectPath(action.data), ...action.data }
     case USER_DATA:
       return { ...state, ...action.data }
     case ERROR_MSG:
@@ -29,26 +25,22 @@ export function user(state = initState, action) {
     default:
       return state;
   }
-  
+
 }
 
 function errorMsg(msg) {
   return { msg, type: ERROR_MSG }
 }
 
-function registerSuccess(data) {
-  return { type: RESISTER_SUCCESS, data }
-}
-
-function loginSuccess(data) {
-  return { type: LOGIN_SUCCESS, data }
+function authSuccess(data) {
+  return { type: AUTH_SUCCESS, data }
 }
 
 function loadData(data) {
   return { type: USER_DATA, data }
 }
 
-export function register({user, pwd, repeatpwd,type}) {
+export function register({ user, pwd, repeatpwd, type }) {
   if (!user || !pwd || !type) {
     return errorMsg('请输入用户名密码！')
   }
@@ -61,7 +53,7 @@ export function register({user, pwd, repeatpwd,type}) {
     axios.post('/user/register', { user, pwd, type })
       .then(res => {
         if (res.status === 200 && res.data.code === 0) {
-          dispatch(registerSuccess({user, pwd, type}))
+          dispatch(authSuccess({ user, pwd, type }))
         } else {
           dispatch(errorMsg(res.data.msg))
         }
@@ -69,7 +61,7 @@ export function register({user, pwd, repeatpwd,type}) {
   }
 }
 
-export function login({user, pwd}) {
+export function login({ user, pwd }) {
   if (!user || !pwd) {
     return errorMsg('请输入用户名密码')
   }
@@ -77,7 +69,7 @@ export function login({user, pwd}) {
     axios.post('/user/login', { user, pwd })
       .then(res => {
         if (res.status === 200 && res.data.code === 0) {
-          dispatch(loginSuccess(res.data.data))
+          dispatch(authSuccess(res.data.data))
         } else {
           dispatch(errorMsg(res.data.msg))
         }
@@ -114,6 +106,19 @@ export function userinfo() {
 
     // 用户是否完善信息
   }
-   
+
+}
+
+export function update(data) {
+  return dispatch => {
+    axios.post('/user/update', data)
+      .then(res => {
+        if (res.status === 200 && res.data.code === 0) {
+          dispatch(authSuccess(res.data.data))
+        } else {
+          dispatch(errorMsg(res.data.msg))
+        }
+      })
+  }
 }
 
