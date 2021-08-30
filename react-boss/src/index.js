@@ -12,13 +12,15 @@ import BossInfo from './container/bossinfo/BossInfo'
 import GenuisInfo from './container/genuisinfo/GenuisInfo'
 import Register from './container/register/Register';
 import AuthRoute from './component/AuthRoute/AuthRoute'
+import Dashboard from './component/dashboard/Dashboard'
 
 const reduxDevTools = window.devToolsExtension ? window.devToolsExtension() : () => {}
 const store = createStore(reducers, compose(
   applyMiddleware(thunk),
   reduxDevTools
 ))
- 
+
+// boss genius me msg 4个页面
 ReactDom.render(
   (
     <Provider store={store}>
@@ -31,6 +33,7 @@ ReactDom.render(
             <Route path="/genuisinfo" component={GenuisInfo}></Route>
             <Route path="/login" component={Login}></Route>
             <Route path="/register" component={Register}></Route>
+            <Route component={Dashboard}></Route>
           </Switch>
         </div>
       </BrowserRouter>
