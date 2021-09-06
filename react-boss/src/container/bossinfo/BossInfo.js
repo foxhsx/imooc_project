@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Button, InputItem, NavBar, TextareaItem  } from 'antd-mobile';
+import { Button, InputItem, NavBar, TextareaItem } from 'antd-mobile';
 import AvatarSelector from '../../component/avatar-selector/AvatarSelector'
 import { connect } from "react-redux";
 import { update } from '../../redux/user.redux'
@@ -26,7 +26,6 @@ class BossInfo extends Component {
     })
   }
   changAvatar(file) {
-    console.log(file, 'file');
     this.setState({
       avatar: file.url
     })
@@ -56,7 +55,7 @@ class BossInfo extends Component {
           autoHeight
           onChange={(v) => this.onChange('desc', v)}
         />
-        <Button 
+        <Button
           onClick={() => {
             this.props.update(this.state)
           }}

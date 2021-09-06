@@ -19,15 +19,19 @@
   font-size: 32px;
 }
 
-.am-navbar {
+.fixd-header.am-navbar {
   position: fixed;
   top: 0;
   width: 100%;
+}
+.am-tab-bar-item {
+  width: 100px;
 }
 .am-tab-bar {
   position: fixed;
   bottom: 0;
   width: 100%;
+  height: auto !important;
 }
 .page-content {
   padding: 45px 5px;

@@ -4,6 +4,7 @@ import { getRedirectPath } from '../utils'
 const ERROR_MSG = 'ERROR_MSG'
 const AUTH_SUCCESS = 'AUTH_SUCCESS'
 const USER_DATA = 'USER_DATA'
+const LOGOUT = 'LOGOUT'
 
 const initState = {
   redirectTo: '',
@@ -22,6 +23,8 @@ export function user(state = initState, action) {
       return { ...state, ...action.data }
     case ERROR_MSG:
       return { ...state, isAuth: false, msg: action.msg }
+    case LOGOUT:
+      return { ...initState, redirectTo: '/login' }
     default:
       return state;
   }
@@ -38,6 +41,10 @@ function authSuccess(data) {
 
 function loadData(data) {
   return { type: USER_DATA, data }
+}
+
+export function logoutSubmit() {
+  return { type: LOGOUT }
 }
 
 export function register({ user, pwd, repeatpwd, type }) {
@@ -85,26 +92,19 @@ export function userinfo() {
       const { status, data } = res;
       if (status === 200) {
         if (data.code === 0) {
-          console.log(data); // 有登录信息
-          dispatch(loadData(res.data.data))
+          dispatch(loadData(data.data))
         } else {
           /**
            * 由于 AuthRoute 并不是一个路由组件,并没有操作路由的方法,
            * 所以这里打印的结果为 undefined，如果要使用，需要引进 withRouter,
            * 使用 withRouter 这个装饰器包裹一下就可以将当前的路由 history 打印出来
            */
-          // console.log(this.props.history);
           dispatch(errorMsg(res.data.msg))
           // 没有登录就跳转至登录页面
           window.location = '/login'
         }
       }
     })
-    // 是否登录
-
-    // 用户的身份是 boss 还是牛人
-
-    // 用户是否完善信息
   }
 
 }
