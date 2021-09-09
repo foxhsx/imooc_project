@@ -4,6 +4,7 @@ import { List, InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile'
 import { login } from '../../redux/user.redux'
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import hsxForm from '../../component/hsx-form/hsx-form'
 
 const errorMsg = {
   color: 'red'
@@ -13,24 +14,19 @@ const errorMsg = {
   state => state.user,
   { login }  
 )
+@hsxForm
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      user: '',
-      pwd: ''
-    }
+  }
+  componentDidMount() {
+    this.props.handleChange('type', 'boss')
   }
   register() {
     this.props.history.push('/register')
   }
-  handleChange(key, val) {
-    this.setState({
-      [key]: val
-    })
-  }
   handleLogin() {
-    this.props.login(this.state)
+    this.props.login(this.props.state)
   }
   render() {
     return (
@@ -48,11 +44,11 @@ class Login extends Component {
           }
           <List>
             <InputItem
-              onChange={ v => this.handleChange('user', v) }
+              onChange={ v => this.props.handleChange('user', v) }
             >用户</InputItem>
             <WhiteSpace />
             <InputItem
-              onChange={ v => this.handleChange('pwd', v) }
+              onChange={ v => this.props.handleChange('pwd', v) }
               type="password"
             >密码</InputItem>
           </List>

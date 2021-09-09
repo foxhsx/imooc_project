@@ -4,7 +4,7 @@ import { List, InputItem, Radio, WingBlank, WhiteSpace, Button } from 'antd-mobi
 import { connect } from "react-redux";
 import { register } from "../../redux/user.redux";
 import { Redirect } from "react-router-dom";
-
+import hsxForm from '../../component/hsx-form/hsx-form'
 
 const RadioItem = Radio.RadioItem
 
@@ -16,26 +16,19 @@ const errorMsg = {
   state => state.user,
   {register}
 )
+@hsxForm
 class Register extends Component {
   constructor(props) {
-    super(props)
-    this.state = {
-      user: '',
-      pwd: '',
-      repeatpwd: '',
-      type: 'genius',  // 天才
-    }
+    super(props);
   }
-  handleChange(key, val) {
-    this.setState({
-      [key]: val
-    })
+  componentDidMount() {
+    this.props.handleChange('type', 'genius')
   }
   register() {
-    this.props.register(this.state)
+    this.props.register(this.props.state)
   }
   render() {
-    const { type } = this.state
+    const { type } = this.props.state
     return (
       <div>
         {
@@ -51,27 +44,27 @@ class Register extends Component {
           }
           <List>
             <InputItem
-              onChange={ v => this.handleChange('user', v) }
+              onChange={ v => this.props.handleChange('user', v) }
             >用户名</InputItem>
             <WhiteSpace />
             <InputItem
               type="password"
-              onChange={ v => this.handleChange('pwd', v) }
+              onChange={ v => this.props.handleChange('pwd', v) }
             >密码</InputItem>
             <WhiteSpace />
             <InputItem
               type="password"
-              onChange={ v => this.handleChange('repeatpwd', v) }
+              onChange={ v => this.props.handleChange('repeatpwd', v) }
             >确认密码</InputItem>
             <WhiteSpace />
             <RadioItem 
               checked={type === 'genius'}
-              onChange={ () => this.handleChange('type', 'genius') }
+              onChange={ () => this.props.handleChange('type', 'genius') }
             >牛人</RadioItem>
             <WhiteSpace />
             <RadioItem 
               checked={type === 'boss'}
-              onChange={ () => this.handleChange('type', 'boss') }
+              onChange={ () => this.props.handleChange('type', 'boss') }
             >BOSS</RadioItem>
           </List>
           <Button

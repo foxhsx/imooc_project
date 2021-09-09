@@ -23,6 +23,7 @@ class User extends Component {
       { text: '退出', onPress: () => {
         browserCookie.erase('userid')
         this.props.logoutSubmit()
+        this.props.history.push('/login')
       } },
     ])
   }
