@@ -34,7 +34,20 @@ const models = {
     // 薪资
     'money': { 'type': String },
   },
-  chat: {/* 聊天 */}
+  chat: {
+    // 用来一次找到 from 到 to 的信息
+    'chatid': { 'type': String, 'require': true },
+    // 发送者
+    'from': { 'type': String, 'require': true },
+    // 接收者
+    'to': { 'type': String, 'require': true },
+    // 是否已读，肯定是只对 to 有效
+    'read': { 'type': Boolean, 'default': false },
+    // 发送内容
+    'content': { 'type': String, 'require': true, 'default': '' },
+    // 创建时间
+    'create_time': { 'type': Number, 'default': new Date().getTime() },
+  }
 }
 
 for (let m in models) {

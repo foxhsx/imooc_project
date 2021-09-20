@@ -18,7 +18,7 @@ class AuthRoute extends Component {
     this.props.userinfo()
   }
   render() {
-    return <span></span>
+    return <span> </span>
   }
 }
 

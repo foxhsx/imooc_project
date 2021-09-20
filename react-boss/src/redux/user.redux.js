@@ -103,6 +103,9 @@ export function userinfo() {
           // 没有登录就跳转至登录页面
           window.location = '/login'
         }
+      } else {
+        // 没有登录就跳转至登录页面
+        window.location = '/login'
       }
     })
   }
