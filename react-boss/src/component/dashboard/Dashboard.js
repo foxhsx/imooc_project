@@ -8,6 +8,7 @@ import Msg from '../../container/msg/Msg'
 import User from '../../container/user/User'
 import NavLinkBar from '../navlink/NavLinkBar'
 import { getMsgList, recvMsg } from '../../redux/chat.redux'
+import { userinfo } from '../../redux/user.redux'
 
 const routeStyle = {
   marginTop: '45px'
@@ -15,14 +16,18 @@ const routeStyle = {
 
 @connect(
   state => state,
-  {getMsgList, recvMsg}
+  {getMsgList, recvMsg, userinfo},
 )
 class Dashboard extends Component {
   constructor(props) {
     super(props);
   }
   componentDidMount() {
-    if (!this.props.chat.chatMsg.length) {
+    const {chat, user} = this.props
+    if (!user.type) {
+      this.props.userinfo()
+    }
+    if (!chat.chatMsg.length) {
       this.props.getMsgList()
       this.props.recvMsg()
     }
@@ -62,11 +67,12 @@ class Dashboard extends Component {
         component: User,
       }
     ];
+    const currentPage = navList.find(v => v.path == pathname)
     return (
       <div>
         <NavBar className="fixd-header" mode="dark">
           {
-            navList.find(v => v.path == pathname).title
+            currentPage ? currentPage.title : user.type && this.props.history.push(user.type)
           }
         </NavBar>
         <div style={routeStyle}>

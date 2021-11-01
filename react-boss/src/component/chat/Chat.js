@@ -1,7 +1,7 @@
 import { InputItem, List, NavBar, Icon, Grid } from 'antd-mobile'
 import { Component } from 'react'
 import { connect } from 'react-redux'
-import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
+import { getMsgList, sendMsg, recvMsg, readMsg } from '../../redux/chat.redux'
 import { getChatId } from '../../utils'
 
 const Item = List.Item
@@ -9,7 +9,7 @@ const emoji = '😀 😃 😄 😆 😍 🤩 🥰 😳 😟 😲'.split(' ').fil
 
 @connect(
   state=>state,
-  {getMsgList, sendMsg, recvMsg}
+  {getMsgList, sendMsg, recvMsg, readMsg}
 )
 class Chat extends Component {
   constructor(props) {
@@ -24,6 +24,10 @@ class Chat extends Component {
       this.props.getMsgList()
       this.props.recvMsg()
     }
+  }
+  componentWillUnmount() {
+    const to = this.props.match.params.user
+    this.props.readMsg(to)
   }
   fixCarousel() {
     setTimeout(() => {
@@ -49,6 +53,7 @@ class Chat extends Component {
     return (
       <div id="chat-page">
         <NavBar
+          className="fixd-header"
           mode="dark"
           icon={<Icon type="left" />}
           onLeftClick={() => { this.props.history.goBack()}}
@@ -60,12 +65,13 @@ class Chat extends Component {
             chatMsgs.map(v => {
               return v.to == user ? (
                 <List key={v._id}>
-                  <Item extra={<img src={users[v.to].avatar} />}>{v.content}</Item>
+                  <Item className="content-right" extra={<img src={users[v.to].avatar} />}>{v.content}</Item>
                 </List>
               ) : (
                 <List key={v._id}>
                   <Item
                     thumb={users[v.from].avatar}
+                    className="content-left"
                   >{v.content}</Item>
                 </List>
               )

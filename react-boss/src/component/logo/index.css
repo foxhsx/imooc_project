@@ -23,6 +23,7 @@
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 1;
 }
 .am-tab-bar-item {
   width: 100px;
@@ -33,12 +34,18 @@
   width: 100%;
   height: auto !important;
 }
+#chat-page .chat-me {
+  padding: 46px 0;
+}
 #chat-page .chat-me .am-list-extra {
   flex-basis: auto;
 }
-#chat-page .chat-me .am-list-content {
+#chat-page .chat-me .content-right .am-list-content {
   padding-right: 15px;
   text-align: right;
+}
+#chat-page .chat-me .content-left .am-list-content {
+  text-align: left;
 }
 #chat-page .am-grid-icon {
   display: none;

@@ -18,7 +18,7 @@ import Dashboard from './component/dashboard/Dashboard'
 const reduxDevTools = window.devToolsExtension ? window.devToolsExtension() : () => {}
 const store = createStore(reducers, compose(
   applyMiddleware(thunk),
-  reduxDevTools
+  // reduxDevTools
 ))
 
 // boss genius me msg 4个页面
@@ -28,7 +28,7 @@ ReactDom.render(
       <BrowserRouter>
         <div>
           {/* 检验路由 */}
-          <AuthRoute></AuthRoute>
+          <AuthRoute />
           <Switch>
             <Route path="/bossinfo" component={BossInfo}></Route>
             <Route path="/genuisinfo" component={GenuisInfo}></Route>
