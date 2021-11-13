@@ -77,3 +77,27 @@
   1. 已登录：跳转到 APP 内部页面
   2. 未登录：跳转到登录页面
 3. 登录页面--登录成功，前端存储 cookie，然后跳转到 APP 内部页面
+
+
+### 项目打包
+项目打包之后，使用 express 来做静态资源的拦截，从而使打包后的文件都能正常被访问到。
+
+express 专门提供了拦截的 API，使用中间件的机制来做一些转发。在 server.js 中使用 `app.use()`。（具体可以在 `server.js` 中关于这部分的代码。
+
+1. `app.use('/', express.static('build'))`
+2. 使用中间件
+
+### 上线
+1. 购买域名
+2. DNS 解析到服务器IP
+3. 安装 nginx
+4. 使用 pm2 来管理 node 进程
+
+### SSR 服务端渲染
+- node 环境使用 babel-node 支持 jsx
+  - 安装 `@babel/cli`，主要是让 node 支持 ES6 的语法
+  - 修改 `package.json` 中的 `scripts`，使用 `babel-node` 来启动项目（也需要安装 `@babel/node` ）
+  - `server: NODE_ENV=test nodemon --exec babel-node server/server.js`
+  - 上面一行表示在 test 环境下执行 `babel-node`（exec修改默认的node）
+- 复制一下 `package.json` 中的 `babel` 配置，然后在根目录下新建一个 `.babelrc` 的 `babel` 配置文件（整体是一个对象），这个时候就可以在 node 环境下使用 `jsx` 语法了
+- Windows 环境下不支持直接 `NODE_ENV` 需要再安装一下 `cross-env`，并在 `NODE_ENV` 前面使用，比如 `cross-env NODE_ENV=xxx` 
