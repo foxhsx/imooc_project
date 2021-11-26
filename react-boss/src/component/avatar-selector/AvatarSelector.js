@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { ImagePicker } from 'antd-mobile'
 import PropTypes from 'prop-types'
 

@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import Logo from '../../component/logo/Logo'
 import { List, InputItem, Radio, WingBlank, WhiteSpace, Button } from 'antd-mobile'
 import { connect } from "react-redux";

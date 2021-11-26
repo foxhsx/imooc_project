@@ -1,5 +1,5 @@
 import { Badge, List } from "antd-mobile";
-import { Component } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 
 @connect(

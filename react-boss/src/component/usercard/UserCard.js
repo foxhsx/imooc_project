@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { Card, WhiteSpace, WingBlank } from "antd-mobile";
 import { withRouter } from "react-router";

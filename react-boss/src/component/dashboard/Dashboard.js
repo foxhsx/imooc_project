@@ -1,5 +1,5 @@
 import { NavBar } from "antd-mobile";
-import { Component } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import Boss from '../../container/boss/Boss'

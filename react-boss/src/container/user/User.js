@@ -1,6 +1,6 @@
 import { List, Result, WhiteSpace, Modal } from "antd-mobile";
 import { Brief } from "antd-mobile/lib/list/ListItem";
-import { Component } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import browserCookie from 'browser-cookies';
 import { logoutSubmit } from '../../redux/user.redux'

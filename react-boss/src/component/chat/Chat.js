@@ -1,5 +1,5 @@
 import { InputItem, List, NavBar, Icon, Grid } from 'antd-mobile'
-import { Component } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getMsgList, sendMsg, recvMsg, readMsg } from '../../redux/chat.redux'
 import { getChatId } from '../../utils'

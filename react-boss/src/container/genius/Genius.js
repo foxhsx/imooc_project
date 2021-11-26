@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getUserList } from '../../redux/chatuser.redux'
 import UserCard from '../../component/usercard/UserCard'

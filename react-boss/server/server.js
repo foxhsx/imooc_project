@@ -17,7 +17,7 @@ import { Provider } from "react-redux";
 import { StaticRouter } from "react-router-dom";
 import App from "../src/App";
 import reducers from "../src/reducer";
-import staticPath from "../build/asset-manifest.json";
+import { files as staticPath } from "../build/asset-manifest.json";
 
 // 调用
 assethook({
@@ -69,20 +69,19 @@ app.use(function (req, res, next) {
   <html lang="en">
     <head>
       <meta charset="utf-8" />
-      <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="theme-color" content="#000000" />
       <meta
         name="description"
         content="Web site created using create-react-app"
       />
-      <linl rel="stylesheet" href="/${staticPath["main.css"]}">
       <title>React App</title>
+      <link rel="stylesheet" href="${staticPath["main.css"]}">
     </head>
     <body>
       <noscript>You need to enable JavaScript to run this app.</noscript>
       <div id="root">${markup}</div>
-      <script src="/${staticPath["main.js"]}"></script>
+      <script src="${staticPath["main.js"]}"></script>
     </body>
   </html>
   `;
