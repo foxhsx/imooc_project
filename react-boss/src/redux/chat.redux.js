@@ -2,7 +2,7 @@ import axios from 'axios';
 import io from 'socket.io-client'
 
 // 需要配置下跨域
-const socket = io('ws://localhost:9333')
+const socket = io('ws://192.168.1.12:9333')
 
 // 聊天信息列表
 const MSG_LIST = 'MSG_LIST'
