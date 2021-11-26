@@ -9,7 +9,7 @@ import csshook from "css-modules-require-hook/preset"; // import hook before rou
 import assethook from "asset-require-hook";
 
 import React from "react";
-import { renderToString } from "react-dom/server";
+import { renderToString, renderToNodeStream } from "react-dom/server";
 
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
@@ -57,15 +57,7 @@ app.use(function (req, res, next) {
   }
   const store = createStore(reducers, compose(applyMiddleware(thunk)));
   let context = {};
-  const markup = renderToString(
-    <Provider store={store}>
-      <StaticRouter location={req.url} context={context}>
-        <App />
-      </StaticRouter>
-    </Provider>
-  );
-
-  const template = `<!DOCTYPE html>
+  res.write(`<!DOCTYPE html>
   <html lang="en">
     <head>
       <meta charset="utf-8" />
@@ -80,13 +72,48 @@ app.use(function (req, res, next) {
     </head>
     <body>
       <noscript>You need to enable JavaScript to run this app.</noscript>
-      <div id="root">${markup}</div>
-      <script src="${staticPath["main.js"]}"></script>
-    </body>
-  </html>
-  `;
+      <div id="root">`);
+  const markupStream = renderToNodeStream(
+    // react 16 的新方法
+    // const markup = renderToString(
+    <Provider store={store}>
+      <StaticRouter location={req.url} context={context}>
+        <App />
+      </StaticRouter>
+    </Provider>
+  );
 
-  res.send(template);
+  markupStream.pipe(res, { end: false });
+  markupStream.on("end", () => {
+    res.write(`</div>
+    //     <script src="${staticPath["main.js"]}"></script>
+    //   </body>
+    // </html>`);
+    res.end();
+  });
+
+  // const template = `<!DOCTYPE html>
+  // <html lang="en">
+  //   <head>
+  //     <meta charset="utf-8" />
+  //     <meta name="viewport" content="width=device-width, initial-scale=1" />
+  //     <meta name="theme-color" content="#000000" />
+  //     <meta
+  //       name="description"
+  //       content="Web site created using create-react-app"
+  //     />
+  //     <title>React App</title>
+  //     <link rel="stylesheet" href="${staticPath["main.css"]}">
+  //   </head>
+  //   <body>
+  //     <noscript>You need to enable JavaScript to run this app.</noscript>
+  //     <div id="root">${markup}</div>
+  //     <script src="${staticPath["main.js"]}"></script>
+  //   </body>
+  // </html>
+  // `;
+
+  // res.send(template);
 
   // 可以在这里使用 renderToString API 将组件渲染成静态标签，返回给前端
   /**

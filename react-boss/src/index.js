@@ -18,7 +18,9 @@ const store = createStore(
 );
 
 // boss genius me msg 4个页面
-ReactDom.render(
+ReactDom.hydrate(
+  // react 16 服务端渲染需要用 hydrate API
+  // ReactDom.render(
   <Provider store={store}>
     <BrowserRouter>
       <App />
