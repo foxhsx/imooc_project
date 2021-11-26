@@ -17,7 +17,18 @@ import { Provider } from "react-redux";
 import { StaticRouter } from "react-router-dom";
 import App from "../src/App";
 import reducers from "../src/reducer";
-import { files as staticPath } from "../build/asset-manifest.json";
+import { entrypoints as staticPath } from "../build/asset-manifest.json";
+
+const cssLink = staticPath.map(path => {
+  if (path.indexOf('.css') > -1) {
+    return `<link rel="stylesheet" href="/${path}" >`
+  }
+}).join('\n')
+const jsLink = staticPath.map(path => {
+  if (path.indexOf('.js') > -1) {
+    return `<script src="/${path}"></script>`
+  }
+}).join('\n')
 
 // 调用
 assethook({
@@ -29,7 +40,7 @@ const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3001", // 设置跨域
+    origin: "http://192.168.1.12:3001", // 设置跨域
   },
 });
 
@@ -68,7 +79,7 @@ app.use(function (req, res, next) {
         content="Web site created using create-react-app"
       />
       <title>React App</title>
-      <link rel="stylesheet" href="${staticPath["main.css"]}">
+      ${cssLink}
     </head>
     <body>
       <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -86,9 +97,9 @@ app.use(function (req, res, next) {
   markupStream.pipe(res, { end: false });
   markupStream.on("end", () => {
     res.write(`</div>
-    //     <script src="${staticPath["main.js"]}"></script>
-    //   </body>
-    // </html>`);
+         ${jsLink}
+      </body>
+    </html>`);
     res.end();
   });
 
