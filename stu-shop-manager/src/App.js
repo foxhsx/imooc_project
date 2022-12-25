@@ -1,26 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
-import { Button } from 'antd';
+import { Outlet } from 'react-router-dom';
+import Frame from './components/Frame';
 
 function App() {
   return (
-    <div className="App">
-      <Button type="primary">按钮</Button>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Frame>
+      {/* 类似于 vue 的 router-view */}
+      <Outlet />
+    </Frame>
   );
 }
 

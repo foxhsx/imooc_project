@@ -3,6 +3,8 @@ import List from '../pages/admin/products/List'
 import Login from '../pages/Login'
 import Edit from '../pages/admin/products/Edit';
 import PageNotFound from '../pages/PageNotFound';
+import App from '../App';
+import { AreaChartOutlined, ShopOutlined } from '@ant-design/icons';
 
 export const mainRoutes = [
   {
@@ -10,22 +12,39 @@ export const mainRoutes = [
     element: <Login />,
   },
   {
-    path: '/404',
-    element: <PageNotFound />
-  }
+    path: '*',
+    element: <PageNotFound />,
+  },
 ]
 
 export const adminRoutes = [
   {
-    path: '/admin/dashboard',
-    element: <Dashboard />
+    path: '/admin/',
+    element: <App />,
+    isShow: true,
+    label: '后台管理',
+    children: [
+      {
+        path: 'dashboard',
+        element: <Dashboard />,
+        label: '看板',
+        isShow: true,
+        icon: <AreaChartOutlined />
+      },
+      {
+        path: 'products',
+        element: <List />,
+        label: '商品管理',
+        isShow: true,
+        icon: <ShopOutlined />
+      },
+      {
+        // id 为可选参数，携带表示编辑，反之为新增
+        path: 'products/edit/:id?',
+        element: <Edit />,
+        label: '编辑详情',
+        isShow: false,
+      }
+    ]
   },
-  {
-    path: '/admin/products',
-    element: <List />
-  },
-  {
-    path: '/admin/products/edit/:id',
-    element: <Edit />
-  }
 ]
