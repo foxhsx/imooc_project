@@ -44,3 +44,18 @@ export function generatorRoutes(routes, key) {
     }
   })
 }
+
+export const getToken = () => {
+	return localStorage.getItem('token')
+}
+
+export const setToken = (token) => {
+	localStorage.setItem('token', token)
+}
+
+export const isLogined = () => {
+	if (getToken()) {
+		return true;
+	}
+	return false;
+}

@@ -5,8 +5,14 @@ import Edit from '../pages/admin/products/Edit';
 import PageNotFound from '../pages/PageNotFound';
 import App from '../App';
 import { AreaChartOutlined, ShopOutlined } from '@ant-design/icons';
+import { Navigate } from 'react-router-dom';
 
 export const mainRoutes = [
+  {
+    path: '/',
+    navigate: '/admin/',
+    element: <Navigate to="/admin/" replace />,
+  },
   {
     path: '/login',
     element: <Login />,
