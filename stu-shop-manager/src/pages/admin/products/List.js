@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card, Popconfirm, Space, Table } from 'antd'
 import { useNavigate } from 'react-router-dom';
+import { listApi } from '../../../service/api';
 
 const columns = [
   {
@@ -35,7 +36,7 @@ const columns = [
   }
 ]
 
-const dataSource = [
+const dataSource1 = [
   {
     id: 1,
     name: '香皂',
@@ -54,7 +55,14 @@ const dataSource = [
 ]
 
 function List() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [dataSource, setDataSource] = useState([])
+
+  useEffect(() => {
+    listApi().then(res => {
+      setDataSource(res.products)
+    })
+  }, [])
   return (
     <Card
       title="商品列表"
@@ -62,7 +70,11 @@ function List() {
         <Button type="primary" size="small" onClick={() => navigate('/admin/products/edit/')}>新增</Button>
       }
     >
-      <Table columns={columns} bordered dataSource={dataSource} />
+      <Table
+        columns={columns}
+        bordered
+        dataSource={dataSource1}
+      />
     </Card>
   )
 }
