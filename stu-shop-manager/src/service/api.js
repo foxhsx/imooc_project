@@ -19,3 +19,7 @@ export function modifyOne(id, data) {
 export function delOne(id) {
   return del(`/api/v1/admin/products/${id}`)
 }
+
+export function register(data) {
+  return post('/api/v1/auth/reg', data)
+}

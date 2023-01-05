@@ -1,20 +1,25 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Card, Checkbox, Form, Input, message, Space } from 'antd';
 import './styles/login.css'
 import { setToken } from '../utils';
 import { useNavigate } from 'react-router-dom';
-import { loginApi } from '../service/api';
+import { loginApi, register } from '../service/api';
 
 const Login = () => {
-  const [form] = Form.useForm()
-  const navigate = useNavigate()
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
-    loginApi({
+  const [type, setType] = useState('login')
+  const navigate = useNavigate();
+  
+  const onFinish = useCallback((values) => {
+    const request = type === 'login' ? loginApi({
       username: values.username,
       password: values.password,
-    }).then(res => {
+    }) : register({
+      username: values.username,
+      password: values.password
+    });
+
+    request.then(res => {
       if (res.code === 'success') {
         message.success('登录成功')
         setToken(res.token || 'sdhajfkdsjkoi');
@@ -25,16 +30,13 @@ const Login = () => {
     }).catch(error => {
       message.error(error.message || '用户不存在')
     })
-  };
-  const register = () => {
-    console.log(form.getFieldsValue());
-  }
+  }, [navigate, type]);
+  
 
   return (
     <Card title="QF Admin SYS" className="login-form">
       <Form
         name="normal_login"
-        form={form}    
         initialValues={{ remember: true }}
         onFinish={onFinish}
       >
@@ -57,16 +59,19 @@ const Login = () => {
         <Form.Item>
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>记住密码</Checkbox>
+            {
+              // eslint-disable-next-line jsx-a11y/anchor-is-valid
+              type === 'login' ? <a onClick={() => setType('reg')}>去注册</a> : <a onClick={() => setType('login')}>去登录</a>
+            }
           </Form.Item>
         </Form.Item>
 
         <Form.Item>
-          <Space wrap>
-            <Button type="primary" htmlType="submit" className="login-form-button">
+          {
+            type === 'login' ? <Button type="primary" htmlType="submit" className="login-form-button">
               登录
-            </Button>
-            <Button onClick={register}>注册</Button>
-          </Space>
+            </Button> : <Button htmlType="submit">注册</Button>
+          }
         </Form.Item>
       </Form>
     </Card>
