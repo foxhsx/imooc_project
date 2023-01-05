@@ -1,6 +1,6 @@
 #### 接口文档
 
-简化版的商城 API 接口:http://localhost:3000
+源码地址：https://github1s.com/btc022003/cat-shop-server-public
 
 - 接口代理
 
