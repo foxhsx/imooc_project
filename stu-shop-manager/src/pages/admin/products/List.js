@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Card, Popconfirm, Space, Table } from 'antd'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { Button, Card, message, Popconfirm, Space, Table } from 'antd'
 import { useNavigate } from 'react-router-dom';
-import { listApi } from '../../../service/api';
+import { listApi, delOne, modifyOne } from '../../../service/api';
 
-const columns = [
+const column = [
   {
     title: '序号',
     key: 'id',
@@ -20,49 +20,60 @@ const columns = [
     dataIndex: 'price'
   },
   {
-    title: '操作',
-    render: (text, record, index) => (
-      <Space wrap>
-        <Button type="primary">修改</Button>
-        <Popconfirm
-          title="确认删除此项？"
-          onCancel={() => console.log("用户取消删除")}
-          onConfirm={() => console.log("用户确认删除")}
-        >
-          <Button type="primary" danger>删除</Button>
-        </Popconfirm>
-      </Space>
-    )
-  }
-]
-
-const dataSource1 = [
-  {
-    id: 1,
-    name: '香皂',
-    price: 5,
+    title: '是否在售',
+    dataIndex: 'onSale',
+    render: (value) => value ? '在售' : '已下架'
   },
-  {
-    id: 2,
-    name: '特仑苏',
-    price: 6,
-  },
-  {
-    id: 3,
-    name: '小浣熊',
-    price: 1.5,
-  }
 ]
 
 function List() {
   const navigate = useNavigate();
   const [dataSource, setDataSource] = useState([])
+  const [total, setTotal] = useState(0);
+
+  const loadData = useCallback((page) => {
+    getData(page)
+  }, [])
+
+  const columns = useMemo(() => column.concat([{
+    title: '操作',
+    render: (text, record, index) => (
+      <Space wrap>
+        <Button type="primary" onClick={() => navigate(`/admin/products/edit/${record._id}`)}>修改</Button>
+        <Popconfirm
+          title="确认删除此项？"
+          onCancel={() => console.log("用户取消删除")}
+          onConfirm={() => delOne(record?._id).then(() => loadData(1))}
+        >
+          <Button type="primary" danger>删除</Button>
+        </Popconfirm>
+        <Button
+          size="small"
+          onClick={() => 
+            modifyOne(record._id, { onSale: !record.onSale })
+              .then(() => {
+                message.success('更新成功')
+                loadData(1)
+              })
+            }
+        >
+          { record.onSale ? '下架' : '上架' }
+        </Button>
+      </Space>
+    )
+  }]), [navigate, loadData])
+
+  const getData = (page) => {
+    listApi(page).then(res => {
+      setDataSource(res.products)
+      setTotal(res.totalCount)
+    })
+  }
 
   useEffect(() => {
-    listApi().then(res => {
-      setDataSource(res.products)
-    })
+    getData(1)
   }, [])
+
   return (
     <Card
       title="商品列表"
@@ -73,7 +84,12 @@ function List() {
       <Table
         columns={columns}
         bordered
-        dataSource={dataSource1}
+        dataSource={dataSource}
+        pagination={{
+          total,
+          defaultPageSize: 2,
+          // onChange: loadData
+        }}
       />
     </Card>
   )

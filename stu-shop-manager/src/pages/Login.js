@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Card, Checkbox, Form, Input, message, Space } from 'antd';
+import { Button, Card, Checkbox, Form, Input, message } from 'antd';
 import './styles/login.css'
 import { setToken } from '../utils';
 import { useNavigate } from 'react-router-dom';
@@ -59,11 +59,11 @@ const Login = () => {
         <Form.Item>
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>记住密码</Checkbox>
-            {
-              // eslint-disable-next-line jsx-a11y/anchor-is-valid
-              type === 'login' ? <a onClick={() => setType('reg')}>去注册</a> : <a onClick={() => setType('login')}>去登录</a>
-            }
           </Form.Item>
+          {
+            // eslint-disable-next-line jsx-a11y/anchor-is-valid
+            type === 'login' ? <a onClick={() => setType('reg')}>去注册</a> : <a onClick={() => setType('login')}>去登录</a>
+          }
         </Form.Item>
 
         <Form.Item>

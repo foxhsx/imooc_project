@@ -24,7 +24,7 @@ const Frame = (props) => {
     token: { colorBgContainer },
   } = theme.useToken();
   const navigate = useNavigate()
-  const routes = generatorRoutes(adminRoutes)
+  const routes = generatorRoutes(adminRoutes[0].children)
 
   const logout = ({ key }) => {
     console.log(key);
