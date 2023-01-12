@@ -25,6 +25,7 @@ app.use(
 app.all('/api/*', cors());
 
 app.use("/api/v1/auth", require("./api/v1/auth"));
+app.use("/api/v1/products", require("./api/v1/products"));
 
 var port = process.env.PORT || 3009;
 app.listen(port, () => {

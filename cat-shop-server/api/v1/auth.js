@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const Manager = require('../../models/manager');
 const User = require('../../models/user');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken"); // 对jwt数据进行加密处理
@@ -8,6 +7,7 @@ const { jwtSecret } = require("../../utils/config");
 router.post('/reg', async (req, res, next) => {
   try {
     const { username, password } = req.body;
+    console.log(username, password);
     const isUserExist = await User.count({ username });
     if (isUserExist > 0) {
       res.json({
@@ -39,9 +39,10 @@ router.post('/reg', async (req, res, next) => {
   }
 })
 
-router.post('/manager_login', async (req, res, next) => {
+router.post('/login', async (req, res, next) => {
   try {
     const { username, password } = req.body;
+    console.log(username, password);
     if (!username || !password) {
       res.json({
         code: 'error',
@@ -50,14 +51,14 @@ router.post('/manager_login', async (req, res, next) => {
       return;
     }
 
-    const user = await Manager.findOne({ username });
+    const user = await User.findOne({ username });
     if (user) {
       const isPwdValidated = bcrypt.compareSync(password, user.password);
       if (isPwdValidated) {
         res.json({
           code: "success",
           token: jwt.sign(
-            { userId: u.id },
+            { userId: user.id },
             jwtSecret,
             { expiresIn: '10h' }
           )
