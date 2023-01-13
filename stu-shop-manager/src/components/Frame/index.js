@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dropdown, Layout, Menu, theme } from 'antd';
+import { Badge, Dropdown, Layout, Menu, theme } from 'antd';
 import { adminRoutes } from '../../routes';
 import { generatorRoutes, clearToken } from '../../utils';
 import { Link, useNavigate } from 'react-router-dom';
@@ -28,9 +28,16 @@ const Frame = (props) => {
 
   const logout = ({ key }) => {
     console.log(key);
-    if (key === 'logout') {
-      clearToken()
-      navigate('/login')
+    switch (key) {
+      case 'logout':
+        clearToken()
+        navigate('/login')
+        break;
+      case 'notion':
+        navigate('/admin/notices')
+        break;
+      default:
+        break;
     }
   }
 
@@ -42,7 +49,7 @@ const Frame = (props) => {
         </div>
         <Dropdown menu={{ items: popMenu, onClick: logout }}>
           <div style={{ color: '#fff' }}>
-            <span >超级管理员</span>
+            <Badge dot><span style={{ color: '#fff' }}>超级管理员</span></Badge>
             <CaretDownOutlined  />
           </div>
         </Dropdown>

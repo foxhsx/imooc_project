@@ -1,19 +1,23 @@
-import { Button, Card, Form, Input, message } from 'antd'
-import React, { useEffect } from 'react'
+import { Button, Card, Form, Input, message, Upload } from 'antd'
+import React, { useEffect, useState } from 'react'
 import { createApi, getOneId, modifyOne } from '../../../service/api'
 import { useNavigate, useParams } from 'react-router-dom';
+import { UploadOutlined } from '@ant-design/icons'
+import { serverUrl } from '../../../utils';
 
 function Edit() {
   const nagivate = useNavigate();
   const params = useParams();
   const [form] = Form.useForm();
+  const [imageUrl, setImageUrl] = useState('')
 
   const back = () => nagivate('/admin/products')
   const handleSubmit = (value) => {
-    let request = () => createApi(value);
+    const submitData = { ...value, coverImg: imageUrl }
+    let request = () => createApi(submitData);
     let successTips = '添加成功'
     if (params?.id) {
-      request = () => modifyOne(params.id, value);
+      request = () => modifyOne(params.id, submitData);
       successTips = '更新成功'
     }
     request().then(res => {
@@ -30,10 +34,17 @@ function Edit() {
     }
   }
 
+  const uploadImg = (info) => {
+    if (info.file.status === 'done') {
+      setImageUrl(info.file.response.info)
+    }
+  }
+
   useEffect(() => {
     if (params?.id) {
-      getOneId(params.id).then(({ name, price }) => {
-        form.setFieldsValue({ name, price })
+      getOneId(params.id).then(({ name, price, coverImg }) => {
+        form.setFieldsValue({ name, price });
+        setImageUrl(coverImg)
       })
     }
   }, [params, form])
@@ -51,6 +62,20 @@ function Edit() {
           { validator: priceValidate }
           ]}>
           <Input placeholder="请输入商品价格" />
+        </Form.Item>
+        <Form.Item label="主图">
+          <Upload
+            name='file'
+            listType="picture-card"
+            className="avatar-uploader"
+            showUploadList={false}
+            action={`${serverUrl}/api/v1/common/file_upload`}
+            onChange={uploadImg}
+          >
+            { imageUrl
+              ? <img src={serverUrl + imageUrl} alt="avatar" style={{ width: '100%' }} />
+              : <Button icon={<UploadOutlined />}>Upload</Button> }
+          </Upload>
         </Form.Item>
         <Form.Item>
           <Button htmlType='submit' type="primary">保存</Button>

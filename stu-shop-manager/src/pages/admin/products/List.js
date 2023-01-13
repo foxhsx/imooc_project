@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Button, Card, message, Popconfirm, Space, Table } from 'antd'
 import { useNavigate } from 'react-router-dom';
 import { listApi, delOne, modifyOne } from '../../../service/api';
+import { serverUrl } from '../../../utils';
 
 const column = [
   {
@@ -14,6 +15,13 @@ const column = [
   {
     title: '商品名称',
     dataIndex: 'name'
+  },
+  {
+    title: '主图',
+    dataIndex: 'coverImg',
+    render: (value) => value
+      ? <img src={serverUrl + value} alt="cover img" style={{ width: '120px' }} />
+      : '暂无图片'
   },
   {
     title: '价格',

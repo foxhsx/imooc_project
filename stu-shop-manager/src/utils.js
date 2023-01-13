@@ -63,3 +63,5 @@ export const isLogined = () => {
 export function clearToken() {
 	localStorage.removeItem('token')
 }
+
+export const serverUrl = 'http://localhost:3009'

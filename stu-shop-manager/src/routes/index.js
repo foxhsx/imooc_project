@@ -4,8 +4,9 @@ import Login from '../pages/Login'
 import Edit from '../pages/admin/products/Edit';
 import PageNotFound from '../pages/PageNotFound';
 import App from '../App';
-import { AreaChartOutlined, ShopOutlined } from '@ant-design/icons';
+import { AreaChartOutlined, ShopOutlined, BellOutlined } from '@ant-design/icons';
 import { Navigate } from 'react-router-dom';
+import Notices from '../pages/admin/notices';
 
 export const mainRoutes = [
   {
@@ -50,6 +51,13 @@ export const adminRoutes = [
         element: <Edit />,
         label: '编辑详情',
         isShow: false,
+      },
+      {
+        path: 'notices',
+        element: <Notices />,
+        label: '通知中心',
+        isShow: true,
+        icon: <BellOutlined />
       }
     ]
   },
