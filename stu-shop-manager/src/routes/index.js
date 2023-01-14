@@ -4,7 +4,6 @@ import Login from '../pages/Login'
 import Edit from '../pages/admin/products/Edit';
 import PageNotFound from '../pages/PageNotFound';
 import App from '../App';
-import { AreaChartOutlined, ShopOutlined, BellOutlined } from '@ant-design/icons';
 import { Navigate } from 'react-router-dom';
 import Notices from '../pages/admin/notices';
 
@@ -36,14 +35,14 @@ export const adminRoutes = [
         element: <Dashboard />,
         label: '看板',
         isShow: true,
-        icon: <AreaChartOutlined />
+        icon: 'AreaChartOutlined'
       },
       {
         path: 'products',
         element: <List />,
         label: '商品管理',
         isShow: true,
-        icon: <ShopOutlined />
+        icon: 'ShopOutlined'
       },
       {
         // id 为可选参数，携带表示编辑，反之为新增
@@ -57,7 +56,7 @@ export const adminRoutes = [
         element: <Notices />,
         label: '通知中心',
         isShow: true,
-        icon: <BellOutlined />
+        icon: "BellOutlined"
       }
     ]
   },

@@ -3,11 +3,16 @@ import { Badge, Dropdown, Layout, Menu, theme } from 'antd';
 import { adminRoutes } from '../../routes';
 import { generatorRoutes, clearToken } from '../../utils';
 import { Link, useNavigate } from 'react-router-dom';
-import { CaretDownOutlined } from '@ant-design/icons'
+import { CaretDownOutlined, AreaChartOutlined, ShopOutlined, BellOutlined } from '@ant-design/icons'
 import './index.css'
 import { connect } from 'react-redux';
 
 const { Header, Content, Sider } = Layout;
+const iconMap = {
+  AreaChartOutlined: <AreaChartOutlined />,
+  ShopOutlined: <ShopOutlined />,
+  BellOutlined: <BellOutlined />,
+}
 
 const popMenu = [{
   key: 'notion',
@@ -25,7 +30,11 @@ const Frame = (props) => {
     token: { colorBgContainer },
   } = theme.useToken();
   const navigate = useNavigate()
-  const routes = generatorRoutes(adminRoutes[0].children)
+  const routes = generatorRoutes(adminRoutes[0].children).map(item => {
+    item.icon = iconMap[item.icon]
+    return item
+  });
+  console.log(routes, 'routes');
 
   const logout = ({ key }) => {
     switch (key) {
