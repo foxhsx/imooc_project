@@ -1,5 +1,6 @@
 import { Button, Card, List } from 'antd'
 import React from 'react'
+import { connect } from 'react-redux'
 
 const data = [
   {
@@ -16,9 +17,13 @@ const data = [
   },
 ];
 
-function Notices() {
+function Notices(props) {
   return (
-    <Card title="通知中心" extra={<Button>全部已读</Button>}>
+    <Card title="通知中心" extra={
+      <Button onClick={() => props.dispatch({
+        type: 'READ_ALL'
+      })}>全部已读</Button>
+    }>
       <List
         itemLayout="horizontal"
         dataSource={data}
@@ -36,4 +41,4 @@ function Notices() {
   )
 }
 
-export default Notices
+export default connect(state => state.notices)(Notices);

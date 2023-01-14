@@ -5,6 +5,7 @@ import { generatorRoutes, clearToken } from '../../utils';
 import { Link, useNavigate } from 'react-router-dom';
 import { CaretDownOutlined } from '@ant-design/icons'
 import './index.css'
+import { connect } from 'react-redux';
 
 const { Header, Content, Sider } = Layout;
 
@@ -27,7 +28,6 @@ const Frame = (props) => {
   const routes = generatorRoutes(adminRoutes[0].children)
 
   const logout = ({ key }) => {
-    console.log(key);
     switch (key) {
       case 'logout':
         clearToken()
@@ -49,7 +49,7 @@ const Frame = (props) => {
         </div>
         <Dropdown menu={{ items: popMenu, onClick: logout }}>
           <div style={{ color: '#fff' }}>
-            <Badge dot><span style={{ color: '#fff' }}>超级管理员</span></Badge>
+            <Badge dot={!props.isAllRead}><span style={{ color: '#fff' }}>超级管理员</span></Badge>
             <CaretDownOutlined  />
           </div>
         </Dropdown>
@@ -82,4 +82,4 @@ const Frame = (props) => {
   );
 };
 
-export default Frame;
+export default connect(state => state.notices)(Frame);

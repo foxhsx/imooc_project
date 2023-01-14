@@ -4,16 +4,24 @@ import { createApi, getOneId, modifyOne } from '../../../service/api'
 import { useNavigate, useParams } from 'react-router-dom';
 import { UploadOutlined } from '@ant-design/icons'
 import { serverUrl } from '../../../utils';
+import { Editor, EditorState } from 'draft-js';
+import 'draft-js/dist/Draft.css';
+import { stateToHTML } from 'draft-js-export-html';
+import { stateFromHTML } from 'draft-js-import-html';
 
 function Edit() {
   const nagivate = useNavigate();
   const params = useParams();
   const [form] = Form.useForm();
   const [imageUrl, setImageUrl] = useState('')
+  const [editorState, setEditorState] = useState(
+    () => EditorState.createEmpty(),
+  );
 
   const back = () => nagivate('/admin/products')
   const handleSubmit = (value) => {
-    const submitData = { ...value, coverImg: imageUrl }
+    const content = stateToHTML(editorState.getCurrentContent())
+    const submitData = { ...value, coverImg: imageUrl, content }
     let request = () => createApi(submitData);
     let successTips = '添加成功'
     if (params?.id) {
@@ -40,11 +48,17 @@ function Edit() {
     }
   }
 
+  const editorChange = (value) => {
+    setEditorState(value)
+  }
+
   useEffect(() => {
     if (params?.id) {
-      getOneId(params.id).then(({ name, price, coverImg }) => {
+      getOneId(params.id).then(({ name, price, coverImg, content }) => {
         form.setFieldsValue({ name, price });
         setImageUrl(coverImg)
+        const contentState = stateFromHTML(content);
+        setEditorState(EditorState.createWithContent(contentState))
       })
     }
   }, [params, form])
@@ -76,6 +90,9 @@ function Edit() {
               ? <img src={serverUrl + imageUrl} alt="avatar" style={{ width: '100%' }} />
               : <Button icon={<UploadOutlined />}>Upload</Button> }
           </Upload>
+        </Form.Item>
+        <Form.Item label="详情">
+          <Editor editorState={editorState} onChange={editorChange} />
         </Form.Item>
         <Form.Item>
           <Button htmlType='submit' type="primary">保存</Button>

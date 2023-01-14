@@ -1,8 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { Button, Card, message, Popconfirm, Space, Table } from 'antd'
 import { useNavigate } from 'react-router-dom';
-import { listApi, delOne, modifyOne } from '../../../service/api';
+import { delOne, modifyOne } from '../../../service/api';
 import { serverUrl } from '../../../utils';
+import { connect } from 'react-redux';
+import { loadProduct } from '../../../store/actions/products';
 
 const column = [
   {
@@ -34,14 +36,9 @@ const column = [
   },
 ]
 
-function List() {
+function List(props) {
   const navigate = useNavigate();
-  const [dataSource, setDataSource] = useState([])
-  const [total, setTotal] = useState(0);
-
-  const loadData = useCallback((page) => {
-    getData(page)
-  }, [])
+  const getData = useCallback(page => props.dispatch(loadProduct(page)), [props]);
 
   const columns = useMemo(() => column.concat([{
     title: '操作',
@@ -51,7 +48,7 @@ function List() {
         <Popconfirm
           title="确认删除此项？"
           onCancel={() => console.log("用户取消删除")}
-          onConfirm={() => delOne(record?._id).then(() => loadData(1))}
+          onConfirm={() => delOne(record?._id).then(() => props.dispatch(loadProduct(1)))}
         >
           <Button type="primary" danger>删除</Button>
         </Popconfirm>
@@ -61,7 +58,7 @@ function List() {
             modifyOne(record._id, { onSale: !record.onSale })
               .then(() => {
                 message.success('更新成功')
-                loadData(1)
+                props.dispatch(loadProduct(1))
               })
             }
         >
@@ -69,14 +66,7 @@ function List() {
         </Button>
       </Space>
     )
-  }]), [navigate, loadData])
-
-  const getData = (page) => {
-    listApi(page).then(res => {
-      setDataSource(res.products)
-      setTotal(res.totalCount)
-    })
-  }
+  }]), [navigate, props])
 
   useEffect(() => {
     getData(1)
@@ -92,15 +82,15 @@ function List() {
       <Table
         columns={columns}
         bordered
-        dataSource={dataSource}
+        dataSource={props.products}
         pagination={{
-          total,
+          total: props.totalCount,
           defaultPageSize: 2,
-          // onChange: loadData
+          onChange: (currentPage) => console.log(currentPage)
         }}
       />
     </Card>
   )
 }
 
-export default List
+export default connect(state => state.product)(List)
