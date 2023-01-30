@@ -34,7 +34,6 @@ const Frame = (props) => {
     item.icon = iconMap[item.icon]
     return item
   });
-  console.log(routes, 'routes');
 
   const logout = ({ key }) => {
     switch (key) {
