@@ -1,0 +1,10 @@
+.nav {
+  color: #fff;
+  height: 50px;
+  padding: 10px;
+  background-color: #000;
+}
+
+.nav ul li a {
+  margin: 5px 15px;
+}
