@@ -5,7 +5,7 @@ export const Header = () => {
   return (
     <header>
       <h1 className={`${headerStyels.title} text-center`}>
-        <span>WebDev</span> News
+        <span>知乎</span> 热榜
       </h1>
       <p className='text-center'>keep up to date with the latest web dev news</p>
     </header>
