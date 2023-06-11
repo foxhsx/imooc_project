@@ -24,7 +24,7 @@ module.exports = {
       },
       colors: {
         ...colors,
-        'lignt-glod': '#f5bc51',
+        'light-gold': '#f5bc51',
         'dark-gold': '#533519'
       },
       backgroundImage: {
