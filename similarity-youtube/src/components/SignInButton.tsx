@@ -16,7 +16,7 @@ const SignInButton: FC<SignInButtonProps> = ({}) => {
     setIsLoading(true);
 
     try {
-      await signIn('google')
+      await signIn("github")
     } catch (error) {
       toast({
         title: 'Error signing in',
