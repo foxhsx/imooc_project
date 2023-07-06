@@ -2,6 +2,7 @@ import { NextAuthOptions } from "next-auth"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import GithubProvider from "next-auth/providers/github"
 import { db } from "./db"
+import { JWT } from 'next-auth/jwt'
 
 function getGithubCredentials() {
   const clientId = process.env.GITHUB_CLIENT_ID
@@ -25,7 +26,10 @@ function getGithubCredentials() {
 }
 
 export const authOptions: NextAuthOptions = {
-  debug: true,
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET,
+  },
+  debug: process.env.NODE_ENV !== "production",
   adapter: PrismaAdapter(db),
   session: {
     strategy: "jwt",
@@ -42,11 +46,6 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async session({ token, session }) {
-      console.log(
-        "🚀 ~ file: auth.ts:44 ~ session ~ token, session:",
-        token,
-        session
-      )
       if (token) {
         session.user.id = token.id
         session.user.name = token.name
@@ -79,7 +78,7 @@ export const authOptions: NextAuthOptions = {
     },
     redirect() {
       // 这里的重定向路径一定要和 Github 或者其他第三方认证厂商里配置的重定向 URI 一致，不然会一直报错
-      return '/'
+      return '/dashboard'
     },
   },
 }
