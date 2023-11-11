@@ -1,6 +1,6 @@
-- [复习 JavaScript](#复习 JavaScript)
+- [复习 JavaScript](# 复习 JavaScript)
   
-  - [0.将 JS 添加到网页中](#0.将 JS 添加到网页中)
+  - [0.将 JS 添加到网页中](# 0.将 JS 添加到网页中)
     
     - [内联方式](#内联方式)
     
