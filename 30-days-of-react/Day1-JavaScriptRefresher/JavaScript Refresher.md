@@ -1,6 +1,6 @@
-- [复习 JavaScript](# 复习 JavaScript)
+- [复习 JavaScript](#复习JavaScript)
   
-  - [0.将 JS 添加到网页中](# 0.将 JS 添加到网页中)
+  - [0.将 JS 添加到网页中](#0.将JS添加到网页中)
     
     - [内联方式](#内联方式)
     
@@ -80,9 +80,9 @@
     
     - [小结](#小结)
 
-## 复习 JavaScript
+## 复习JavaScript
 
-### 0.将 JS 添加到网页中
+### 0.将JS添加到网页中
 
 将 JavaScript 添加到网页中有三种不同的方式：
 
