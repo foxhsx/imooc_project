@@ -1,6 +1,6 @@
-- [复习 JavaScript](#复习 JavaScript)
+- [复习 JavaScript](#复习JavaScript)
   
-  - [0.将 JS 添加到网页中](#0.将 JS 添加到网页中)
+  - [0.将 JS 添加到网页中](#0.将JS添加到网页中)
     
     - [内联方式](#内联方式)
     
@@ -722,7 +722,7 @@ const webTechs = [
 
 23. 删除所有 IT 公司
 
-> 查看 github 仓库
+> 查看 [github 仓库]()
 
 #### 练习2
 
