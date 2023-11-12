@@ -80,9 +80,9 @@
     
     - [小结](#小结)
 
-## 复习JavaScript
+## 复习 JavaScript
 
-### 0.将JS添加到网页中
+### 0.将 JS 添加到网页中
 
 将 JavaScript 添加到网页中有三种不同的方式：
 
@@ -722,10 +722,79 @@ const webTechs = [
 
 23. 删除所有 IT 公司
 
-> 查看 [github 仓库]()
+> 查看 [github 仓库](https://github.com/foxhsx/imooc_project/blob/master/30-days-of-react/Day1-JavaScriptRefresher/introduction.js)
 
 #### 练习2
 
+1. 创建一个 `countries.js` 文件，将上面的 `countries` 数组添加到这个文件中；再创建一个 `web_techs.js` 文件，并将上面的 `web_tech` 数组存储在这个文件中，然后将两个文件在 `main.js` 中引入
 
+2. 将下面字符串中的所有标点符号都去掉，并将其改为数组。然后计算数组中共有多少个单词。
+   
+   > 友情提示
+   > 
+   > 使用字符串的 `replace` 方法时，需要注意第一个参数，如果第一个参数是字符串，那么只会替换掉匹配到的第一个值。如果想要替换所有想要替换的值，这里要么：
+   > 
+   > - 使用带 `g` 的正则表达式
+   > 
+   > - 要么使用 `replaceAll` API
+   
+   ```js
+   let text =
+     'I love teaching and empowering people. I teach HTML, CSS, JS, React, Python.'
+   console.log(words)
+   // ["I", "love", "teaching", "and", "empowering", "people", "I", "teach", "HTML", "CSS", "JS", "React", "Python"]
+   console.log(words.length)
+   // 13
+   ```
+
+3. 在下面的购物车中实现添加、删除和编辑商品的功能
+   
+   ```js
+   const shoppingCart = ['Milk', 'Coffee', 'Tea', 'Honey']
+   ```
+   
+   - 将肉类添加到你购物车的开头
+   
+   - 将糖添加到你购物车的末尾
+   
+   - 移除掉蜂蜜
+   
+   - 将茶改为绿茶
+
+4. 在 `countries` 数组中检查是否有 `Ethiopia`，如果有，则打印出大写的单词。如果没有则添加到数组中。
+
+5. 在 `webTechs` 数组中检查是否存在 `Sass`，如果有，则打印出 `Sass is a CSS preprocess`，如果没有则将其添加到数组中。
+
+6. 将下面两个变量合并到一起，并存储在一个名为 `fullStack` 的变量中
+
+```js
+const frontEnd = ['HTML', 'CSS', 'JS', 'React', 'Redux']
+const backEnd = ['Node', 'Express', 'MongoDB']
+
+console.log(fullStack)
+// ["HTML", "CSS", "JS", "React", "Redux", "Node", "Express", "MongoDB"]
+```
 
 #### 练习3
+
+1. 下面是一组年龄的数组，现在我们要对这个数组进行一些操作：
+   
+   ```js
+   const ages = [19, 22, 19, 24, 20, 25, 26, 24, 25, 24]
+   ```
+   
+   - 对整个数组进行排序，并找到最大年龄和最小年龄
+   
+   - 找到处于中间位置的年龄
+   
+   - 求平均年龄
+   
+   - 求最大年龄和最小年龄差了多少岁
+   
+   - 比较（最小值 - 平均值）和（最大值 - 平均值）之间的值，使用 `abs()` 方法
+
+2. 将 `countries`数组中的前十个值进行分割
+
+3. 从 `countries` 数组中找出中间的国家
+
+4. 将 `countries` 数组分割成两个数组，如果原数组不是偶数，则第一个数组比后面的数组多一个国家

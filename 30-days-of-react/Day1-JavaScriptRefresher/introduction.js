@@ -201,6 +201,26 @@ console.log(lastFruit) // lemon
     itCompanies.pop()
     // ? 23. Remove all IT companies
     itCompanies.splice();
-  // TODO 2. Exercise Level 2
   // TODO 3. Exercise Level 3
+  // ? 3.1 The following is an array of 10 students ages:
+   const ages = [19, 22, 19, 24, 20, 25, 26, 24, 25, 24]
+    //  * a. Sort the array and find the min and max age
+    ages.sort();
+    console.log(ages)
+    const min = Math.min(...ages);
+    const max = Math.max(...ages);
+    console.log(min, max)
+    //  * b. Find the median age(one middle item or two middle items divided by two)
+    const median = ages.length / 2;
+    console.log(ages[median], ages[median + 1])
+    //  * c. Find the average age(all items divided by number of items)
+    const average = ages.reduce((a, b) => a + b) / ages.length;
+    console.log(average)
+    //  * d. Find the range of the ages(max minus min)
+    const range = max - min;
+    console.log(range)
+    //  * e. Compare the value of (min - average) and (max - average), use abs() method
+    const difference = Math.abs(min - average);
+    const difference2 = Math.abs(max - average);
+    console.log(difference, difference2)
 }
