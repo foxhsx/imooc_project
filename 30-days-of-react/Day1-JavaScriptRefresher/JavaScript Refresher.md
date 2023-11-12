@@ -18,7 +18,7 @@
     
     - [如何创建一个包含值的数组](#如何创建一个包含值的数组)
     
-    - [使用 split 来创建数组](#使用 split 来创建数组)
+    - [使用 split 来创建数组](#使用-split-来创建数组)
     
     - [使用索引访问数组里面的项](#使用索引访问数组里面的项)
     
@@ -40,9 +40,9 @@
     
     - [if](#if)
     
-    - [if else](#if else)
+    - [if else](#if-else)
     
-    - [if else if else](#if else if else)
+    - [if else if else](#if-else-if-else)
     
     - [switch](#switch)
     
@@ -64,13 +64,13 @@
       
       - [while](#while)
       
-      - [do while](#do while)
+      - [do while](#do-while)
       
-      - [for of](#for of)
+      - [for of](#for-of)
       
       - [forEach](#forEach)
       
-      - [for in](#for in)
+      - [for in](#for-in)
     
     - [停止循环及跳过某个条件](#停止循环及跳过某个条件)
       
@@ -798,3 +798,95 @@ console.log(fullStack)
 3. 从 `countries` 数组中找出中间的国家
 
 4. 将 `countries` 数组分割成两个数组，如果原数组不是偶数，则第一个数组比后面的数组多一个国家
+
+### 4.条件句
+
+条件句用于在不同条件时做出不同选择的场景。默认情况下，JS 中的代码执行顺序是从上到下进行执行的，而如果我们需要修改执行的顺序，那么有两种方式：
+
+- 条件执行：即如果一个表达式为 true 时，则会执行条件体里的一个或者多个语句。
+
+- 重复执行：只要表达式为 true，则会重复执行条件体里的一个或者多个语句。
+
+接下来我们来看看在开发中经常用到的几个条件句方法：
+
+#### if
+
+在 JS 及其他编程语言中，if 关键字是用来检查条件是否为真的。如果为真，则会执行条件体中的代码。
+
+```js
+// syntax
+if (condition) {
+  //this part of code runs for truthy condition
+}
+```
+
+```js
+let num = 3
+if (num > 0) {
+  console.log(`${num} is a positive number`)
+}
+//  3 is a positive number
+```
+
+#### if else
+
+既然有了 if，那么我们就还需要 else，也就是「如果和反之」的关系。简单一点来说，if 的条件如果成立，则执行第一个代码块中的内容，反之则执行第二个代码块的内容。
+
+```js
+// syntax
+if (condition) {
+  // this part of code runs for truthy condition
+} else {
+  // this part of code runs for false condition
+}
+```
+
+```js
+let num = 3
+if (num > 0) {
+  console.log(`${num} is a positive number`)
+} else {
+  console.log(`${num} is a negative number`)
+}
+//  3 is a positive number
+
+num = -3
+if (num > 0) {
+  console.log(`${num} is a positive number`)
+} else {
+  console.log(`${num} is a negative number`)
+}
+//  -3 is a negative number
+```
+
+#### if else if else
+
+以上都是条件比较少的情况，如果遇到两个以上的条件判断时，需要怎么做呢？这个时候就有了 `if...else if...else` 。
+
+```js
+// syntax
+if (condition) {
+  // code
+} else if (condition) {
+  // code
+} else {
+  //  code
+}
+```
+
+```js
+let a = 0
+if (a > 0) {
+  console.log(`${a} is a positive number`)
+} else if (a < 0) {
+  console.log(`${a} is a negative number`)
+} else if (a == 0) {
+  console.log(`${a} is zero`)
+} else {
+  console.log(`${a} is not a number`)
+}
+```
+
+#### switch
+
+#### ternary operator
