@@ -26,7 +26,7 @@
     
     - [操作数组的方法](#操作数组的方法)
     
-    - [多维数组（数组中的数组）](#多维数组（数组中的数组）)
+    - [多维数组（数组中的数组）](#多维数组数组中的数组)
   
   - [练习](#练习)
     
@@ -48,13 +48,13 @@
     
     - [三元表达式](#三元表达式)
   
-  - [练习](#练习)
+  - [条件语句练习](#条件语句练习)
     
-    - [练习1](#练习1)
+    - [条件语句练习1](#条件语句练习1)
     
-    - [练习2](#练习2)
+    - [条件语句练习2](#条件语句练习2)
     
-    - [练习3](#练习3)
+    - [条件语句练习3](#条件语句练习3)
   
   - [5.循环](#5.循环)
     
@@ -889,4 +889,158 @@ if (a > 0) {
 
 #### switch
 
-#### ternary operator
+`switch` 是 `if...else if...else` 的替代方案，`switch` 语句以 `switch` 关键字开头，后面紧跟小括号（里面是条件，一般是一个变量）和代码块，而在代码块中，我们将具有不同的条件。
+
+如果 switch 中的变量与 case 的值相匹配，那么就会执行这个 case 下的代码。而在每个 case 中都会有一个 break 语句，break 是用来终止 switch 循环的，即当前条件满足后代码就不会再继续执行下去了。
+
+最后是 default 部分，只有在所有的 case 都不满足时才会执行。
+
+```js
+switch (caseValue) {
+  case 1:
+    // code
+    break
+  case 2:
+    // code
+    break
+  case 3:
+  // code
+  default:
+  // code
+}
+```
+
+```js
+let weather = 'cloudy'
+switch (weather) {
+  case 'rainy':
+    console.log('You need a rain coat.')
+    break
+  case 'cloudy':
+    console.log('It might be cold, you need a jacket.')
+    break
+  case 'sunny':
+    console.log('Go out freely.')
+    break
+  default:
+    console.log(' No need for rain coat.')
+}
+
+// Switch More Examples
+let dayUserInput = prompt('What day is today ?')
+let day = dayUserInput.toLowerCase()
+
+switch (day) {
+  case 'monday':
+    console.log('Today is Monday')
+    break
+  case 'tuesday':
+    console.log('Today is Tuesday')
+    break
+  case 'wednesday':
+    console.log('Today is Wednesday')
+    break
+  case 'thursday':
+    console.log('Today is Thursday')
+    break
+  case 'friday':
+    console.log('Today is Friday')
+    break
+  case 'saturday':
+    console.log('Today is Saturday')
+    break
+  case 'sunday':
+    console.log('Today is Sunday')
+    break
+  default:
+    console.log('It is not a week day.')
+}
+```
+
+#### 三元表达式
+
+在 React 中，三元表达式是很常见的一种写法，它是编写 `if...else` 语句的一种简短的方法。
+
+```js
+let isRaining = true
+isRaining
+  ? console.log('You need a rain coat.')
+  : console.log('No need for a rain coat.')
+```
+
+### 条件语句练习
+
+#### 条件语句练习1
+
+1. 使用 prompt 来获取用户的输入信息，提示「请输入您的年龄」。如果用户年满18岁，则提示用户：您已符合驾驶汽车的年龄；如果不是则提示：需要18周岁才可以驾驶汽车。
+   
+   ```textile
+   Enter your age: 30
+   You are old enough to drive.
+   
+   Enter your age:15
+   You are left with 3 years to drive.
+   ```
+
+2. 使用 `if...else` 来比较 `myAge` 和 `yourAge` 的值，根据比较出来的结果，将更大的值打印在控制台上。也是使用 prompt 来获取用户的年龄。
+   
+   ```textile
+   Enter your age: 30
+   You are 5 years older than me.
+   ```
+
+3. 如果 a 比 b 大，则返回 a 大于 b，反之返回 a 小于 b。尝试使用两种方式来实现。
+   
+   - 使用 `if...else`
+   
+   - 使用三元表达式
+   
+   ```textile
+   let a = 4
+   let b = 3
+   
+   
+   //   4 is greater than 3
+   ```
+
+4. 偶数可以被2整除，且余数为零。如何使用 JS 检查数字是否为偶数？
+
+```textile
+Enter a number: 2
+2 is an even number
+
+Enter a number: 9
+9 is is an odd number.
+```
+
+#### 条件语句练习2
+
+1. 写一个根据学生分数来评优的代码；
+   
+   - 80-100, A
+   
+   - 70-89, B
+   
+   - 60-69, C
+   
+   - 50-59, D
+   
+   - 0-49, F
+
+2. 检查当前时间是处于哪个季节？如果用户输入：
+   
+   - 九、十、十一月是秋天
+   
+   - 十二月、一月和二月是冬天
+   
+   - 三月、四月和五月是春天
+   
+   - 六月、七月和八月是夏天
+
+3. 检查某一天是工作日还是周末，只需要输入周几即可
+
+#### 条件语句练习3
+
+1. 写一个计算输入的月份有多少天的程序
+
+2. 在上一题的基础上，要考虑是否是闰年
