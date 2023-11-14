@@ -93,4 +93,18 @@
 {
   // ? 3.1 Write a program which tells the number of days in a month.
   // ? 3.2 Write a program which tells the number of days in a month, now consider leap year.
+  const month = Number(prompt('请输入月份：'))
+  const date = new Date();
+  const year = date.getFullYear();
+  // 能被4整除且不能被100整除，或者能被400整除的年份为闰年
+  const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+  if ([1, 3, 5, 7, 8, 10, 12].includes(month)) {
+    console.log(`${month} 月有 31 天`)
+  } else if ([4, 6, 9, 11].includes(month)) {
+    console.log(`${month} 月有 30 天`)
+  } else if ([2].includes(month)) {
+    console.log(`${month} 月有 ${isLeapYear ? 29 : 28} 天`)
+  } else {
+    console.log('Please enter a valid month')
+  }
 }
