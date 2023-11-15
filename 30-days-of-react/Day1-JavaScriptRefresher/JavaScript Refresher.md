@@ -79,6 +79,28 @@
       - [continue](#continue)
     
     - [小结](#小结)
+  
+  - [6.作用域](#6.作用域)
+    
+    - [Window 作用域](#Window-作用域)
+    
+    - [全局作用域](#全局作用域)
+    
+    - [局部作用域](#局部作用域)
+  
+  - [7.对象](#7.对象)
+  
+  - [8.方法](#8.方法)
+  
+  - [9.高阶函数](#9.高阶函数)
+  
+  - [10.解构赋值](#10.解构赋值)
+  
+  - [11.函数式编程](#11.函数式编程)
+  
+  - [12.类](#12.类)
+  
+  - [13.DOM](#13.DOM)
 
 ## 复习 JavaScript
 
@@ -998,11 +1020,11 @@ isRaining
    ```textile
    let a = 4
    let b = 3
-   
+   ```
    
    //   4 is greater than 3
-   ```
 
+```
 4. 偶数可以被2整除，且余数为零。如何使用 JS 检查数字是否为偶数？
 
 ```textile
@@ -1044,3 +1066,332 @@ Enter a number: 9
 1. 写一个计算输入的月份有多少天的程序
 
 2. 在上一题的基础上，要考虑是否是闰年
+
+### 5.循环
+
+在开发中我们经常需要使用不同的循环任务来处理一些重复的事情。比如现在让你在页面中打印1000次 Hello World，假如没有循环，哪怕是 CV 也需要大量时间，但是有循环之后，分分钟就可以完成。
+
+在 JS 中，循环的种类有：
+
+- for 
+
+- while
+
+- do while
+
+- for of
+
+- forEach
+
+- for in
+
+在循环中，我们通常都会设置一个停止循环的条件来避免造成死循环（也就是要避免它一直循环下去）。
+
+而在一些场景下，我们也可能想在循环到某个条件时，跳过或者中断这次任务。跳过任务我们使用 continue 关键字，中断则使用 break 关键字。
+
+#### 循环类型
+
+##### for
+
+假如我们知道有多少次循环任务时，我们通常会使用 for 循环。这是在平时开发中经常用到的循环方法，它的语法如下：
+
+```js
+// for loop syntax
+
+for (initialization, condition, increment/decrement) {
+    code goes here
+}
+```
+
+```js
+// 循环 5 次
+for (let i = 0; i < 6; i++) {
+  console.log(i)
+}
+
+
+// 计算 0 到 100 的let sum = 0
+for (let i = 0; i < 101; i++) {
+  sum += i
+}
+
+console.log(sum)##### 
+```
+
+##### while
+
+假如我们不知道提前需要进行多少次循环的时候，while 循环就闪亮登场了。
+
+```js
+let count = prompt('Enter a positive number: ')
+while (count > 0) {
+  console.log(count)
+  count--
+}
+```
+
+##### do while
+
+`do while` 是在任何条件下都会执行一次的循环。
+
+```js
+let count = 0
+do {
+  console.log(count)
+  count++
+} while (count < 11)
+```
+
+尽管下面的变量不符合 while 后面的条件判断，但是也会执行一次 do 代码块中的代码。
+
+```js
+let count = 11
+do {
+  console.log(count)
+  count++
+} while (count < 11)
+```
+
+> while 循环在开发中其实是比较少见的，比较常见的还是 for 相关的循环
+
+##### for of
+
+`for of` 循环是 ES6 之后新增的一种循环方法，可以用在任何可迭代对象上，主要访问可迭代对象的值：
+
+```js
+const numbers = [1, 2, 3, 4, 5]
+for (const number of numbers) {
+  console.log(number)
+}
+
+const countries = ['Finland', 'Sweden', 'Norway', 'Denmark', 'Iceland']
+for (const country of countries) {
+  console.log(country.toUpperCase())
+}
+
+const str = 'Hello';
+for (const char of str) {
+  console.log(char);
+}
+// 输出：H e l l o
+```
+
+##### forEach
+
+`forEach` 方法实际上是 Array 数组原型上的一个 API 方法，它大大简化了我们循环数组的操作。
+
+```js
+const numbers = [1, 2, 3, 4, 5]
+numbers.forEach((number, i) => {
+  console.log(number, i)
+})
+
+const countries = ['Finland', 'Sweden', 'Norway', 'Denmark', 'Iceland']
+countries.forEach((country, i, arr) => {
+  console.log(i, country.toUpperCase())
+})
+```
+
+##### for in
+
+`for in` 方法可以用在对象上，很有趣是吧。它会以对象的 key 作为循环对象：
+
+```js
+const user = {
+  firstName: 'Asabeneh',
+  lastName: 'Yetayeh',
+  age: 250,
+  country: 'Finland',
+  skills: ['HTML', 'CSS', 'JS', 'React', 'Node', 'Python', 'D3.js'],
+}
+
+for (const key in user) {
+  console.log(key, user[key])
+}
+```
+
+#### 停止循环及跳过某个条件
+
+##### break
+
+break 关键字是被用来中断循环的：
+
+```js
+for (let i = 0; i <= 5; i++) {
+  if (i == 3) {
+    break
+  }
+  console.log(i)
+}
+
+// 0 1 2
+```
+
+可以看到，当匹配到数字 3 的时候，循环就被停止了。
+
+##### continue
+
+我们也可以使用 continue 关键字来跳过一些迭代。
+
+```js
+for (let i = 0; i <= 5; i++) {
+  if (i == 3) {
+    continue
+  }
+  console.log(i)
+}
+// 0 1 2 4 5
+```
+
+当这段代码匹配到 3 的时候，跳过了这次循环，继续下次循环，所以这里没有打印出 3。
+
+#### 小结
+
+- 当已知循环次数时，我们通常会使用 for 循环；
+
+- 而在不确定循环次数时，需要使用 while 循环；
+
+- do while 循环在任何情况下，都至少会执行一次代码
+
+- for of 循环可以用在任何可迭代对象上，它主要访问可迭代对象的值
+
+- forEach 是目前在数组中使用频率很高的、用来循环的 API
+
+- for in 用于遍历对象的可枚举属性，而不是里面的元素
+
+### 作用域
+
+在编程中，是有作用域的概念的，简单点来说就是当我们在定义了一个变量之后，这个变量的可用范围。
+
+细分作用域类型的话，一般有三种：
+
+- Window
+
+- Global
+
+- 局部
+
+在之前我们已经介绍过定义变量的三个关键字 `var`、`let` 和 `const`，其中 `let` 和 const `关键`字定义的变量一般都只能在局部作用域使用。
+
+> 我们可以新建一个 `scope.js` 文件开始作用域的练习。
+
+#### Window 作用域
+
+在 JS 中，Window 作用域也就是窗口作用域和全局（Global）作用域在概念上大差不差，都是指全局作用域，但是需要注意的是这种情况只出现在浏览器端。如果在 Node 等环境中它俩是不同的。
+
+那怎么定义全局变量呢？两种方式：
+
+- 使用 `var` 关键字
+
+- 不使用任何关键字，直接在文件中定义变量
+
+```js
+//scope.js
+var a = 'JavaScript' // is a window scope this found anywhere
+b = 10 // this is a window scope variable
+function letsLearnScope() {
+  console.log(a, b)
+  if (true) {
+    console.log(a, b)
+  }
+}
+console.log(a, b) // accessible
+```
+
+#### 全局作用域
+
+上面说过，在浏览器环境中，全局作用域其实就是 Window 作用域，我们可以在当前窗口访问所有在全局作用域下的变量。
+
+不过这里有一点需要注意，这个概念是有参照物的，如果只针对某个文件而言，在文件最外层定义的变量，我们也可以称它为这个文件里的全局变量。
+
+```js
+//scope.js
+let a = 'JavaScript' // is a global scope it will be found anywhere in this file
+let b = 10 // is a global scope it will be found anywhere in this file
+function letsLearnScope() {
+  console.log(a, b) // JavaScript 10, accessible
+  if (true) {
+    let a = 'Python'
+    let b = 100
+    console.log(a, b) // Python 100
+  }
+  console.log(a, b)
+}
+letsLearnScope()
+console.log(a, b) // JavaScript 10, accessible
+```
+
+#### 局部作用域
+
+一般我们声明在某些代码块中的变量，只能在这个代码块中进行访问，外部是无法感知的。这个代码块就是这个变量的局部作用域，而这个变量我们称为局部变量。
+
+```js
+//scope.js
+let a = 'JavaScript' // is a global scope it will be found anywhere in this file
+let b = 10 // is a global scope it will be found anywhere in this file
+function letsLearnScope() {
+  console.log(a, b) // JavaScript 10, accessible
+  let c = 30
+  if (true) {
+    // we can access from the function and outside the function but
+    // variables declared inside the if will not be accessed outside the if block
+    let a = 'Python'
+    let b = 20
+    let d = 40
+    console.log(a, b, c) // Python 20 30
+  }
+  // we can not access c because c's scope is only the if block
+  console.log(a, b) // JavaScript 10
+}
+letsLearnScope()
+console.log(a, b) // JavaScript 10, accessible
+```
+
+> ⚠️需要注意的是，在 JS 中使用 `var` 关键字定义的变量是**有函数作用域**的，但是它没有块级作用域。我们来看一个例子：
+
+```js
+//scope.js
+function letsLearnScope() {
+  var gravity = 9.81
+  console.log(gravity)
+}
+// console.log(gravity), Uncaught ReferenceError: gravity is not defined
+
+if (true) {
+  var gravity = 9.81
+  console.log(gravity) // 9.81
+}
+console.log(gravity) // 9.81
+
+for (var i = 0; i < 3; i++) {
+  console.log(i) // 1, 2, 3
+}
+console.log(i) // 3
+```
+
+可以看到在函数中使用 `var` 定义的变量外界是访问不到的，但是在下边的条件体中定义的变量，外界就可以访问到。
+
+不过假如我们使用 `let` 或者 `const` 就可以避免这种情况，因为它俩是讲究块级作用域的，只要它在一个代码块中被定义，那么就只能在这个代码块中被访问。
+
+```js
+//scope.js
+function letsLearnScope() {
+  // you can use let or const, but gravity is constant I prefer to use const
+  const gravity = 9.81
+  console.log(gravity)
+}
+// console.log(gravity), Uncaught ReferenceError: gravity is not defined
+
+if (true) {
+  const gravity = 9.81
+  console.log(gravity) // 9.81
+}
+// console.log(gravity), Uncaught ReferenceError: gravity is not defined
+
+for (let i = 0; i < 3; i++) {
+  console.log(i) // 1, 2, 3
+}
+// console.log(i), Uncaught ReferenceError: gravity is not defined
+```
+
+### 对象
