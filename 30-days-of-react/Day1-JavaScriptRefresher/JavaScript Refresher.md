@@ -89,6 +89,36 @@
     - [局部作用域](#局部作用域)
   
   - [7.对象](#7.对象)
+    
+    - [创建一个空对象](#创建一个空对象)
+    
+    - [创建一个有值的对象](#创建一个有值的对象)
+    
+    - [获取对象中的值](#获取对象中的值)
+    
+    - [创建对象的方法](#创建对象的方法)
+    
+    - [给对象设置一个新的属性](#给对象设置一个新的属性)
+    
+    - [对象的方法](#对象的方法)
+      
+      - 使用 `Object.keys` API 获取对象的所有 keys
+      
+      - 使用 `Object.assign` 合并两个或多个对象
+      
+      - 使用 `Object.values` 获取对象的所有值
+      
+      - 使用 `Object.entries` 获取对象的所有 keys
+      
+      - 使用 `hasOwnProperty` 方法检查对象的属性
+    
+    - [对象练习](#对象练习)
+      
+      - [对象练习1](#对象练习1)
+      
+      - [对象练习2](#对象练习2)
+      
+      - [对象练习3](#对象练习3)
   
   - [8.方法](#8.方法)
   
@@ -1395,3 +1425,148 @@ for (let i = 0; i < 3; i++) {
 ```
 
 ### 对象
+
+在编程领域中，一切皆对象。对象是一个或者多个无序的键值对的集合。
+
+#### 创建一个空对象
+
+```js
+const person = {}
+```
+
+#### 创建一个有值的对象
+
+一个对象的属性值可以是字符串、数字、布尔值、对象、null、undefined 和函数。
+
+对于一个人来说，他有姓、有名、年龄、住址、爱好和是否已婚等属性。那么在对象中他可以这样进行展示：
+
+```js
+const person = {
+  firstName: 'Asabeneh',
+  lastName: 'Yetayeh',
+  age: 250,
+  country: 'Finland',
+  city: 'Helsinki',
+  skills: [
+    'HTML',
+    'CSS',
+    'JavaScript',
+    'React',
+    'Node',
+    'MongoDB',
+    'Python',
+    'D3.js',
+  ],
+  isMarried: true,
+}
+console.log(person)
+```
+
+#### 获取对象中的值
+
+我们有两种方式来访问对象的值：
+
+- 我们可以使用 `.` 号来访问 key 为一个单词的属性
+
+- 使用方括号和引号
+
+```js
+const person = {
+  firstName: 'Asabeneh',
+  lastName: 'Yetayeh',
+  age: 250,
+  country: 'Finland',
+  city: 'Helsinki',
+  skills: [
+    'HTML',
+    'CSS',
+    'JavaScript',
+    'React',
+    'Node',
+    'MongoDB',
+    'Python',
+    'D3.js',
+  ],
+  getFullName: function () {
+    return `${this.firstName}${this.lastName}`
+  },
+  'phone number': '+3584545454545',
+}
+
+// accessing values using .
+console.log(person.firstName)
+console.log(person.lastName)
+console.log(person.age)
+console.log(person.location)
+
+// value can be accessed using square bracket and key name
+console.log(person['firstName'])
+console.log(person['lastName'])
+console.log(person['age'])
+console.log(person['age'])
+console.log(person['location'])
+
+// for instance to access the phone number we only use the square bracket method
+console.log(person['phone number'])
+```
+
+#### 创建对象的方法
+
+在上面的代码块中我们可以看到一个 `getFullName` 的属性，它在这个对象中是一个方法。在这个方法中 `this` 关键字指的是对象本身，我们可以使用 `this` 来访问对象的不同属性。
+
+> ⚠️注意：如果要在对象方法中使用 this，那么就不能使用箭头函数，不然 this 会指向 window 对象而非当前对象。
+
+#### 给对象设置一个新的属性
+
+对象的内容是可变的，我们可以在创建对象后对对象进行增删改的操作。
+
+比如给一个对象新增属性：
+
+```js
+const person = {
+  firstName: 'Asabeneh',
+  lastName: 'Yetayeh',
+  age: 250,
+  country: 'Finland',
+  city: 'Helsinki',
+  skills: [
+    'HTML',
+    'CSS',
+    'JavaScript',
+    'React',
+    'Node',
+    'MongoDB',
+    'Python',
+    'D3.js',
+  ],
+  getFullName: function () {
+    return `${this.firstName} ${this.lastName}`
+  },
+}
+person.nationality = 'Ethiopian'
+person.country = 'Finland'
+person.title = 'teacher'
+person.skills.push('Meteor')
+person.skills.push('SasS')
+person.isMarried = true
+
+person.getPersonInfo = function () {
+  let skillsWithoutLastSkill = this.skills
+    .slice(0, this.skills.length - 1)
+    .join(', ')
+  let lastSkill = this.skills.slice(this.skills.length - 1)[0]
+
+  let skills = `${skillsWithoutLastSkill}, and ${lastSkill}`
+  let fullName = this.getFullName()
+  let statement = `${fullName} is a ${this.title}.\nHe lives in ${this.country}.\nHe teaches ${skills}.`
+  return statement
+}
+console.log(person)
+console.log(person.getPersonInfo())
+```
+
+#### 对象的方法
+
+Object 自身提供了不同的 API 来协助开发者对对象进行操作，接下来我们来看一些常用的：
+
+##### 使用 `Object.keys` API 获取对象的所有 keys
