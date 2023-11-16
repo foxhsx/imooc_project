@@ -104,7 +104,7 @@
       
       - [使用 `Object.keys` API 获取对象的所有 keys](#使用-objectkeys-api-获取对象的所有-keys)
       
-      - [使用 `Object.assign` 合并两个或多个对象](#使用 -objectassign-合并两个或多个对象)
+      - [使用 `Object.assign` 合并两个或多个对象](#使用-objectassign-合并两个或多个对象)
       
       - [使用 `Object.values` 获取对象的所有值](#使用-objectvalues-获取对象的所有值)
       
