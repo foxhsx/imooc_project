@@ -102,15 +102,15 @@
     
     - [对象的方法](#对象的方法)
       
-      - 使用 `Object.keys` API 获取对象的所有 keys
+      - [使用 `Object.keys` API 获取对象的所有 keys](#使用-objectkeys-api-获取对象的所有-keys)
       
-      - 使用 `Object.assign` 合并两个或多个对象
+      - [使用 `Object.assign` 合并两个或多个对象](#使用 -objectassign-合并两个或多个对象)
       
-      - 使用 `Object.values` 获取对象的所有值
+      - [使用 `Object.values` 获取对象的所有值](#使用-objectvalues-获取对象的所有值)
       
-      - 使用 `Object.entries` 获取对象的所有 keys
+      - [使用 `Object.entries` 获取对象的所有键值对](#使用-objectentries-获取对象的所有键值对)
       
-      - 使用 `hasOwnProperty` 方法检查对象的属性
+      - [使用 `hasOwnProperty` 方法检查对象的属性](#使用-hasOwnProperty-方法检查对象的属性)
     
     - [对象练习](#对象练习)
       
@@ -1570,3 +1570,103 @@ console.log(person.getPersonInfo())
 Object 自身提供了不同的 API 来协助开发者对对象进行操作，接下来我们来看一些常用的：
 
 ##### 使用 `Object.keys` API 获取对象的所有 keys
+
+以数组的形式来获取对象的属性。
+
+```js
+const object1 = {
+  a: 'somestring',
+  b: 42,
+  c: false,
+};
+
+console.log(Object.keys(object1));
+// Expected output: Array ["a", "b", "c"]
+```
+
+##### 使用 `Object.assign` 合并两个或多个对象
+
+其实就是将一个或者多个对象中的属性复制到目标对象中，并返回修改后的目标对象，这里的目标对象就是这个 API 的第一个参数。
+
+```js
+const target = { a: 1, b: 2 };
+const source = { b: 4, c: 5 };
+
+const returnedTarget = Object.assign(target, source);
+
+console.log(target);
+// Expected output: Object { a: 1, b: 4, c: 5 }
+
+console.log(returnedTarget === target);
+// Expected output: true
+```
+
+##### 使用 `Object.values` 获取对象的所有值
+
+和 `Object.keys` 类似，不过这个方法是用来获取值的。
+
+```js
+const object1 = {
+  a: 'somestring',
+  b: 42,
+  c: false,
+};
+
+console.log(Object.values(object1));
+// Expected output: Array ["somestring", 42, false]
+```
+
+##### 使用 `Object.entries` 获取对象的所有键值对
+
+以数组的形式返回给定对象的所有键值对。
+
+```js
+const object1 = {
+  a: 'somestring',
+  b: 42,
+};
+
+for (const [key, value] of Object.entries(object1)) {
+  console.log(`${key}: ${value}`);
+}
+
+// Expected output:
+// "a: somestring"
+// "b: 42"
+```
+
+##### 使用 `hasOwnProperty` 方法检查对象的属性
+
+`hasOwnProperty` 方法可以检查一个对象中是否有某个属性，它返回一个布尔值。
+
+```js
+const object1 = {};
+object1.property1 = 42;
+
+console.log(object1.hasOwnProperty('property1'));
+// Expected output: true
+
+console.log(object1.hasOwnProperty('toString'));
+// Expected output: false
+
+console.log(object1.hasOwnProperty('hasOwnProperty'));
+// Expected output: false
+```
+
+#### 对象练习
+
+##### 对象练习1
+
+1. 创建一个狗的空对象
+
+2. 并将这个对象打印到浏览器控制台上
+
+3. 给这个对象增加姓名、四肢、颜色、年龄和犬吠声等属性。bark 属性是一个方法，它返回 `woof woof`
+
+4. 从对象中获取名称、四肢、颜色、年龄和犬吠声的值
+
+5. 给这个对象增加品种以及 `getDogInfo` 的属性
+
+##### 对象练习2
+
+##### 对象练习3
