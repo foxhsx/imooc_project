@@ -1661,12 +1661,170 @@ console.log(object1.hasOwnProperty('hasOwnProperty'));
 
 2. 并将这个对象打印到浏览器控制台上
 
-3. 给这个对象增加姓名、四肢、颜色、年龄和犬吠声等属性。bark 属性是一个方法，它返回 `woof woof`
+3. 给这个对象增加姓名、四肢、颜色、年龄和犬吠声(`name, legs, color, age and bark`)等属性。bark 属性是一个方法，它返回 `woof woof`
 
-4. 从对象中获取名称、四肢、颜色、年龄和犬吠声的值
+4. 从对象中获取名称、四肢、颜色、年龄和犬吠声(`name, legs, color, age and bark`)的值
 
-5. 给这个对象增加品种以及 `getDogInfo` 的属性
+5. 给这个对象增加品种(`breed`)以及 `getDogInfo` 的属性
 
 ##### 对象练习2
 
+1. 在 users 对象中找到谁的爱好是最多的
+
+2. 在 uses 对象中统计 points 大于等于 50 的用户。
+
+3. 在 users 对象中找到谁是编程技术最多的人员（和第一个一样）
+
+4. 获取 users 对象的所有 key
+
+5. 获取 users 对象的所有 value
+
+6. 使用 countries 对象，打印国家的名称、首都、人口和语言
+
+```js
+const users = {
+  Alex: {
+    email: 'alex@alex.com',
+    skills: ['HTML', 'CSS', 'JavaScript'],
+    age: 20,
+    isLoggedIn: false,
+    points: 30
+  },
+  Asab: {
+    email: 'asab@asab.com',
+    skills: ['HTML', 'CSS', 'JavaScript', 'Redux', 'MongoDB', 'Express', 'React', 'Node'],
+    age: 25,
+    isLoggedIn: false,
+    points: 50
+  },
+  Brook: {
+    email: 'daniel@daniel.com',
+    skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Redux'],
+    age: 30,
+    isLoggedIn: true,
+    points: 50
+  },
+  Daniel: {
+    email: 'daniel@alex.com',
+    skills: ['HTML', 'CSS', 'JavaScript', 'Python'],
+    age: 20,
+    isLoggedIn: false,
+    points: 40
+  },
+  John: {
+    email: 'john@john.com',
+    skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Redux', 'Node.js'],
+    age: 20,
+    isLoggedIn: true,
+    points: 50
+  },
+  Thomas: {
+    email: 'thomas@thomas.com',
+    skills: ['HTML', 'CSS', 'JavaScript', 'React'],
+    age: 20,
+    isLoggedIn: false,
+    points: 40
+  },
+  Paul: {
+    email: 'paul@paul.com',
+    skills: ['HTML', 'CSS', 'JavaScript', 'MongoDB', 'Express', 'React', 'Node'],
+    age: 20,
+    isLoggedIn: false,
+    points: 40
+  }
+}```
+
+```
+
 ##### 对象练习3
+
+1. 创建一个 *personAccount* 对象，它有： *firstName, lastName, incomes（收入）, expenses（支出）* 属性，并且有 *totalIncome, totalExpense, accountInfo,addIncome, addExpense* 和 *accountBalance（账户余额）* 方法。
+
+2. 假设你从 MongoDB 数据库中获取到一个 users 的集合。
+   
+   - 创建一个 signUp 的方法，它可以添加新用户到集合中。如果用户存在，则提示该用户他已经有一个账户存在。
+   
+   - 创建一个 signIn 的方法，它允许用户登录到应用上去。
+
+3. products 数组有三个元素，每个元素拥有 6 个属性：
+   
+   - 创建一个对产品评级的 rateProduct 方法
+   
+   - 创建一个计算产品平均分的 averageRating 方法
+   
+   - 创建一个 likeProdcut 的方法，即喜欢该产品就可以点赞，反之可以对已经点赞的产品取消点赞
+
+```js
+const users = [
+  {
+    _id: 'ab12ex',
+    username: 'Alex',
+    email: 'alex@alex.com',
+    password: '123123',
+    createdAt: '08/01/2020 9:00 AM',
+    isLoggedIn: false,
+  },
+  {
+    _id: 'fg12cy',
+    username: 'Asab',
+    email: 'asab@asab.com',
+    password: '123456',
+    createdAt: '08/01/2020 9:30 AM',
+    isLoggedIn: true,
+  },
+  {
+    _id: 'zwf8md',
+    username: 'Brook',
+    email: 'brook@brook.com',
+    password: '123111',
+    createdAt: '08/01/2020 9:45 AM',
+    isLoggedIn: true,
+  },
+  {
+    _id: 'eefamr',
+    username: 'Martha',
+    email: 'martha@martha.com',
+    password: '123222',
+    createdAt: '08/01/2020 9:50 AM',
+    isLoggedIn: false,
+  },
+  {
+    _id: 'ghderc',
+    username: 'Thomas',
+    email: 'thomas@thomas.com',
+    password: '123333',
+    createdAt: '08/01/2020 10:00 AM',
+    isLoggedIn: false,
+  },
+]
+
+const products = [
+  {
+    _id: 'eedfcf',
+    name: 'mobile phone',
+    description: 'Huawei Honor',
+    price: 200,
+    ratings: [
+      { userId: 'fg12cy', rate: 5 },
+      { userId: 'zwf8md', rate: 4.5 },
+    ],
+    likes: [],
+  },
+  {
+    _id: 'aegfal',
+    name: 'Laptop',
+    description: 'MacPro: System Darwin',
+    price: 2500,
+    ratings: [],
+    likes: ['fg12cy'],
+  },
+  {
+    _id: 'hedfcg',
+    name: 'TV',
+    description: 'Smart TV:Procaster',
+    price: 400,
+    ratings: [{ userId: 'fg12cy', rate: 5 }],
+    likes: ['fg12cy'],
+  },
+]
+```
