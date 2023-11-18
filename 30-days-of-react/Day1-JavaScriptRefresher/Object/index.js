@@ -172,7 +172,50 @@
       isLoggedIn: false,
     },
   ]
-  function signUp() {}
+  function signUp({ username, email, password }) {
+    const hasAccount = users.some(user => user.username === username)
+    if (hasAccount) {
+      alert('当前账户已存在')
+    } else {
+      users.push({
+        username,
+        email,
+        password,
+        createdAt: new Date().toUTCString(),
+        isLoggedIn: false,
+        _id: Math.random().toString(36).substr(2),
+      })
+    }
+  }
+
+  // signUp({ username: 'cecil', email: 'worldhsx@163.com', password: 'test' })
+  // console.log(users, '192');
+  // signUp({ username: 'cecil', email: 'worldhsx@163.com', password: 'test' })
+
+  function signIn({ username, password }) {
+    const findUser = users.find(user => user.username === username);
+    const hasLogin = findUser?.isLoggedIn;
+    const validatePassword = findUser?.password === password;
+    if (!findUser) {
+      alert('当前用户不存在')
+      return;
+    }
+    if (hasLogin) {
+      alert('当前账户已登录')
+    } else {
+      if (!validatePassword) {
+        alert('密码错误')
+      } else {
+        findUser.isLoggedIn = true;
+        alert('登录成功')
+      }
+    }
+  }
+
+  // signIn({ username: 'ccc', password: 'ccc' })  // 不存在
+  // signIn({ username: 'cecil', password: 'ttt' }) // 密码错误
+  // signIn({ username: 'cecil', password: 'test' }) // 登录成功
+  // signIn({ username: 'cecil', password: 'test' }) // 已登录
   
   const products = [
     {
@@ -203,4 +246,51 @@
       likes: ['fg12cy'],
     },
   ]
+
+  function rateProduct({ productKey, userId, rate}) {
+    const findProduct = products.find(product => product.name === productKey)
+    if (!findProduct) {
+      alert('Product not found')
+    } else {
+      findProduct.ratings.push({ userId, rate})
+    }
+  }
+
+  rateProduct({ productKey: 'hhh', userId: Math.random().toString(36).substring(2), rate: 5}) // 找不到
+  rateProduct({ productKey: 'mobile phone', userId: Math.random().toString(36).substring(2), rate: 5}) // 华为再添一分
+  rateProduct({ productKey: 'Laptop', userId: Math.random().toString(36).substring(2), rate: 4.5})
+  console.log(products, '262')
+
+  function averageRating(productKey) {
+    const findProduct = products.find(product => product.name === productKey);
+    if (!findProduct) {
+      alert('Product not found 267')
+    } else {
+      console.log(findProduct.ratings)
+      const rates = findProduct.ratings.reduce((a, b) => {
+        return a + b.rate
+      }, 0);
+      return rates / findProduct.ratings.length;
+    }
+  }
+
+  console.log(averageRating('mobile phone'), '274')
+
+  function likeProdcut(productKey, userId) {
+    const findProduct = products.find(product => product.name === productKey);
+    if (!findProduct) {
+      alert('Product not found')
+    } else {
+      const hasLiked = findProduct.likes.indexOf(userId)
+      if (hasLiked > -1) {
+        findProduct.likes.splice(hasLiked, 1)
+      } else {
+        findProduct.likes.push(userId);
+      }
+    }
+  }
+
+  likeProdcut('mobile phone', Math.random().toString(36).substring(2))
+  likeProdcut('Laptop', 'fg12cy')
+  console.log(products, '295')
 }
