@@ -120,7 +120,37 @@
       
       - [对象练习3](#对象练习3)
   
-  - [8.方法](#8.方法)
+  - [8.函数](#8.函数)
+    
+    - [函数声明](#函数声明)
+    
+    - [不带参数和返回值的函数](#不带参数和返回值的函数)
+    
+    - [函数返回值](#函数返回值)
+    
+    - [函数参数](#函数参数)
+    
+    - [参数数量不受限制](#参数数量不受限制)
+      
+      - [常规函数中的参数数量不受限制](#常规函数中的参数数量不受限制)
+      
+      - [箭头函数中不受限制的参数](#箭头函数中不受限制的参数)
+    
+    - [函数表达式](#函数表达式)
+    
+    - [自执行函数](#自执行函数)
+    
+    - [箭头函数](#箭头函数)
+    
+    - [带默认参数的函数](#带默认参数的函数)
+    
+    - [函数练习](#函数练习)
+      
+      - [函数练习1](#函数练习1)
+      
+      - [函数练习2](#函数练习2)
+      
+      - [函数练习3](#函数练习3)
   
   - [9.高阶函数](#9.高阶函数)
   
@@ -1827,3 +1857,379 @@ const products = [
   },
 ]
 ```
+
+### 8.函数
+
+到目前为止，我们已经见过很多 JS 的内置函数。
+
+ 在这一章节，我们将复习自定义函数。在开始之前，我们需要知道函数是什么以及为什么要使用函数？
+
+在编程领域中，函数是用于执行特定任务的可重用的代码块。一个函数由 `function` 关键字、函数名和函数参数（一个小括号`()`）以及函数体（一个花括号`{}`）组成。
+
+函数定义好之后，我们通过使用 `<function_name>()` 的形式来调用函数。函数可以使代码：
+
+- 已读且干净
+
+- 可重复调用
+
+- 易于测试
+
+在 JS 中提供了以下几种方式来定义函数：
+
+- 函数声明
+
+- 函数表达式
+
+- 匿名函数
+
+- 箭头函数
+
+#### 函数声明
+
+使用 `function` 关键字来声明函数：
+
+```js
+//declaring a function without a parameter
+function functionName() {
+  // code goes here
+}
+functionName() // calling function by its name and with parentheses
+```
+
+#### 不带参数和返回值的函数
+
+```js
+// function without parameter,  a function which make a number square
+function square() {
+  let num = 2
+  let sq = num * num
+  console.log(sq)
+}
+
+square() // 4
+
+// function without parameter
+function addTwoNumbers() {
+  let numOne = 10
+  let numTwo = 20
+  let sum = numOne + numTwo
+
+  console.log(sum)
+}
+
+addTwoNumbers() // a function has to be called by its name to be executed
+```
+
+#### 函数返回值
+
+如果我们不显示的定义函数的返回值，那么在打印函数调用时，通常得到 `undefined`。
+
+```js
+function printFullName() {
+  let firstName = 'Asabeneh'
+  let lastName = 'Yetayeh'
+  let space = ' '
+  let fullName = firstName + space + lastName
+  return fullName
+}
+console.log(printFullName()) // Asabeneh Yetayeh
+```
+
+#### 函数参数
+
+当函数携带参数时，表示函数体内部的逻辑，需要通过一些动态值。可以传入单个参数，也可以传入多个参数。
+
+```js
+// function with one parameter
+function functionName(parm1) {
+  //code goes her
+}
+functionName(parm1) // during calling or invoking one argument needed
+
+function areaOfCircle(r) {
+  let area = Math.PI * r * r
+  return area
+}
+
+console.log(areaOfCircle(10)) // should be called with one argument
+
+function square(number) {
+  return number * number
+}
+
+console.log(square(10))
+
+// function with two parameters
+function functionName(parm1, parm2) {
+  //code goes her
+}
+functionName(parm1, parm2) // during calling or invoking two arguments needed
+// Function without parameter doesn't take input, so lets make a function with parameters
+function sumTwoNumbers(numOne, numTwo) {
+  let sum = numOne + numTwo
+  console.log(sum)
+}
+sumTwoNumbers(10, 20) // calling functions
+// If a function doesn't return it doesn't store data, so it should return
+
+function sumTwoNumbers(numOne, numTwo) {
+  let sum = numOne + numTwo
+  return sum
+}
+
+console.log(sumTwoNumbers(10, 20))
+function printFullName(firstName, lastName) {
+  return `${firstName} ${lastName}`
+}
+console.log(printFullName('Asabeneh', 'Yetayeh'))
+
+
+// function with multiple parameters
+function functionName(parm1, parm2, parm3,...){
+  //code goes here
+}
+functionName(parm1,parm2,parm3,...) // during calling or invoking three arguments needed
+
+
+// this function takes array as a parameter and sum up the numbers in the array
+function sumArrayValues(arr) {
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum = sum + arr[i];
+  }
+  return sum;
+}
+const numbers = [1, 2, 3, 4, 5];
+    //calling a function
+console.log(sumArrayValues(numbers));
+
+
+    const areaOfCircle = (radius) => {
+      let area = Math.PI * radius * radius;
+      return area;
+    }
+console.log(areaOfCircle(10))
+
+```
+
+#### 参数数量不受限制
+
+有时候我们不知道具体要传多少个参数，这种情况下我们应该怎么做呢？
+
+##### 常规函数中的参数数量不受限制
+
+常规函数的函数体中，其实有一个类数组的私有变量 `arguments`。我们传入到函数中的任何参数，都可以在这个 `arguments` 数组中找到。
+
+```js
+// Let us access the arguments object
+​
+function sumAllNums() {
+ console.log(arguments)
+}
+
+sumAllNums(1, 2, 3, 4))
+// Arguments(4) [1, 2, 3, 4, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+
+
+// function declaration
+​
+function sumAllNums() {
+  let sum = 0
+  for (let i = 0; i < arguments.length; i++) {
+    sum += arguments[i]
+  }
+  return sum
+}
+
+console.log(sumAllNums(1, 2, 3, 4)) // 10
+console.log(sumAllNums(10, 20, 13, 40, 10))  // 93
+console.log(sumAllNums(15, 20, 30, 25, 10, 33, 40))  // 173
+```
+
+##### 箭头函数中不受限制的参数
+
+在箭头函数中是没有这个私有变量的。但是我们可以使用扩展运算符来达到相同的效果。
+
+```js
+// Let us access the arguments object
+​
+const sumAllNums = (...args) => {
+ // console.log(arguments), arguments object not found in arrow function
+ // instead we use an a parameter followed by spread operator
+ console.log(args)
+}
+
+sumAllNums(1, 2, 3, 4))
+// [1, 2, 3, 4]
+
+```
+
+#### 函数表达式
+
+函数表达式，实际上是一个匿名函数（也就是 `function` 关键字后面没有函数名）。
+
+我们使用定义变量的方式，将一个匿名函数赋值给一个变量，这就是函数表达式。
+
+```js
+// Function expression
+const square = function (n) {
+  return n * n
+}
+
+console.log(square(2)) // -> 4
+```
+
+#### 自执行函数
+
+自执行函数很好理解：
+
+- 首先是一个匿名函数
+
+- 其次是不需要手动调用
+
+```js
+;(function (n) {
+  console.log(n * n)
+})(2) // 4, but instead of just printing if we want to return and store the data, we do as shown below
+
+let squaredNum = (function (n) {
+  return n * n
+})(10)
+
+console.log(squaredNum)
+```
+
+#### 箭头函数
+
+箭头函数是不使用 `function` 关键字而是通过 `=>` 来定义的函数。我们来看段代码：
+
+```js
+// This is how we write normal or declaration function
+// Let us change this declaration function to an arrow function
+function square(n) {
+  return n * n
+}
+
+console.log(square(2)) // 4
+
+const square = (n) => {
+  return n * n
+}
+
+console.log(square(2)) // -> 4
+
+// if we have only one line in the code block, it can be written as follows, explicit return
+const square = (n) => n * n // -> 4
+```
+
+对于箭头函数的返回值来说：
+
+- 如果只有一行代码，并且不需要使用大括号包裹，那么该行代码将被视为返回值。如上述代码块中的最后一行。
+
+- 如果箭头函数有多行代码或需要使用大括号包裹，可以使用 `return` 关键字来明确指定返回值。
+
+#### 带默认参数的函数
+
+假如我们定义了一个有参数的函数，可以给这个函数的参数赋一个默认值。这使得我们在调用这个函数时，不传入参数也不会报错，因为此时函数内部会使用这个默认参数。
+
+```js
+// syntax
+// Declaring a function
+function functionName(param = value) {
+  //codes
+}
+
+// Calling function
+functionName()
+functionName(arg)
+
+
+function greetings(name = 'Peter') {
+  let message = `${name}, welcome to 30 Days Of JavaScript!`
+  return message
+}
+
+console.log(greetings())
+console.log(greetings('Asabeneh'))
+
+
+// 箭头函数也是一样
+// syntax
+// Declaring a function
+const functionName = (param = value) => {
+  //codes
+}
+
+// Calling function
+functionName()
+functionName(arg)
+
+
+const greetings = (name = 'Peter') => {
+  let message = name + ', welcome to 30 Days Of JavaScript!'
+  return message
+}
+
+console.log(greetings())
+console.log(greetings('Asabeneh'))
+```
+
+#### 函数练习
+
+##### 函数练习1
+
+1. 定义一个 `fullName` 函数，它有 firstName, lastName 两个参数，最终会返回全名
+
+2. 定义一个 `addNumbers` 函数，它有两个参数，最终返回这两个参数之和
+
+3. 编写一个求圆的面积的函数 `areaOfCircle`，*area = π x r x r*
+
+4. 创建一个将摄氏度转为华氏度的函数 `convertCelciusToFahrenheit`，计算公式：*oF = (oC x 9/5) + 32*
+
+5. 创建一个 `calculatesBMI` 函数，用来计算体重指数（BMI），然后根据计算得到的值来检查是否偏瘦、正常、超重和肥胖：
+   
+   - 偏瘦：BMI 低于 18.5
+   
+   - 正常：BMI 在 18.5 到 24.9 之间
+   
+   - 超重：BMI 在 25 到 29.9 之间
+   
+   - 肥胖：BMI 大于等于 30
+
+6. 创建一个 `checkSeason` 的函数，它有一个 `month` 的参数，返回对应的季节。
+
+##### 函数练习2
+
+1. 定义一个 `printArray` 的函数，它接受一个数组参数，并打印出数组中的每个值
+
+2. 创建一个 `showDateTime` 的函数，并打印出以下格式的时间：`08/01/2020 04:08`
+
+3. 创建一个 `swapValues` 的函数，这个函数接受两个参数 x 和 y，最后将 x 和 y 的值交换后打印出来
+
+4. 声明一个函数 `reverseArray`。它接受数组作为参数，并返回数组的反转（不使用方法）。
+
+5. 声明一个函数 `capitalizeArray`。它接受数组作为参数并返回 - 大写数组。
+
+6. 声明一个函数 `addItem`。它接受一个参数值，最后返回添加了这个参数的数组
+
+7. 声明一个函数 `removeItem`。它接受一个索引参数，并在删除该索引对应的值后返回新数组
+
+8. 声明一个函数 `EvensAndOdds` 。它以正整数作为参数，并计算该数字中偶数和奇数的数量。
+
+9. 创建一个 `sumParamters` 的函数，它接受任意数量的参数并返回参数的总和
+
+10. 定义一个 *userIdGenerator* 函数，它会生成 7 个字符长度的 ID
+
+##### 函数练习3
+
+1. 声明一个 `userIdGenerateByUser`函数，它不接受任何参数，但是里面会调用 `prompt` 方法来获取一个用户的输入值，这个值是一个正整数，通过这个值我们生成一个对应长度的 ID，并提示给用户。
+
+2. 创建一个 `generateColors` 函数，它可以生成任意数量的颜色值，并可以指定是 RGB 格式还是 `Hexa` 格式
+
+3. 创建一个 `shuffleArray` 函数，它接受一个数组作为参数，并返回一个打乱后的数组
+
+4. 创建一个 *factorialFn* 函数，它接受一个整数作为参数，并返回该参数的阶乘
+
+5. 创建一个 `isEmpty` 的函数，它接受一个参数并检查它是否为空
+
+6. 编写一个名为`average`的函数，它接受一个数组参数并返回项目的平均值。检查数组项是否全部为数字类型。如果没有给予合理反馈。
