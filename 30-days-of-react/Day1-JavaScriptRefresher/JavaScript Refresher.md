@@ -2214,7 +2214,7 @@ console.log(greetings('Asabeneh'))
 
 7. 声明一个函数 `removeItem`。它接受一个索引参数，并在删除该索引对应的值后返回新数组
 
-8. 声明一个函数 `EvensAndOdds` 。它以正整数作为参数，并计算该数字中偶数和奇数的数量。
+8. 声明一个函数 `EvensAndOdds` 。它以正整数作为参数，并计算该数字是偶数还是奇数。
 
 9. 创建一个 `sumParamters` 的函数，它接受任意数量的参数并返回参数的总和
 
