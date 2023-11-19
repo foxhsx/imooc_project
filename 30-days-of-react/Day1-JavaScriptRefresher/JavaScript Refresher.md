@@ -153,12 +153,68 @@
       - [函数练习3](#函数练习3)
   
   - [9.高阶函数](#9.高阶函数)
+    
+    - [回调](#回调)
+    
+    - [返回一个函数](#返回一个函数)
+    
+    - [定时器](#定时器)
   
   - [10.解构赋值](#10.解构赋值)
+    
+    - [什么是解构](#什么是解构)
+    
+    - [解构的对象](#解构的对象)
+      
+      - [解构数组](#解构数组)
+      
+      - [解构对象](#解构对象)
+    
+    - [解构练习](#解构练习)
+    
+    - [扩展运算符](#扩展运算符)
+      
+      - [获取数组元素](#获取数组元素)
+      
+      - [copy 数组](#copy-数组)
+      
+      - [copy 对象](#copy-对象)
+      
+      - [在箭头函数中使用扩展运算符](#在箭头函数中使用扩展运算符)
   
   - [11.函数式编程](#11.函数式编程)
   
   - [12.类](#12.类)
+    
+    - [定义一个类](#定义一个类)
+    
+    - [实例化](#实例化)
+    
+    - [构造函数](#构造函数)
+    
+    - [构造函数中的默认值](#构造函数中的默认值)
+    
+    - [类中的方法](#类中的方法)
+    
+    - [具有初始值的属性](#具有初始值的属性)
+    
+    - [getter](#getter)
+    
+    - [setter](#setter)
+    
+    - [静态方法](#静态方法)
+    
+    - [继承](#继承)
+    
+    - [重写方法](#重写方法)
+    
+    - [类的练习](#类的练习)
+      
+      - [类的练习1](#类的练习1)
+      
+      - [类的练习2](#类的练习2)
+      
+      - [类的练习3](#类的练习3)
   
   - [13.DOM](#13.DOM)
 
@@ -2009,7 +2065,6 @@ console.log(sumArrayValues(numbers));
       return area;
     }
 console.log(areaOfCircle(10))
-
 ```
 
 #### 参数数量不受限制
@@ -2061,7 +2116,6 @@ const sumAllNums = (...args) => {
 
 sumAllNums(1, 2, 3, 4))
 // [1, 2, 3, 4]
-
 ```
 
 #### 函数表达式
@@ -2233,3 +2287,349 @@ console.log(greetings('Asabeneh'))
 5. 创建一个 `isEmpty` 的函数，它接受一个参数并检查它是否为空
 
 6. 编写一个名为`average`的函数，它接受一个数组参数并返回项目的平均值。检查数组项是否全部为数字类型。如果没有给予合理反馈。
+
+### 9.高阶函数
+
+高阶函数就是：参数是函数或者返回值是函数的函数。
+
+#### 回调
+
+回调函数就是作为其他函数的参数的函数。
+
+```js
+// a callback function, the function could be any name
+const callback = (n) => {
+  return n ** 2
+}
+​
+// function take other function as a callback
+function cube(callback, n) {
+  return callback(n) * n
+}
+​
+console.log(cube(callback, 3))
+```
+
+#### 返回一个函数
+
+高阶函数会返回一个函数。
+
+```js
+// Higher order function returning an other function
+const higherOrder = n => {
+  const doSomething = m => {
+    const doWhatEver = t => {
+      return 2 * n + 3 * m + t
+    }
+    return doWhatEver
+  }
+​
+  return doSomething
+}
+console.log(higherOrder(2)(3)(10))
+```
+
+#### 定时器
+
+在 JS 中，我们使用 `setTimeout` 和 `setInterval` 两个API来做一些定时操作。
+
+- setTimeout：在等待某个时间段后执行一些操作。有两个参数，第一个参数是一个回调函数，第二个参数是时间间隔，以 ms 为单位。
+
+```js
+// syntax
+function callback() {
+  // code goes here
+}
+setTimeout(callback, duration) // duration in milliseconds
+
+
+function sayHello() {
+  console.log('Hello')
+}
+setTimeout(sayHello, 2000) // it prints hello after it waits for 2 seconds.
+```
+
+- setInterval：在指定的时间间隔内执行一些操作。有两个参数，第一个参数是一个回调函数，第二个参数是时间间隔，以 ms 为单位。
+
+```js
+// syntax
+function callback() {
+  // code goes here
+}
+setInterval(callback, duration)
+
+
+function sayHello() {
+  console.log('Hello')
+}
+setInterval(sayHello, 2000) // it prints hello in every 2 seconds
+```
+
+### 10.解构赋值
+
+#### 什么是解构
+
+在 JavaScript 中，解构是一种从数组或对象中提取数据的方法，然后将提取的数据赋值给变量。ES6（ECMAScript 2015）引入了解构赋值语法，它使得从数组和对象中提取数据变得更加简洁和方便。
+
+#### 解构的对象
+
+- 数组
+
+- 对象
+
+##### 解构数组
+
+```js
+const numbers = [1, 2, 3]
+const [num1, num2, num3] = numbers
+console.log(num1, num2, num3) // 1, 2, 3,
+
+const constants = [2.72, 3.14, 9.81,37, 100]
+const [e, pi, gravity, bodyTemp, boilingTemp] = constants
+console.log(e, pi, gravity, bodyTemp, boilingTemp]
+// 2.72, 3.14, 9.81, 37,100
+const countries = ['Finland', 'Sweden', 'Norway']
+const [fin, swe, nor] = countries
+console.log(fin, swe, nor) // Finland, Sweden, Norway
+```
+
+在解构期间，每个变量应与数组中所需项目的索引匹配。例如，变量 fin 匹配索引 0，变量 Nor 匹配索引 2。
+
+而如果我们解构的时候，没有对应的值，一般情况下会得到一个 undefined，但是我们也可以使用默认值。
+
+```js
+const countries = ['Finland', 'Sweden', undefined, 'Norway']
+const [fin, swe, ice = 'Iceland', nor, den = 'Denmark'] = countries
+console.log(fin, swe, ice, nor, den) // Finland, Sweden, Iceland, Norway, Denmark
+```
+
+如果想要跳过其中一个值，可以使用 `,` 的形式：
+
+```js
+const countries = ['Finland', 'Sweden', 'Iceland', 'Norway', 'Denmark']
+const [fin, , ice, , den] = countries
+console.log(fin, ice, den) // Finland, Iceland, Denmark
+```
+
+##### 解构对象
+
+在对对象进行解构时，变量的名称应该与对象的键或属性完全相同。
+
+```js
+const rectangle = {
+  width: 20,
+  height: 10,
+}
+
+let { width, height } = rectangle
+console.log(width, height, perimeter) // 20, 10
+```
+
+与数组一样，如果我们访问不存在的值时会得到 undefined。而同样的，我们也可以在这里使用默认值的写法。
+
+```js
+const rectangle = {
+  width: 20,
+  height: 10,
+}
+
+let { width, height, perimeter = 200 } = rectangle
+console.log(width, height, perimeter) // 20, 10, undefined
+```
+
+如果我们想要在解构时重命名变量也是可以的：
+
+```js
+const rectangle = {
+  width: 20,
+  height: 10,
+}
+
+let { width: w, height: h } = rectangle
+```
+
+对于解构赋值来说，如果有遇到数组对象的场景，可以快速进行解构操作：
+
+```js
+const languages = [
+  { lang: 'English', count: 91 },
+  { lang: 'French', count: 45 },
+  { lang: 'Arabic', count: 25 },
+  { lang: 'Spanish', count: 24 },
+  { lang: 'Russian', count: 9 },
+  { lang: 'Portuguese', count: 9 },
+  { lang: 'Dutch', count: 8 },
+  { lang: 'German', count: 7 },
+  { lang: 'Chinese', count: 5 },
+  { lang: 'Swahili', count: 4 },
+  { lang: 'Serbian', count: 4 },
+]
+
+for (const { lang, count } of languages) {
+  console.log(`The ${lang} is spoken in ${count} countries.`)
+}
+```
+
+此外，函数参数也可以加入到被解构的范围中：
+
+```js
+const rectangle = { width: 20, height: 10 }
+const calcualteArea = ({ width, height }) => width * height
+const calculatePerimeter = ({ width, height } = 2 * (width + height))
+```
+
+#### 解构练习
+
+创建一个名为 getPersonInfo 的函数。 getPersonInfo 函数采用一个对象参数。下面给出了对象的结构和函数的输出。尝试同时使用常规方式和解构方式，比较代码的整洁程度。
+
+```js
+const person = {
+  firstName: 'Asabeneh',
+  lastName: 'Yetayeh',
+  age: 250,
+  country: 'Finland',
+  job: 'Instructor and Developer',
+  skills: [
+    'HTML',
+    'CSS',
+    'JavaScript',
+    'React',
+    'Redux',
+    'Node',
+    'MongoDB',
+    'Python',
+    'D3.js',
+  ],
+  languages: ['Amharic', 'English', 'Suomi(Finnish)'],
+}
+
+/*
+Asabeneh Yetayeh lives in Finland. He is  250 years old. He is an Instructor and Developer. He teaches HTML, CSS, JavaScript, React, Redux, Node, MongoDB, Python and D3.js. He speaks Amharic, English and a little bit of Suomi(Finnish)
+*/
+```
+
+#### 扩展运算符
+
+当我们解构一个数组时，我们可以使用扩展运算符 `...` 将其余元素作为数组获取。除此之外，我们使用扩展运算符将 arr 元素扩展到另一个数组。
+
+##### 获取数组元素
+
+```js
+const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+let [num1, num2, num3, ...rest] = nums
+​
+console.log(num1, num2, num3) // 1 2 3
+console.log(rest) // [4, 5, 6, 7, 8, 9, 10]
+```
+
+##### copy 数组
+
+```js
+const evens = [0, 2, 4, 6, 8, 10]
+const evenNumbers = [...evens]
+
+const odds = [1, 3, 5, 7, 9]
+const oddNumbers = [...odds]
+
+const wholeNumbers = [...evens, ...odds]
+
+console.log(evenNumbers) // [0, 2, 4, 6, 8, 10]
+console.log(oddNumbers) // [1, 3, 5, 7, 9]
+console.log(wholeNumbers) // [0, 2, 4, 6, 8, 10, 1, 3, 5, 7, 9]
+```
+
+##### copy 对象
+
+```js
+const user = {
+  name: 'Asabeneh',
+  title: 'Programmer',
+  country: 'Finland',
+  city: 'Helsinki',
+}
+
+const copiedUser = { ...user }
+console.log(copiedUser)
+
+// {name: "Asabeneh", title: "Programmer", country: "Finland", city: "Helsinki"}
+```
+
+也可以在复制时修改对象：
+
+```js
+const user = {
+  name: 'Asabeneh',
+  title: 'Programmer',
+  country: 'Finland',
+  city: 'Helsinki',
+}
+
+const copiedUser = { ...user, title: 'instructor' }
+console.log(copiedUser)
+
+
+// {name: "Asabeneh", title: "instructor", country: "Finland", city: "Helsinki"}
+```
+
+##### 在箭头函数中使用扩展运算符
+
+之前我们在说函数参数的时候也提到了使用扩展运算符来作为箭头函数参数的场景，如果使用扩展运算符作为函数的参数，在实际调用时，假如传入的是多个分散的参数，那么在函数体内打印扩展运算符的变量时，会得到由多个参数组成的一组数组。
+
+```js
+const sumAllNums = (...args) => {
+  console.log(args)
+}
+
+sumAllNums(1, 2, 3, 4, 5)
+
+// [1, 2, 3, 4, 5]
+```
+
+### 11.函数式编程
+
+在 JS 中，函数式编程是一种编程范式。强调使用纯函数和不可变数据，并支持高阶函数、函数组合以及递归等特性。
+
+原文中这里介绍了数组的一些 API 来作为函数式编程的例子，有：
+
+- forEach
+- map
+- filter
+- reduce
+- find
+- findIndex
+- some
+- every
+
+本文中不过多赘述，可以阅读[原文](https://github.com/Asabeneh/30-Days-Of-React/blob/master/01_Day_JavaScript_Refresher/01_javascript_refresher.md#11-functional-programming)，也可以查看 MDN 里对应的数组部分。
+
+### 12.类
+
+- 定义一个类
+
+- 实例化
+
+- 构造函数
+
+- 构造函数中的默认值
+
+- 类中的方法
+
+- 具有初始值的属性
+
+- getter
+
+- setter
+
+- 静态方法
+
+- 继承
+
+- 重写方法
+
+- 类的练习
+  
+  - 类的练习1
+  
+  - 类的练习2
+  
+  - 类的练习3
