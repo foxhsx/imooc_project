@@ -2604,32 +2604,495 @@ sumAllNums(1, 2, 3, 4, 5)
 
 ### 12.类
 
-- 定义一个类
+JS 是一种面向对象的编程语言。
 
-- 实例化
+JS 中的所有内容都是一个对象，具有其属性和方法。我们可以通过创建类来创建对象。
 
-- 构造函数
+类就像一个模板，我们最终会通过实例化一个类来创建一个对象。
 
-- 构造函数中的默认值
+类会定义对象的属性和行为，而对象则代表类。
 
-- 类中的方法
+一旦我们创建了一个类，那么我们就可以随时使用它来创建对象。而从类创建对象的过程我们称之为实例化。
 
-- 具有初始值的属性
+#### 定义一个类
 
-- getter
+在 JS 中我们使用 `class` 关键字、驼峰式命名和代码块来定义类。
 
-- setter
+```js
+// syntax
+class ClassName {
+    //  code goes here
+}
 
-- 静态方法
+class Person {
+  // code goes here
+}
+```
 
-- 继承
+在上面的代码块中，我们创建了一个 `Person` 类，但是它没有任何的属性。
 
-- 重写方法
+#### 实例化
 
-- 类的练习
-  
-  - 类的练习1
-  
-  - 类的练习2
-  
-  - 类的练习3
+实例化类意味着从类创建对象。我们需要使用关键字 new，并且在 new 之后调用类的名称。
+
+```js
+class Person {
+  // code goes here
+}
+const person = new Person()
+console.log(person) // Person {}
+```
+
+可以看到我们通过 `new Person` 创建了一个 `person` 对象，但是由于类没有任何属性，所以创建出来的对象也是空对象。
+
+#### 构造函数
+
+在类中，构造函数 `constructor` 是一个内置函数，它允许我们定义一些对象的初始值，并可以接受外界传进来的参数。这些参数可以通过 this 关键字被附加到类中去。
+
+```js
+class Person {
+  constructor(firstName, lastName) {
+    console.log(this) // Check the output from here
+    this.firstName = firstName
+    this.lastName = lastName
+  }
+}
+
+const person = new Person()
+
+console.log(person) // Person {firstName: undefined, lastName}
+const person1 = new Person('Asabeneh', 'Yetayeh')
+console.log(person1) // Person {firstName: "Asabeneh", lastName: "Yetayeh"}
+```
+
+上面 的 `Person` 类中，`constructor` 函数接受两个参数，分别是 `firstName` 和 `lastName` ，它们最终会被挂载到这个类上去。
+
+我们在实例化类的时候，就可以传入对应的参数，这样实例化出来的对象就不再是一个空对象了，如 `person1` 对象。
+
+而通过这个类，我们可以实例化多个对象出来：
+
+```js
+class Person {
+  constructor(firstName, lastName) {
+    console.log(this) // Check the output from here
+    this.firstName = firstName
+    this.lastName = lastName
+  }
+}
+
+const person1 = new Person('Asabeneh', 'Yetayeh')
+const person2 = new Person('Lidiya', 'Tekle')
+const person3 = new Person('Abraham', 'Yetayeh')
+
+console.log(person1) // Person {firstName: "Asabeneh", lastName: "Yetayeh"}
+console.log(person2) // Person {firstName: "Lidiya", lastName: "Tekle"}
+console.log(person3) // Person {firstName: "Abraham", lastName: "Yetayeh"}
+```
+
+#### 构造函数中的默认值
+
+和之前我们说的函数一样，`constructor` 构造函数也可以具有默认值。
+
+```js
+class Person {
+  constructor(
+    firstName = 'Asabeneh',
+    lastName = 'Yetayeh',
+    age = 250,
+    country = 'Finland',
+    city = 'Helsinki'
+  ) {
+    this.firstName = firstName
+    this.lastName = lastName
+    this.age = age
+    this.country = country
+    this.city = city
+  }
+}
+
+const person1 = new Person() // it will take the default values
+const person2 = new Person('Lidiya', 'Tekle', 28, 'Finland', 'Espoo')
+
+console.log(person1) // Person {firstName: "Asabeneh", lastName: "Yetayeh", age: 250, country: "Finland", city: "Helsinki"}
+console.log(person2) // Person {firstName: "Lidiya", lastName: "Tekle", age: 28, country: "Finland", city: "Espoo"}
+```
+
+#### 类中的方法
+
+在类中我们可以定义一些方法。
+
+```js
+class Person {
+  constructor(firstName, lastName, age, country, city) {
+    this.firstName = firstName
+    this.lastName = lastName
+    this.age = age
+    this.country = country
+    this.city = city
+  }
+  getFullName() {
+    const fullName = this.firstName + ' ' + this.lastName
+    return fullName
+  }
+}
+
+const person1 = new Person('Asabeneh', 'Yetayeh', 250, 'Finland', 'Helsinki')
+const person2 = new Person('Lidiya', 'Tekle', 28, 'Finland', 'Espoo')
+
+console.log(person1.getFullName()) // Asabeneh Yetayeh
+console.log(person2.getFullName()) // Lidiya Tekle
+```
+
+#### 具有初始值的属性
+
+我们可以在类中定义一些具有初始值的属性，比如在一个游戏中，会有一个分数的属性，这个属性的初始值为0，只有在开始游戏之后这个分数才会发生一些变化。
+
+```js
+class Person {
+  constructor(firstName, lastName, age, country, city) {
+    this.firstName = firstName
+    this.lastName = lastName
+    this.age = age
+    this.country = country
+    this.city = city
+    this.score = 0
+    this.skills = []
+  }
+  getFullName() {
+    const fullName = this.firstName + ' ' + this.lastName
+    return fullName
+  }
+}
+
+const person1 = new Person('Asabeneh', 'Yetayeh', 250, 'Finland', 'Helsinki')
+const person2 = new Person('Lidiya', 'Tekle', 28, 'Finland', 'Espoo')
+
+console.log(person1.score) // 0
+console.log(person2.score) // 0
+
+console.log(person1.skills) // []
+console.log(person2.skills) // []
+```
+
+#### getter
+
+`getter` 方法允许我们访问对象的值。
+
+我们使用 `get` 关键字来定义一个 `getter` 方法，后跟一个具名函数。然后我们可以通过直接访问这个 `getter` 方法来访问对象的属性，而不是通过对象本身。
+
+```js
+class Person {
+  constructor(firstName, lastName, age, country, city) {
+    this.firstName = firstName
+    this.lastName = lastName
+    this.age = age
+    this.country = country
+    this.city = city
+    this.score = 0
+    this.skills = []
+  }
+  getFullName() {
+    const fullName = this.firstName + ' ' + this.lastName
+    return fullName
+  }
+  get getScore() {
+    return this.score
+  }
+  get getSkills() {
+    return this.skills
+  }
+}
+
+const person1 = new Person('Asabeneh', 'Yetayeh', 250, 'Finland', 'Helsinki')
+const person2 = new Person('Lidiya', 'Tekle', 28, 'Finland', 'Espoo')
+
+// We do not need parenthesis to call a getter method
+console.log(person1.getScore) // 0
+console.log(person2.getScore) // 0
+
+console.log(person1.getSkills) // []
+console.log(person2.getSkills) // []
+```
+
+#### setter
+
+`setter` 方法允许我们修改某些属性值。我们使用 `set` 关键字和函数来编写一个 `setter` 方法。
+
+```js
+class Person {
+  constructor(firstName, lastName, age, country, city) {
+    this.firstName = firstName
+    this.lastName = lastName
+    this.age = age
+    this.country = country
+    this.city = city
+    this.score = 0
+    this.skills = []
+  }
+  getFullName() {
+    const fullName = this.firstName + ' ' + this.lastName
+    return fullName
+  }
+  get getScore() {
+    return this.score
+  }
+  get getSkills() {
+    return this.skills
+  }
+  set setScore(score) {
+    this.score += score
+  }
+  set setSkill(skill) {
+    this.skills.push(skill)
+  }
+}
+
+const person1 = new Person('Asabeneh', 'Yetayeh', 250, 'Finland', 'Helsinki')
+const person2 = new Person('Lidiya', 'Tekle', 28, 'Finland', 'Espoo')
+
+person1.setScore = 1
+person1.setSkill = 'HTML'
+person1.setSkill = 'CSS'
+person1.setSkill = 'JavaScript'
+
+person2.setScore = 1
+person2.setSkill = 'Planning'
+person2.setSkill = 'Managing'
+person2.setSkill = 'Organizing'
+
+console.log(person1.score) // 1
+console.log(person2.score) // 1
+
+console.log(person1.skills) // ["HTML", "CSS", "JavaScript"]
+console.log(person2.skills) // ["Planning", "Managing", "Organizing"]
+```
+
+#### 静态方法
+
+在 `class` 类中，我们使用 `static` 关键字来定义类的静态方法。类的静态方法是在类本身上会被调用的，而非类的实例上。
+
+```js
+class Person {
+  constructor(firstName, lastName, age, country, city) {
+    this.firstName = firstName
+    this.lastName = lastName
+    this.age = age
+    this.country = country
+    this.city = city
+    this.score = 0
+    this.skills = []
+  }
+  getFullName() {
+    const fullName = this.firstName + ' ' + this.lastName
+    return fullName
+  }
+  get getScore() {
+    return this.score
+  }
+  get getSkills() {
+    return this.skills
+  }
+  set setScore(score) {
+    this.score += score
+  }
+  set setSkill(skill) {
+    this.skills.push(skill)
+  }
+  getPersonInfo() {
+    let fullName = this.getFullName()
+    let skills =
+      this.skills.length > 0 &&
+      this.skills.slice(0, this.skills.length - 1).join(', ') +
+        ` and ${this.skills[this.skills.length - 1]}`
+
+    let formattedSkills = skills ? `He knows ${skills}` : ''
+
+    let info = `${fullName} is ${this.age}. He lives ${this.city}, ${this.country}. ${formattedSkills}`
+    return info
+  }
+  static favoriteSkill() {
+    const skills = ['HTML', 'CSS', 'JS', 'React', 'Python', 'Node']
+    const index = Math.floor(Math.random() * skills.length)
+    return skills[index]
+  }
+  static showDateTime() {
+    let now = new Date()
+    let year = now.getFullYear()
+    let month = now.getMonth() + 1
+    let date = now.getDate()
+    let hours = now.getHours()
+    let minutes = now.getMinutes()
+    if (hours < 10) {
+      hours = '0' + hours
+    }
+    if (minutes < 10) {
+      minutes = '0' + minutes
+    }
+
+    let dateMonthYear = date + '.' + month + '.' + year
+    let time = hours + ':' + minutes
+    let fullTime = dateMonthYear + ' ' + time
+    return fullTime
+  }
+}
+
+console.log(Person.favoriteSkill()) // Node
+console.log(Person.showDateTime()) // 15.1.2020 23:56
+```
+
+#### 继承
+
+继承在编程领域中是一个比较重要的知识点。
+
+使用继承，我们可以访问父类中的所有属性和方法。这减少了代码的冗余，比如我们现在以上面定义的 `Person` 类为父类，然后通过继承的方式来创建一些子类出来。
+
+```js
+class Student extends Person {
+  saySomething() {
+    console.log('I am a child of the person class')
+  }
+}
+
+const s1 = new Student('Asabeneh', 'Yetayeh', 'Finland', 250, 'Helsinki')
+console.log(s1) // Student {firstName: "Asabeneh", lastName: "Yetayeh", age: "Finland", country: 250, city: "Helsinki", …}
+console.log(s1.saySomething()) // I am a child of the person class
+console.log(s1.getFullName()) // Asabeneh Yetayeh
+console.log(s1.getPersonInfo()) // Asabeneh Yetayeh is Finland. He lives Helsinki, 250.
+```
+
+#### 重写方法
+
+在子类中我们可以添加一些其他属性及方法进去。
+
+对于添加属性来说，要在子类的构造函数中进行定义。而在子类的构造函数中要通过调用 `super()` 函数来访问父类的所有属性——这一点在继承中是非常关键的。
+
+而如果我们在子类定义了一个和父类相同名称的方法，那么父类的方法就会被覆盖掉。
+
+```js
+class Student extends Person {
+  constructor(firstName, lastName, age, country, city, gender) {
+    super(firstName, lastName, age, country, city)
+    this.gender = gender
+  }
+
+  saySomething() {
+    console.log('I am a child of the person class')
+  }
+  getPersonInfo() {
+    let fullName = this.getFullName()
+    let skills =
+      this.skills.length > 0 &&
+      this.skills.slice(0, this.skills.length - 1).join(', ') +
+        ` and ${this.skills[this.skills.length - 1]}`
+
+    let formattedSkills = skills ? `He knows ${skills}` : ''
+    let pronoun = this.gender == 'Male' ? 'He' : 'She'
+
+    let info = `${fullName} is ${this.age}. ${pronoun} lives in ${this.city}, ${this.country}. ${formattedSkills}`
+    return info
+  }
+}
+
+const s1 = new Student(
+  'Asabeneh',
+  'Yetayeh',
+  250,
+  'Finland',
+  'Helsinki',
+  'Male'
+)
+const s2 = new Student('Lidiya', 'Tekle', 28, 'Finland', 'Helsinki', 'Female')
+s1.setScore = 1
+s1.setSkill = 'HTML'
+s1.setSkill = 'CSS'
+s1.setSkill = 'JavaScript'
+
+s2.setScore = 1
+s2.setSkill = 'Planning'
+s2.setSkill = 'Managing'
+s2.setSkill = 'Organizing'
+
+console.log(s1)
+
+console.log(s1.saySomething())
+console.log(s1.getFullName())
+console.log(s1.getPersonInfo())
+
+console.log(s2.saySomething())
+console.log(s2.getFullName())
+console.log(s2.getPersonInfo())
+```
+
+现在， getPersonInfo 方法已被重写，它可以识别该人是男性还是女性。
+
+```textile
+Student {firstName: "Asabeneh", lastName: "Yetayeh", age: 250, country: "Finland", city: "Helsinki", …}
+Student {firstName: "Lidiya", lastName: "Tekle", age: 28, country: "Finland", city: "Helsinki", …}
+I am a child of the person class
+Asabeneh Yetayeh
+Student {firstName: "Asabeneh", lastName: "Yetayeh", age: 250, country: "Finland", city: "Helsinki", …}
+Asabeneh Yetayeh is 250. He lives in Helsinki, Finland. He knows HTML, CSS and JavaScript
+I am a child of the person class
+Lidiya Tekle
+Student {firstName: "Lidiya", lastName: "Tekle", age: 28, country: "Finland", city: "Helsinki", …}
+Lidiya Tekle is 28. She lives in Helsinki, Finland. He knows Planning, Managing and Organizing
+```
+
+#### 类的练习
+
+##### 类的练习1
+
+1. 创建一个 `Animal` 类。该类将具有姓名、年龄、颜色和腿部属性，还有一些方法。
+
+2. 以 Animal 类为父类，创建两个子类 `Dog` 和 `Cat`。
+
+##### 类的练习2
+
+1. 覆盖在 Animal 类中创建的方法
+
+##### 类的练习3
+
+1. Let's try to develop a program which calculate measure of central 
+   tendency of a sample(mean, median, mode) and measure of 
+   variability(range, variance, standard deviation). In addition to those 
+   measures find the min, max, count, percentile, and frequency 
+   distribution of the sample. You can create a class called Statistics and
+    create all the functions which do statistical calculations as method 
+   for the Statistics class. Check the output below.
+
+> 让我们尝试开发一个程序来计算样本集中趋势的度量（均值、中位数、众数）和变异性的度量（范围、方差、标准差）。除了这些度量之外，还可以找到样本的最小值、最大值、计数、百分位数和频率分布。您可以创建一个名为“Statistics”的类，并创建所有执行统计计算的函数作为“Statistics”类的方法。检查下面的输出。
+
+```js
+ages = [31, 26, 34, 37, 27, 26, 32, 32, 26, 27, 27, 24, 32, 33, 27, 25, 26, 38, 37, 31, 34, 24, 33, 29, 26]
+
+console.log('Count:', statistics.count()) // 25
+console.log('Sum: ', statistics.sum()) // 744
+console.log('Min: ', statistics.min()) // 24
+console.log('Max: ', statistics.max()) // 38
+console.log('Range: ', statistics.range() // 14
+console.log('Mean: ', statistics.mean()) // 30
+console.log('Median: ',statistics.median()) // 29
+console.log('Mode: ', statistics.mode()) // {'mode': 26, 'count': 5}
+console.log('Variance: ',statistics.var()) // 17.5
+console.log('Standard Deviation: ', statistics.std()) // 4.2
+console.log('Variance: ',statistics.var()) // 17.5
+console.log('Frequency Distribution: ',statistics.freqDist()) // [(20.0, 26), (16.0, 27), (12.0, 32), (8.0, 37), (8.0, 34), (8.0, 33), (8.0, 31), (8.0, 24), (4.0, 38), (4.0, 29), (4.0, 25)]
+```
+
+```js
+// you output should look like this
+console.log(statistics.describe())
+Count: 25
+Sum:  744
+Min:  24
+Max:  38
+Range:  14
+Mean:  30
+Median:  29
+Mode:  (26, 5)
+Variance:  17.5
+Standard Deviation:  4.2
+Frequency Distribution: [(20.0, 26), (16.0, 27), (12.0, 32), (8.0, 37), (8.0, 34), (8.0, 33), (8.0, 31), (8.0, 24), (4.0, 38), (4.0, 29), (4.0, 25)]
+```
+
+### 13.DOM
