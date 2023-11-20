@@ -3096,3 +3096,40 @@ Frequency Distribution: [(20.0, 26), (16.0, 27), (12.0, 32), (8.0, 37), (8.0, 34
 ```
 
 ### 13.DOM
+
+HTML 文档被构造为 JavaScript 对象。每个 HTML 元素都有不同的属性，可以帮助我们对其进行操作。可以使用 JavaScript 获取、创建、附加或删除 HTML 元素。  
+
+当谈到 React 时，我们不直接操作 DOM，而是 React Virtual DOM 将负责更新所有必要的更改。  
+
+所以如果你使用 React，不要直接操作DOM。我们直接接触 DOM 的唯一地方 index.html。 React 是一个单页面应用程序，因为所有组件都将渲染在 index.html 页面上，并且整 React 应用程序中不会有任何其他 HTML。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>React App</title>
+  </head>
+
+  <body>
+    <!-- <div class="root"></div> -->
+    <div id="root"></div>
+
+    <script>
+      // const root = document.querySelector('.root')
+      // const root = document.getElementById('root')
+      const root = document.querySelector('#root')
+      root.innerHTML = <h1>Welcome to 30 Days Of React </h1>
+    </script>
+  </body>
+</html>
+```
+
+🌕 You are amazing! You have just completed day 1 
+challenge and you are on your way to greatness. Now you are a JavaScript
+ Ninja and ready to dive into React.
+
+🎉 CONGRATULATIONS ! 🎉
+
+Check out there result on [codepen](https://codepen.io/Asabeneh/full/vYGqQxP)
