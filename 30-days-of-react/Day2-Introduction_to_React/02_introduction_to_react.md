@@ -3,8 +3,6 @@
 - [1.什么是 React？](#1.什么是-react？)
 
 - [2.为什么要学习 React？](#2.为什么要学习-react？)
-  
-  - [React 与其他框架的受欢迎程序](#react-与其他框架的受欢迎程序)
 
 - [JSX](#jsx)
   
@@ -52,7 +50,7 @@ React 是一个用于构建 Web 和原生交互界面的库。它最初是由 Fa
 
 我们一直在说前端界流行三大框架：React、Vue 和 Angular。它们三者在国内外都非常受开发者们的欢迎，以下是 2023 年最受环境的 web 框架和技术排名：
 
-![](/Users/heshengxin/Desktop/CodeResoure/imooc_project/30-days-of-react/imgs/day2_web_frameworks.png)
+![](../imgs/day2_web_frameworks.png)
 
 可以看到 React 是排在 Vue 和 Angular 之前的。而 React 如此受欢迎，是因为它：
 
@@ -235,7 +233,7 @@ const header = (
 </html>
 ```
 
-![](/Users/heshengxin/Desktop/CodeResoure/imooc_project/30-days-of-react/imgs/day2_render.png)
+![](../imgs/day2_render.png)
 
 让我们来渲染更多的元素。（注意，一次只能渲染一个 JSX 元素)
 
@@ -283,7 +281,7 @@ const header = (
 </html>
 ```
 
-![](/Users/heshengxin/Desktop/CodeResoure/imooc_project/30-days-of-react/imgs/day2_render_more.png)
+![](../imgs/day2_render_more.png)
 
 我们刚刚创建了网站的标题，同样的手法，我们再来创建网站的主要内容和页脚。
 
@@ -408,7 +406,7 @@ const app = (
 </html>
 ```
 
-![](/Users/heshengxin/Desktop/CodeResoure/imooc_project/30-days-of-react/imgs/day2_rendering_multiple_jsx_elements.png)
+![](../imgs/day2_rendering_multiple_jsx_elements.png)
 
 #### 在 JSX 中设置样式和类名
 
@@ -627,7 +625,7 @@ const inputField = (
 </html>
 ```
 
-![](/Users/heshengxin/Desktop/CodeResoure/imooc_project/30-days-of-react/imgs/day2_internal_style.png)
+![](../imgs/day2_internal_style.png)
 
 #### 在 JSX 中使用数据
 
@@ -738,7 +736,7 @@ const techsFormatted = techs.map((tech) => <li>{tech}</li>)
 
 不过需要注意的是，在 React 中使用数组时，***需要每个子项都具备唯一的 key***，否则浏览器控制台会抛出告警：
 
-![](/Users/heshengxin/Desktop/CodeResoure/imooc_project/30-days-of-react/imgs/day2_map_list_id.png)
+![](../imgs/day2_map_list_id.png)
 
 让我们在 map 时添加一个 Key 上去：
 
