@@ -1,10 +1,10 @@
 ## 开始 React 之旅
 
-- [1.什么是 React？](#1.什么是-react？)
+- [1.什么是 React？](#1什么是-react)
 
-- [2.为什么要学习 React？](#2.为什么要学习-react？)
+- [2.为什么要学习 React？](#2为什么要学习-react)
 
-- [JSX](#jsx)
+- [3.JSX](#3jsx)
   
   - [JSX Element](#jsx-element)
   
