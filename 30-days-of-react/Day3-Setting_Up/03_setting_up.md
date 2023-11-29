@@ -340,6 +340,475 @@ ReactDOM.render(app, rootElement)
 
 #### JSX 中的样式
 
+让我们使用内联的方式给 JSX 中增加一些样式进去。
+
+```js
+// index.js
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+const headerStyles = {
+  backgroundColor: '#61DBFB',
+  fontFamily: 'Helvetica Neue',
+  padding: 25,
+  lineHeight: 1.5,
+}
+
+// JSX element, header
+const header = (
+  <header style={headerStyles}>
+    <div className='header-wrapper'>
+      <h1>Welcome to 30 Days Of React</h1>
+      <h2>Getting Started React</h2>
+      <h3>JavaScript Library</h3>
+      <p>Asabeneh Yetayeh</p>
+      <small>Oct 2, 2020</small>
+    </div>
+  </header>
+)
+
+// JSX element, main
+const mainStyles = {
+  backgroundColor: '#F3F0F5',
+}
+const main = (
+  <main style={mainStyles}>
+    <p>Prerequisite to get started react.js:</p>
+    <ul>
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>JavaScript</li>
+    </ul>
+  </main>
+)
+
+const footerStyles = {
+  backgroundColor: '#61DBFB',
+}
+// JSX element, footer
+const footer = (
+  <footer style={footerStyles}>
+    <p>Copyright 2020</p>
+  </footer>
+)
+
+// JSX element, app
+const app = (
+  <div className='app'>
+    {header}
+    {main}
+    {footer}
+  </div>
+)
+
+const rootElement = document.getElementById('root')
+// we render the JSX element using the ReactDOM package
+ReactDOM.render(app, rootElement)
+```
+
+![](../imgs/day3_styling_jsx_inline_create_react_app.png)
+
+我们再来尝试使用内部的方式来改变 JSX 元素的样式，内部样式我们是直接加到了 index.html 中：
+
+```js
+// index.js
+import React from 'react'
+import ReactDOM from 'react-dom'
+// JSX element, header
+const header = (
+  <header>
+    <div className='header-wrapper'>
+      <h1>Welcome to 30 Days Of React</h1>
+      <h2>Getting Started React</h2>
+      <h3>JavaScript Library</h3>
+      <p>Instructor: Asabeneh Yetayeh</p>
+      <small>Date: Oct 1, 2020</small>
+    </div>
+  </header>
+)
+
+// JSX element, main
+const main = (
+  <main>
+    <div className='main-wrapper'>
+      <p>
+        Prerequisite to get started{' '}
+        <strong>
+          <em>react.js</em>
+        </strong>
+        :
+      </p>
+      <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li> JavaScript</li>
+      </ul>
+    </div>
+  </main>
+)
+
+// JSX element, footer
+const footer = (
+  <footer>
+    <div className='footer-wrapper'>
+      <p>Copyright 2020</p>
+    </div>
+  </footer>
+)
+
+// JSX element, app
+const app = (
+  <div className='app'>
+    {header}
+    {main}
+    {footer}
+  </div>
+)
+
+const rootElement = document.getElementById('root')
+// we render the JSX element using the ReactDOM package
+ReactDOM.render(app, rootElement)
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Roboto:300,400,500&display=swap"
+      rel="stylesheet"
+    />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+
+    <title>30 Days Of React App</title>
+    <style>
+      /* == General style === */
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+
+      html,
+      body {
+        height: 100%;
+        line-height: 1.5;
+        font-family: 'Montserrat';
+        font-weight: 300;
+        color: black;
+      }
+
+      .root {
+        min-height: 100%;
+        position: relative;
+      }
+
+      .header-wrapper,
+      .main-wrapper,
+      .footer-wrapper {
+        width: 85%;
+        margin: auto;
+      }
+
+      .header-wrapper,
+      .main-wrapper {
+        padding: 10px;
+        margin: 2px auto;
+      }
+
+      h1 {
+        font-size: 70px;
+        font-weight: 300;
+      }
+
+      h2,
+      h3 {
+        font-weight: 300;
+      }
+
+      header {
+        background-color: #61dbfb;
+        padding: 10px;
+      }
+
+      main {
+        padding: 10px 10px 60px;
+        /* Height of the footer */
+      }
+
+      ul {
+        margin-left: 15px;
+      }
+
+      ul li {
+        list-style: none;
+      }
+
+      footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 60px;
+        /* Height of the footer */
+        background: #6cf;
+      }
+
+      .footer-wrapper {
+        font-weight: 400;
+        text-align: center;
+        line-height: 60px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+```
+
+![](../imgs/day3_js_internal_style_create_react_app.png)
+
 #### 在 JSX 元素中加入数据
 
+```js
+// index.js
+import React from 'react'
+import ReactDOM from 'react-dom'
+// To get the root element from the HTML document
+
+// JSX element, header
+const welcome = 'Welcome to 30 Days Of React'
+const title = 'Getting Started React'
+const subtitle = 'JavaScript Library'
+const author = {
+  firstName: 'Asabeneh',
+  lastName: 'Yetayeh',
+}
+const date = 'Oct 2, 2020'
+
+// JSX element, header
+const header = (
+  <header>
+    <div className='header-wrapper'>
+      <h1>{welcome}</h1>
+      <h2>{title}</h2>
+      <h3>{subtitle}</h3>
+      <p>
+        Instructor: {author.firstName} {author.lastName}
+      </p>
+      <small>Date: {date}</small>
+    </div>
+  </header>
+)
+
+const numOne = 3
+const numTwo = 2
+
+const result = (
+  <p>
+    {numOne} + {numTwo} = {numOne + numTwo}
+  </p>
+)
+
+const yearBorn = 1820
+const currentYear = new Date().getFullYear()
+const age = currentYear - yearBorn
+const personAge = (
+  <p>
+    {' '}
+    {author.firstName} {author.lastName} is {age} years old
+  </p>
+)
+
+// JSX element, main
+const techs = ['HTML', 'CSS', 'JavaScript']
+const techsFormatted = techs.map((tech) => <li>{tech}</li>)
+
+// JSX element, main
+const main = (
+  <main>
+    <div className='main-wrapper'>
+      <p>
+        Prerequisite to get started{' '}
+        <strong>
+          <em>react.js</em>
+        </strong>
+        :
+      </p>
+      <ul>{techsFormatted}</ul>
+      {result}
+      {personAge}
+    </div>
+  </main>
+)
+
+const copyRight = 'Copyright 2020'
+
+// JSX element, footer
+const footer = (
+  <footer>
+    <div className='footer-wrapper'>
+      <p>{copyRight}</p>
+    </div>
+  </footer>
+)
+
+// JSX element, app
+const app = (
+  <div className='app'>
+    {header}
+    {main}
+    {footer}
+  </div>
+)
+
+const rootElement = document.getElementById('root')
+// we render the JSX element using the ReactDOM package
+ReactDOM.render(app, rootElement)
+```
+
+![](../imgs/day3_inecting_data_to_jsx_create_react_app.png)
+
 #### 在 React 中导入一个媒体对象
+
+那我们在 React 中如何导入图片、视频和音频呢？
+
+首先我们来看看如何导入图像。
+
+在 src 文件夹中创建 images 文件夹并在其中保存图像，例如我们将保存 day3_demo.jpg  图像并将该图像导入到 index.js 中。
+
+导入后，我们将其注入 JSX 表达式 user 中。
+
+```js
+// index.js
+import React from 'react'
+import ReactDOM from 'react-dom'
+import day3Demo from './images/day3_demo.jpg'
+
+const user = (
+  <div>
+    <img src={day3Demo} alt='asabeneh image' />
+  </div>
+)
+
+const rootElement = document.getElementById('root')
+// we render the JSX element using the ReactDOM package
+ReactDOM.render(user, rootElement)
+```
+
+![](../imgs/day3_demo_download.png)
+
+让我们完善一下页面内容：
+
+```js
+// index.js
+import React from 'react'
+import ReactDOM from 'react-dom'
+// To get the root element from the HTML document
+import day3Demo from './images/day3_demo.jpg'
+// JSX element, header
+const welcome = 'Welcome to 30 Days Of React'
+const title = 'Getting Started React'
+const subtitle = 'JavaScript Library'
+const author = {
+  firstName: 'Asabeneh',
+  lastName: 'Yetayeh',
+}
+const date = 'Oct 2, 2020'
+
+// JSX element, header
+const header = (
+  <header>
+    <div className='header-wrapper'>
+      <h1>{welcome}</h1>
+      <h2>{title}</h2>
+      <h3>{subtitle}</h3>
+      <p>
+        Instructor: {author.firstName} {author.lastName}
+      </p>
+      <small>Date: {date}</small>
+    </div>
+  </header>
+)
+
+const numOne = 3
+const numTwo = 2
+
+const result = (
+  <p>
+    {numOne} + {numTwo} = {numOne + numTwo}
+  </p>
+)
+
+const yearBorn = 1820
+const currentYear = new Date().getFullYear()
+const age = currentYear - yearBorn
+const personAge = (
+  <p>
+    {' '}
+    {author.firstName} {author.lastName} is {age} years old
+  </p>
+)
+
+// JSX element, main
+const techs = ['HTML', 'CSS', 'JavaScript']
+const techsFormatted = techs.map((tech) => <li>{tech}</li>)
+
+const user = (
+  <div>
+    <img src={day3Demo} alt='day3Demo image' />
+  </div>
+)
+
+// JSX element, main
+const main = (
+  <main>
+    <div className='main-wrapper'>
+      <p>
+        Prerequisite to get started{' '}
+        <strong>
+          <em>react.js</em>
+        </strong>
+        :
+      </p>
+      <ul>{techsFormatted}</ul>
+      {result}
+      {personAge}
+      {user}
+    </div>
+  </main>
+)
+
+const copyRight = 'Copyright 2020'
+
+// JSX element, footer
+const footer = (
+  <footer>
+    <div className='footer-wrapper'>
+      <p>{copyRight}</p>
+    </div>
+  </footer>
+)
+
+// JSX element, app
+const app = (
+  <div className='app'>
+    {header}
+    {main}
+    {footer}
+  </div>
+)
+
+const rootElement = document.getElementById('root')
+// we render the JSX element using the ReactDOM package
+ReactDOM.render(app, rootElement)
+```
+
+![](../imgs/day3_all.png)
+
+> 源码看同级目录的 demo 文件夹哦
