@@ -161,7 +161,19 @@ $ npm start
 
 在生成的项目模板中，有三个目录：
 
-- src
+- src：
+  
+  - App.css,index.css - 前者是 App.js 组件的样式，后者是项目的通用样式
+  
+  - index.js - 入口文件，它是用来连接 index.html 和 React 组件的桥梁
+  
+  - App.js - React 项目中的根组件
+  
+  - reportWebVitals.js：这个文件用于报告 Web 基准指标数据，其中 Web Vitals 是一组用于衡量网站用户体验的指标，包括页面加载时间和交互性能等；
+  
+  - setupTest.js：这个文件用于配置测试环境，在其中可以进行一些全局的测试设置，比如引入测试所需要的库、进行测试环境的初始化等。在这个文件中，可以配置 Enzyme、Jest 和 Mocha 等测试框架的设置，以便在运行测试时能够正确地进行初始化和清理工作。
+  
+  - App.test.js：这是 App.js 文件对应的测试文件。在其中可以编写针对 App 组件的单元测试和集成测试，用于确保该组件在不同情况下的行为符合预期。
 
 - public：这是存放项目静态资源的目录，它里面有：
   
@@ -179,13 +191,152 @@ $ npm start
 
 此外还有一些其他文件：
 
-- .gitignore
+- .gitignore：这个文件里的内容（主要是文件和文件夹路径）不会被推送到仓库
 
-- README.md
+- README.md：项目介绍，使用 Markdown 语法
 
-- package.json
+- package.json：它记录了项目的元数据、依赖关系和脚本等信息。在使用 npm 或者 yarn 等包管理器时，这个文件用于指定项目所需要的依赖、开发依赖以及一些自定义脚本命令等。
 
-- yarn.lock（或者 package-lock.json）
+- yarn.lock（或者 package-lock.json）：这个文件里的内容是用来锁定包版本的
+
+![](../imgs/day3_react_boilerplate.png)
+
+接下来我们需要删除一些目前用不到的文件，只保留需要的文件。
+
+![](../imgs/day3_react_bolier_plate_cleaned.png)
+
+在 index.js 中我们导入 `React` 和 `ReactDOM`。
+
+React 允许我们编写 JSX 和 ReactDOM 在 DOM 上渲染 JSX。ReactDOM 有一个 render 方法，使用它可以将 React 元素渲染到指定的 DOM 中。它有两个参数：
+
+- 要渲染的 JSX 元素
+
+- 被挂载的 DOM
+
+```js
+//index.js
+// importing the react and react-dom package
+
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+const jsxElement = <h1>This is a JSX element</h1>
+const rootElement = document.getElementById('root')
+
+ReactDOM.render(jsxElement, rootElement)
+```
+
+```html
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Roboto:300,400,500&display=swap"
+      rel="stylesheet"
+    />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+
+    <title>30 Days Of React App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+```
+
+然后我们打开终端并进入到该目录，执行 `npm start` 命令来启动项目，最终在浏览器上会看到：
+
+![](../imgs/day3_jsx_use_create_react_app.png)
+
+接下来让我们编写更多的 JSX 元素到里面：
+
+```js
+//index.js
+// importing the react and react-dom package
+
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+const header = (
+  <header>
+    <h1>Welcome to 30 Days Of React</h1>
+    <h2>Getting Started React</h2>
+    <h3>JavaScript Library</h3>
+    <p>Asabeneh Yetayeh</p>
+    <small>Oct 2, 2020</small>
+  </header>
+)
+const rootElement = document.getElementById('root')
+
+ReactDOM.render(header, rootElement)
+```
+
+页面会变成这样：
+
+![](../imgs/day3_rendering_more_jsx_content_create_react_app.png)
+
+看着是不是也有些单调，那我们把之前所有的 JSX 元素都加进来：
+
+```js
+//index.js
+// importing the react and react-dom package
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+// JSX element, header
+const header = (
+  <header>
+    <h1>Welcome to 30 Days Of React</h1>
+    <h2>Getting Started React</h2>
+    <h3>JavaScript Library</h3>
+    <p>Asabeneh Yetayeh</p>
+    <small>Oct 2, 2020</small>
+  </header>
+)
+
+// JSX element, main
+const main = (
+  <main>
+    <p>Prerequisite to get started react.js:</p>
+    <ul>
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>JavaScript</li>
+    </ul>
+  </main>
+)
+
+// JSX element, footer
+const footer = (
+  <footer>
+    <p>Copyright 2020</p>
+  </footer>
+)
+
+// JSX element, app, a container or a parent
+const app = (
+  <div>
+    {header}
+    {main}
+    {footer}
+  </div>
+)
+
+const rootElement = document.getElementById('root')
+// we render the JSX element using the ReactDOM package
+// ReactDOM has the render method and the render method takes two argument
+ReactDOM.render(app, rootElement)
+// or
+//  ReactDOM.render([header, main, footer], rootElement)
+```
+
+![](../imgs/day3_rendering_multiple_jsx_elements_create-react_app.png)
 
 #### JSX 中的样式
 
