@@ -19,6 +19,14 @@
   - [Create React App](#create-react-app)
 
 - [创建你的第一个 React App](#创建你的第一个-react-app)
+  
+  - [React 项目模板](#react-项目模板)
+  
+  - [JSX 中的样式](#jsx-中的样式)
+  
+  - [在 JSX 元素中加入数据](#在-jsx-元素中加入数据)
+  
+  - [在 React 中导入一个媒体对象](#在-react-中导入一个媒体对象)
 
 - [练习](#练习)
 
@@ -125,3 +133,62 @@ npx create-react-app <name-of-your-project>
 ```
 
 然后 CRA 就开始为我们创建 React 项目，它会安装项目必须的依赖，并生成对应的项目目录。
+
+### 创建你的第一个 React App
+
+```bash
+$ cd Desktop
+$ npx create-react-app 30-days-of-react
+$ cd 30-days-of-react/
+$ npm start
+```
+
+现在你的第一个 React 程序已经在 `localhost:3000` 上开始运行了。
+
+在生成的项目中，我们可以看到根组件 `App.jsx` ，在这个文件上面可以修改或者增加一些内容，然后浏览器端可以看到最新的更改。
+
+如果想要停止服务器，可以在终端按下 `Ctrl + C`。
+
+![](/Users/heshengxin/Desktop/CodeResoure/imooc_project/30-days-of-react/imgs/day3_react_app_starting.png)
+
+#### React 项目模板
+
+让我们来看看由 CRA 创建的 React 模板。当我们每次创建新项目时，都需要运行 `npx create-react-app` 和项目名称。
+
+> ⚠️注意：在 CRA 的[官网](https://create-react-app.xiniushu.com/getting-started)中建议将全局的 CRA 卸载掉，这样可以确保 `npx` 总是会使用最新版本的 CRA。
+> 
+> 所以如果还是在使用全局的 `create-react-app <your_app_name>` 会报错，提示信息中指出不再支持 Create React App 的全局安装
+
+在生成的项目模板中，有三个目录：
+
+- src
+
+- public：这是存放项目静态资源的目录，它里面有：
+  
+  - index.html - 项目中的 HTML 模板，不管是开发还是打包，HTML 都是以它为准的；
+  
+  - favicon.ico：自带的图标文件，也就是 react 的图标
+  
+  - manifest.json：用于描述 PWA 的清单文件。PWA（Progressive Web App）是一种使用现代 Web 技术构建的应用程序，可以像原生应用一样运行在用户的设备上，具有离线访问和推送通知等功能。
+  
+  - 一些静态图片
+  
+  - robots.txt：用于指示网络爬虫在抓取网站内容时应该遵守的规则。也就是说，通过该文件，网站管理员可以告诉搜索引擎爬虫哪些页面可以被抓取，哪些页面不可以被抓取，以及其他抓取行为的限制和指导。这对于网站的 SEO 至关重要。
+
+- node_modules：项目中安装的依赖包都会在这个目录中
+
+此外还有一些其他文件：
+
+- .gitignore
+
+- README.md
+
+- package.json
+
+- yarn.lock（或者 package-lock.json）
+
+#### JSX 中的样式
+
+#### 在 JSX 元素中加入数据
+
+#### 在 React 中导入一个媒体对象
