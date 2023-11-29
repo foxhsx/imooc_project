@@ -48,13 +48,13 @@ CRA 创建的项目在启动时，会在本地启动一个 Node 服务器，端�
 
 如果你还未拥有 Node，可以到 [Node 的官网](https://nodejs.org/en/)进行安装。
 
-![](/Users/heshengxin/Desktop/CodeResoure/imooc_project/30-days-of-react/imgs/day3_node.png)
+![](../imgs/day3_node.png)
 
 一般选择安装 LTS 版本也就是稳定版本的。
 
 安装好 Node 之后，我们可以打开终端来检查一下是否安装成功：
 
-![](/Users/heshengxin/Desktop/CodeResoure/imooc_project/30-days-of-react/imgs/day3_node_version.png)
+![](../imgs/day3_node_version.png)
 
 #### Module
 
@@ -102,7 +102,7 @@ console.log(everything)
 
 npm 是 Node 中内置的模块，它是 Node.js 里的默认包管理器。用于在 Node.js 应用程序中安装、更新和卸载依赖包。通过 npm，可以很方便地查找和安装来自 npm 仓库中的各个模块，也可以将自己开发的模块发布到 npm 仓库供他人使用。
 
-![](/Users/heshengxin/Desktop/CodeResoure/imooc_project/30-days-of-react/imgs/day3_npm_registry.png)
+![](../imgs/day3_npm_registry.png)
 
 #### Visual Studio Code
 
@@ -149,7 +149,7 @@ $ npm start
 
 如果想要停止服务器，可以在终端按下 `Ctrl + C`。
 
-![](/Users/heshengxin/Desktop/CodeResoure/imooc_project/30-days-of-react/imgs/day3_react_app_starting.png)
+![](../imgs/day3_react_app_starting.png)
 
 #### React 项目模板
 
