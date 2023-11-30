@@ -29,6 +29,12 @@
   - [在 React 中导入一个媒体对象](#在-react-中导入一个媒体对象)
 
 - [练习](#练习)
+  
+  - [练习1](#练习1)
+  
+  - [练习2](#练习2)
+  
+  - [练习3](#练习3)
 
 ### 前期准备
 
@@ -812,3 +818,43 @@ ReactDOM.render(app, rootElement)
 ![](../imgs/day3_all.png)
 
 > 源码看同级目录的 demo 文件夹哦
+
+### 练习
+
+#### 练习1
+
+1. 什么是 module？
+
+2. 什么是 package？
+
+3. module 和 package 的区别是什么？
+
+4. 什么是 npm？
+
+5. 什么是 webpack？
+
+6. 如何创建一个新的 React 项目？
+
+7. 项目文件夹内都有哪些文件和文件夹？
+
+8. 你最喜欢的代码编辑器是什么？
+
+9. 添加不同的 VSCode 扩展以提高你的工作效率
+
+10. 尝试在不同的文件中创建不同的自定义模块并将其导入到 index.js 中
+
+#### 练习2
+
+- 导入并渲染以下图片
+
+![](../imgs/day3_frontend_technologies.png)
+
+- 在 JSX 中使用 h1、p、input 和 button 标签来实现下面的设计
+
+![](../imgs/day3_news_letter_design.png)
+
+#### 练习3
+
+1. 实现如下的用户卡片（图片中的人就是开源项目的作者哦）
+
+![](../imgs/day3_user_card_design_jsx.png)
