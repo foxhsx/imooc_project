@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom'
 import day3Demo from './images/day3_demo.jpg'
 import htmlImg from './images/day3_frontend_technologies.png'
 import Subscribe from './Subscribe'
+import UserCard from './UserCard'
 // JSX element, header
 const welcome = 'Welcome to 30 Days Of React'
 const title = 'Getting Started React'
@@ -55,8 +56,10 @@ const techsFormatted = techs.map((tech) => <li>{tech}</li>)
 
 const user = (
   <div>
-    <img src={day3Demo} alt='day3Demo image' />
-    <img src={htmlImg} width="300" />
+    <picture>
+      <img src={day3Demo} alt='' />
+      <img src={htmlImg} width="300" alt='' />
+    </picture>
   </div>
 )
 
@@ -64,6 +67,7 @@ const user = (
 const main = (
   <main>
     <Subscribe />
+    <UserCard />
     <div className='main-wrapper'>
       <p>
         Prerequisite to get started{' '}
