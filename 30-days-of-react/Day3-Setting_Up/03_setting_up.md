@@ -858,3 +858,5 @@ ReactDOM.render(app, rootElement)
 1. 实现如下的用户卡片（图片中的人就是开源项目的作者哦）
 
 ![](../imgs/day3_user_card_design_jsx.png)
+
+🎉 CONGRATULATIONS ! 🎉
