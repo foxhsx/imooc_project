@@ -3,6 +3,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 // To get the root element from the HTML document
 import day3Demo from './images/day3_demo.jpg'
+import htmlImg from './images/day3_frontend_technologies.png'
+import Subscribe from './Subscribe'
 // JSX element, header
 const welcome = 'Welcome to 30 Days Of React'
 const title = 'Getting Started React'
@@ -54,12 +56,14 @@ const techsFormatted = techs.map((tech) => <li>{tech}</li>)
 const user = (
   <div>
     <img src={day3Demo} alt='day3Demo image' />
+    <img src={htmlImg} width="300" />
   </div>
 )
 
 // JSX element, main
 const main = (
   <main>
+    <Subscribe />
     <div className='main-wrapper'>
       <p>
         Prerequisite to get started{' '}
