@@ -416,6 +416,6 @@ ReactDOM.render(<HexaColor />, rootElement)
 
 1. 使用文章中的十六进制数生成器来创建一些随机颜色
 
-![](/Users/heshengxin/Desktop/CodeResoure/imooc_project/30-days-of-react/imgs/day4_hexadecimal_color_exercise.png)
+![](../imgs/day4_hexadecimal_color_exercise.png)
 
 2.使用函数组件来完成上一节中最后的练习
