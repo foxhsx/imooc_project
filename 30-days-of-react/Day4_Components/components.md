@@ -398,7 +398,7 @@ ReactDOM.render(<HexaColor />, rootElement)
 
 4. 纯 JavaScript 函数和函数式组件有什么区别？
 
-5. React 组件有多小？
+5. React 组件可以有多小？
 
 6. 创建一个按钮或输入字段组件
 
