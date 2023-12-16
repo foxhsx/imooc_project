@@ -1,0 +1,27 @@
+.square {
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  margin: 2px;
+  color: #fff;
+  font-size: 20px;
+}
+
+.square:nth-of-type(odd) {
+  background-color: #5bbc7a;
+}
+.square:nth-of-type(even) {
+  background-color: #f7bc5c;
+}
+.square.prime {
+  background-color: #ea695b;
+}
+
+.flex {
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  width: 672px;
+  margin: 0 auto;
+}

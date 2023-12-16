@@ -1,0 +1,17 @@
+.color {
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  margin: 2px;
+  color: #eacfe4;
+  font-size: 14px;
+}
+
+.flex {
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  width: 672px;
+  margin: 0 auto;
+}
