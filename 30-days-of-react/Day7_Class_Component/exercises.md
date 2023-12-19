@@ -62,16 +62,21 @@
     
     Dog.prototype = Object.create(Animal.prototype) // 将子类的原型设置为父类的实例
     Dog.prototype.constructor = Dog; // 设置子类的构造函数
-    ```
-
+    
     Dog.prototype.bark = function() {
-      console.log("Woof!");
+     console.log("Woof!");
     };
     
     // 创建子类实例
     var myDog = new Dog("Max", "Labrador");
     myDog.sayName(); // 输出: My name is Max
     myDog.bark(); // 输出: Woof!
+    ```
+    
+    
+    
+    ```
+    
     ```
 
 - 使用 `class` 和 `extends`
