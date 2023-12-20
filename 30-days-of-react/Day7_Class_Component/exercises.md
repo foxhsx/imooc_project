@@ -72,12 +72,6 @@
     myDog.sayName(); // 输出: My name is Max
     myDog.bark(); // 输出: Woof!
     ```
-    
-    
-    
-    ```
-    
-    ```
 
 - 使用 `class` 和 `extends`
   
