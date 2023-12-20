@@ -373,12 +373,61 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
 ```
 
-相信现在你对状态 state 已经有了一定的了解。在之后的章节中，我们也会继续使用状态，因为在 React 中，state 状态和 props 是比较核心的部分。
+上述部分都是在类组件中改变状态，而在 React Hooks 中，我们会使用 useState Hook 来设置组件的状态：
+
+```js
+import React, { useState } from 'react';
+
+function MyComponent() {
+  const [count, setCount] = useState(0);
+
+  const handleClick = () => {
+    setCount(count + 1);
+  }
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={handleClick}>Increment</button>
+    </div>
+  );
+}
+
+export default MyComponent;
+```
+
+在 Hooks 中，使用 React 提供的 useState Hook 来给组件添加状态。它的基本用法就是调用 useState 并传入初始状态的值，它会返回一个包含当前状态的值和更新状态的函数的数组。在使用这个 Hook 时可以：
+
+1. 基本用法：调用 useState 并传入初始状态的值，它会返回一个数组，第一个元素是当前状态的值，第二个元素是更新状态的函数。
+
+2. 多个状态：可以多次调用 useState 来添加多个状态
+
+3. 更新状态：调用返回的更新状态的函数来更新状态。这个函数可以接受一个新的状态值，也可以接受一个函数，该函数接受当前状态值作为参数，返回新的状态值
+
+4. ⚠️注意，不能在 if 或者循环中使用 Hook
+
+现在相信你对状态 state 已经有了一定的了解。在之后的章节中，我们也会继续使用状态，因为在 React 中，state 状态和 props 是比较核心的部分。
 
 ### 练习
 
 #### 练习1
 
+1. React 中的状态是什么？  
+
+2. React 中的 props 和 state 有什么区别？  
+
+3. 如何访问 React 组件中的状态？  
+
+4. 如何在 React 组件中设置集合？
+
 #### 练习2
+
+- 使用 React state 来更改页面的背景。您可以使用此技术为您的作品集应用深色模式。
+
+![](../imgs/08_day_changing_background_exercise.gif)
+
+- 长时间的封锁后，你可能会想到旅行，但不知道去哪里。您可能有兴趣开发一个随机国家/地区选择器来选择您的度假目的地。
+
+![](../imgs/08_day_select_country_exercise.gif)
 
 #### 练习3
