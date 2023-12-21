@@ -1,11 +1,12 @@
 // index.js
-import React from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import ReactDOM from 'react-dom'
 // To get the root element from the HTML document
 import day3Demo from './images/day3_demo.jpg'
 import htmlImg from './images/day3_frontend_technologies.png'
 import Subscribe from './Subscribe'
 import UserCard from './UserCard'
+import SelectCountry from './SelectCountry'
 // JSX element, header
 const welcome = 'Welcome to 30 Days Of React'
 const title = 'Getting Started React'
@@ -52,7 +53,7 @@ const personAge = (
 
 // JSX element, main
 const techs = ['HTML', 'CSS', 'JavaScript']
-const techsFormatted = techs.map((tech) => <li>{tech}</li>)
+const techsFormatted = techs.map((tech) => <li key={tech}>{tech}</li>)
 
 const user = (
   <div>
@@ -64,25 +65,35 @@ const user = (
 )
 
 // JSX element, main
-const main = (
-  <main>
-    <Subscribe />
-    <UserCard />
-    <div className='main-wrapper'>
-      <p>
-        Prerequisite to get started{' '}
-        <strong>
-          <em>react.js</em>
-        </strong>
-        :
-      </p>
-      <ul>{techsFormatted}</ul>
-      {result}
-      {personAge}
-      {user}
-    </div>
-  </main>
-)
+const Main = ({ appBgColor }) => {
+  const textColor = useMemo(() => {
+    if (appBgColor === '#111625') {
+      return 'white'
+    } else {
+      return 'black'
+    }
+  }, [appBgColor])
+  return (
+    <main style={{ color: textColor }}>
+      <Subscribe />
+      <UserCard />
+      <SelectCountry />
+      <div className='main-wrapper'>
+        <p>
+          Prerequisite to get started{' '}
+          <strong>
+            <em>react.js</em>
+          </strong>
+          :
+        </p>
+        <ul>{techsFormatted}</ul>
+        {result}
+        {personAge}
+        {user}
+      </div>
+    </main>
+  )
+}
 
 const copyRight = 'Copyright 2020'
 
@@ -98,14 +109,32 @@ const footer = (
 
 
 // JSX element, app
-const app = (
-  <div className='app'>
-    {header}
-    {main}
-    {footer}
-  </div>
-)
+const App = () => {
+  const [backgroundColor, setBackgroundColor] = useState('white')
+
+  const changeBackground = useCallback(() => {
+    const bgColor = backgroundColor === 'white' ? '#111625' : 'white'
+    setBackgroundColor(bgColor)
+  }, [backgroundColor])
+
+  return (
+    <div className='app' style={{ backgroundColor }}>
+      {header}
+      <button style={{
+        color: '#fff',
+        padding: '10px 20px',
+        border: 'none',
+        borderRadius: '3px',
+        cursor: 'pointer',
+        backgroundColor: '#61dbfb',
+        margin: '30px',
+      }} onClick={changeBackground}>change background</button>
+      <Main appBgColor={backgroundColor} />
+      {footer}
+    </div>
+  )
+}
 
 const rootElement = document.getElementById('root')
 // we render the JSX element using the ReactDOM package
-ReactDOM.render(app, rootElement)
+ReactDOM.render(<App />, rootElement)

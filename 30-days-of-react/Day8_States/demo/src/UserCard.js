@@ -36,7 +36,7 @@ const UserCard = () => {
         <h4>SKILLS</h4>
         <div className='tag-wrapper'>
           {
-            skills.map(skill => (<div className='tag'>{skill}</div>))
+            skills.map(skill => (<div className='tag' key={skill}>{skill}</div>))
           }
         </div>
       </section>
