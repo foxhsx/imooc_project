@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Season from './Season';
+import Time from './Time';
+import Loading from './Loading';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <Loading />
     <Season />
+    <Time />
   </React.StrictMode>
 );
 
