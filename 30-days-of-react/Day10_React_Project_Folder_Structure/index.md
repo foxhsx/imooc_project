@@ -285,6 +285,7 @@ export default TechList
 import React from 'react'
 import Button from './Button.js'
 import Message from './Message.js'
+import TechList from './TechList.js'
 
 // CSS styles in JavaScript Object
 const buttonStyles = {
