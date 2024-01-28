@@ -193,6 +193,110 @@ ReactDOM.render(<App firstName='Asabeneh' />, rootElement)
 
 #### ComponentDidMount
 
+正如我们可以理解的，这个方法在组件渲染后调用的方法名称。这是设置时间间隔和调用API的地方。看看下面的 componentDidMount 方法中的 setTimeout 实现。
+
+```js
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+class App extends Component {
+  constructor(props) {
+    super(props)
+    console.log('I am  the constructor and  I will be the first to run.')
+    this.state = {
+      firstName: 'John',
+    }
+  }
+  componentDidMount() {
+    console.log('I am componentDidMount and I will be last to run.')
+    // after 3 seconds it resets the state
+    setTimeout(() => {
+      this.setState({
+        firstName: 'Asabeneh',
+      })
+    }, 3000)
+  }
+
+  render() {
+    return (
+      <div className='App'>
+        <h1>React Component Life Cycle</h1>
+        <h2>componentDidMount Method</h2>
+        {this.state.firstName}
+      </div>
+    )
+  }
+}
+
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)
+```
+
+在上面的代码片段中，我们看到了如何在 componentDidMount 方法中实现 setTimeout。在下一个示例中，我们将使用 fetch 实现 API 调用。
+
+```js
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+
+class App extends Component {
+  constructor(props) {
+    super(props)
+    console.log('I am  the constructor and  I will be the first to run.')
+    this.state = {
+      firstName: 'John',
+      data: [],
+    }
+  }
+
+  componentDidMount() {
+    console.log('I am componentDidMount and I will be last to run.')
+    const API_URL = 'https://restcountries.eu/rest/v2/all'
+    fetch(API_URL)
+      .then((response) => {
+        return response.json()
+      })
+      .then((data) => {
+        console.log(data)
+        this.setState({
+          data,
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  render() {
+    return (
+      <div className='App'>
+        <h1>React Component Life Cycle</h1>
+        <h1>Calling API</h1>
+        <div>
+          <p>There are {this.state.data.length} countries in the api</p>
+          <div className='countries-wrapper'>
+            {this.state.data.map((country) => (
+              <div>
+                <div>
+                  {' '}
+                  <img src={country.flag} alt={country.name} />{' '}
+                </div>
+                <div>
+                  <h1>{country.name}</h1>
+                  <p>Capital: {country.capital}</p>
+                  <p>Population: {country.population}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)
+```
+
 ### 更新
 
 #### getDerivedStateFromProps
