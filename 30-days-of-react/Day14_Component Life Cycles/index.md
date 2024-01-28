@@ -299,16 +299,193 @@ ReactDOM.render(<App />, rootElement)
 
 ### 更新
 
+将组件安装到 DOM 上后，可以在状态或 props 更改时更新它。 React 组件的更新可能是由 props 或 state 的更改引起的。当组件被重新渲染时，这些方法将按以下顺序调用：
+
+1. static getDerivedStateFromProps()
+2. shouldComponentUpdate()
+3. render()
+4. getSnapshotBeforeUpdate()
+5. componentDidUpdate()
+
 #### getDerivedStateFromProps
+
+与挂载阶段类似，更新阶段也可以调用getDerivedStateFromProps。 getDerivedStateFromProps 是组件更新时调用的第一个方法。
 
 #### shouldComponentUpdate
 
+shouldComponentUpdate() 内置生命周期方法会返回一个布尔值。如果此方法不返回 true，则应用程序将不会更新。
+
+如果该方法不返回 true，则应用程序将永远不会更新。例如，这可以用于在达到某个点（游戏、订阅）时阻止使用，或者可以阻止某个用户。
+
+例如，如果我们想在 30 天后停止进行挑战，我们可以将天数从 1 增加到 30，并且我们可以在第 30 天阻止应用程序。看这个例子。
+
+```js
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+
+class App extends Component {
+  constructor(props) {
+    super(props)
+    console.log('I am  the constructor and  I will be the first to run.')
+    this.state = {
+      firstName: 'John',
+      day: 1,
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextProps, nextState)
+    console.log(nextState.day)
+    if (nextState.day > 31) {
+      return false
+    } else {
+      return true
+    }
+  }
+  // the doChallenge increment the day by one
+  doChallenge = () => {
+    this.setState({
+      day: this.state.day + 1,
+    })
+  }
+  render() {
+    return (
+      <div className='App'>
+        <h1>React Component Life Cycle</h1>
+        <button onClick={this.doChallenge}>Do Challenge</button>
+        <p>Challenge: Day {this.state.day}</p>
+        {this.state.congratulate && <h2>{this.state.congratulate}</h2>}
+      </div>
+    )
+  }
+}
+
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)
+```
+
 #### Render
+
+正如我们在组件的安装阶段提到的，当组件更新时会调用 render() 方法。它必须使用新的更改将 HTML 重新渲染到 DOM。
 
 #### componentDidUpdate
 
+componentDidUpdate 方法采用两个参数：prevProps 和 prevState。在 DOM 中更新组件后调用它。
+
+我们把上面的两种生命周期方法结合起来使用。
+
+```js
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+
+class App extends Component {
+  constructor(props) {
+    super(props)
+    console.log('I am  the constructor and  I will be the first to run.')
+    this.state = {
+      day: 1,
+      congratulate: '',
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextProps, nextState)
+    console.log(nextState.day)
+    if (nextState.day > 31) {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  doChallenge = () => {
+    this.setState({
+      day: this.state.day + 1,
+    })
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.day == 30) {
+      this.setState({
+        congratulate: 'Congratulations,Challenge has been completed',
+      })
+    }
+    console.log(prevState, prevProps)
+  }
+
+  render() {
+    return (
+      <div className='App'>
+        <h1>React Component Life Cycle</h1>
+        <h1>Calling API</h1>
+        <button onClick={this.doChallenge}>Do Challenge</button>
+        <p>Challenge: Day {this.state.day}</p>
+        {this.state.congratulate && <h2>{this.state.congratulate}</h2>}
+      </div>
+    )
+  }
+}
+
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)
+```
+
 ### 卸载
+
+组件生命周期的最后阶段是卸载。卸载阶段从 DOM 中删除组件。 componentWillUnmount 方法是卸载组件时调用的唯一内置方法。
 
 ## 练习
 
 ### 练习1
+
+- 什么是组件生命周期
+
+> React 组件生命周期是指组件在被创建、更新和销毁等阶段所经历的一系列过程。每个阶段都有特定的方法被调用，这些方法被称为生命周期方法。
+
+- 生命周期的目的是什么
+
+> 生命周期的主要目的是帮助开发人员在不同阶段控制组件的行为。通过生命周期方法，开发人员可以在组件各个阶段中执行特定的操作（如初始化状态、更新 DOM、清理资源等），从而使组件的行为符合预期并具有更好的性能。
+
+- 组件生命周期的三个阶段是什么
+
+> 组件生命周期可以分为三个阶段：安装（mounting）、更新（updating）和卸载（unmounting）。
+
+- 安装是什么意思？
+
+> 安装是指当组件第一次被创建并插入到 DOM 中时发生的过程。在这个阶段中，组件将进行初始化，包括设置初始状态、绑定事件处理程序和订阅数据源等。
+
+- 更新是什么意思
+
+> 更新是指当组件的属性或状态发生变化时，组件需要重新渲染并更新到 DOM 中的过程。在这个阶段中，组件将根据新的属性或状态进行更新，包括更新 DOM、重新计算状态等。
+
+- 卸载是什么意思？
+
+> 卸载是指当组件从 DOM 中移除时发生的过程。在这个阶段中，组件将清理和释放与其相关的资源，包括取消事件处理程序、取消订阅数据源等。
+
+- 最常见的内置安装生命周期方法是什么？
+
+> 最常见的内置安装生命周期方法是 componentDidMount。这个方法会在组件第一次插入到 DOM 中后被调用。在这个方法中，开发人员可以执行一些初始化操作，如启动定时器、发送网络请求等。
+
+- 安装生命周期方法有哪些？
+
+> 安装生命周期方法包括：
+> * `constructor()`
+> * `static getDerivedStateFromProps(props, state)`
+> * `render()`
+> * `componentDidMount()`
+> 
+> 其中，`constructor()` 方法在组件被创建时被调用，用于初始化组件的状态；`static getDerivedStateFromProps()` 方法在组件接收新的属性时被调用，用于更新组件的状态；`render()` 方法用于渲染组件的 UI；`componentDidMount()` 方法在组件第一次插入到 DOM 中后被调用，用于执行一些初始化操作。
+
+- 更新生命周期方法有哪些？
+
+> 更新生命周期方法包括：
+> * `static getDerivedStateFromProps(props, state)`
+> * `shouldComponentUpdate(nextProps, nextState)`
+> * `render()`
+> * `getSnapshotBeforeUpdate(prevProps, prevState)`
+> * `componentDidUpdate(prevProps, prevState, snapshot)`
+>
+> 其中，`static getDerivedStateFromProps()` 方法在组件接收新的属性时被调用，用于更新组件的状态；`shouldComponentUpdate()` 方法用于判断组件是否需要重新渲染；`render()` 方法用于渲染组件的 UI；`getSnapshotBeforeUpdate()` 方法在组件更新前被调用，可以用于获取更新前的 DOM 状态或滚动位置等信息；`componentDidUpdate()` 方法在组件更新后被调用，用于执行一些更新后的操作。
+
+- 卸载生命周期方法是什么？
+
+> 卸载生命周期方法只有一个，即 `componentWillUnmount()`。这个方法在组件从 DOM 中移除前被调用，用于清理和释放与其相关的资源，如取消事件处理程序、取消订阅数据源等。
