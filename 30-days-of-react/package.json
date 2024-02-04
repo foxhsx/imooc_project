@@ -13,8 +13,7 @@
     "Day6_Mapping_Arrays/*",
     "Day8_States/*",
     "Day12_Forms/*",
-    "Day15_Third_Party_Packages/*",
-    "Day16_Higher_Order_Component/*"
+    "Day15_Third_Party_Packages/*"
   ],
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",

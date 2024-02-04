@@ -21,6 +21,23 @@
 
 在本节中，我们将开始如何使用 React router，但只是入个门。想深入学习，那么就去 [React Router](https://reactrouter.com/en/6.22.0) 官方网站进行系统学习。
 
+我们要知道的是，React 是一个单页面应用程序，整个应用程序中只有一个 index.html 页面。当我们使用 React Router 时，不同的组件会根据不同的逻辑和条件，同时或不同时地渲染在 index.html 页面上。
+
+目前 React Router 的版本已经更新到了 6.22.0，我们将使用此版本来进行学习。接下来让我们开始安装 React Router 包。
+
+```bash
+npm install react-router-dom
+```
+
+在组件中，我们要导入 `react-router-dom`，在这里面我们可以提取出路由中所需的所有必要的组件。
+
+```js
+import React from 'react'
+import { BrowserRouter, Route, Link, NavLink, Routes, Navigate } from 'react-router-dom'
+```
+
+这是 React Router 中常用的一些组件，我们可能不会在每个项目中都包含这些组件，但是有必要去了解一下。
+
 ### BrowserRouter
 
 ### Route
