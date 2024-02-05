@@ -1,12 +1,11 @@
 - [React Router](#react-router)
   - [什么是 React Router？](#什么是-react-router)
   - [BrowserRouter](#browserrouter)
+  - [Routes](#routes)
   - [Route](#route)
-  - [Switch](#switch)
   - [NavLink](#navlink)
-  - [Nested Routing](#nested-routing)
-  - [Redirect](#redirect)
-  - [Prompt](#prompt)
+  - [Link](#link)
+  - [Navigate](#navigate)
 - [练习](#练习)
   - [练习1](#练习1)
   - [练习2](#练习2)
@@ -40,17 +39,89 @@ import { BrowserRouter, Route, Link, NavLink, Routes, Navigate } from 'react-rou
 
 ### BrowserRouter
 
+BrowserRouter 是 React Router 中的一种路由模式，还有我们常见的 HashRouter（一般我们使用这种路由模式）。
+
+BrowserRouter 使用 HTML5 的 history API 实现了一个完整的前端路由解决方案，可以让 URL 与 UI 同步更新，同时也支持浏览器的后退和前进按钮。
+
+简单来说，BrowserRouter 提供了一个能够在客户端上处理网站内部导航的机制。它监听浏览器的地址栏变化，并将相应的组件渲染到页面上。
+
+在使用时，我们使用它来包裹项目中定义的路由。
+
+```js
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+
+function App() {
+  return (
+    <BrowserRouter>
+      {/* The rest of your app goes here */}
+    </BrowserRouter>
+  )
+}
+
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)
+```
+
+### Routes
+
+这个组件代替了原来版本中的 `Switch` 组件，它用于定义应用程序中的路由规则。
+
+Routes 组件会根据当前的 URL 匹配相应的路由，并渲染对应的组件。通过在 Routes 组件中添加多个 Route 子组件，我们可以定义多个不同的路由规则。
+
+当浏览器的 URL 变化时，Routes 组件会检查每个 Route 子组件的 path 属性与当前 URL 是否匹配。如果匹配成功，则渲染对应的组件；如果没有找到匹配的 Route，则渲染一个默认的“未找到页面”组件或执行其他处理。
+
+```js
+<Routes>
+  <Route path="/" element={<Dashboard />}>
+    <Route
+      path="messages"
+      element={<DashboardMessages />}
+    />
+    <Route path="tasks" element={<DashboardTasks />} />
+  </Route>
+  <Route path="about" element={<AboutPage />} />
+</Routes>
+```
+
 ### Route
 
-### Switch
+路由应该是 React Router 应用程序中最重要的部分。它们将 URL 与组件、数据加载和数据突变耦合起来。通过路由嵌套，复杂的应用程序布局和数据依赖关系变得简单且具有声明性。（这有些官方）
+
+在 React Router 中，Route 组件用于定义路由规则和对应的组件。它是 React Router 的核心组件之一。
+
+通过 `Route` 组件，我们可以将 URL 路径与特定的组件关联起来。每个 `Route` `组件都有两个主要属性：path` 和 `element。`
+
+- `path` 属性指定了要匹配的 URL 路径模式。例如，`/home` 或者 `/users/:id`。
+- component 属性指定了在匹配成功时要渲染的组件。例如，`<Home />` 或 `<UserDetails />`。
+
+Route 组件允许在组件之间导航。它是从一个组件到另一个组件的途径。
+
+```js
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} /> {/* 👈 Renders at /app/ */}
+        <Route path='/about' element={About} />
+        <Route path='/contact' element={Contact} />
+        <Route path='/challenges' element={Challenges} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+```
+
+> 在 React Router v6 之前的版本中，Route 组件上还有一个 exact 的属性，它的作用是用来精准匹配 URL 路径在，在 v6 的版本中已经对 path 做了更加严格的匹配规则，只有当 URL 完全匹配时才会渲染对应的元素（组件）。这意味着，不再需要使用 exact 属性来精确匹配路径。
 
 ### NavLink
 
-### Nested Routing
+NavLink 组件是用于创建导航链接的组件。它继承自 React Router 的 Link 组件，并具有一些额外的功能。
 
-### Redirect
+### Link
 
-### Prompt
+### Navigate
 
 ## 练习
 
