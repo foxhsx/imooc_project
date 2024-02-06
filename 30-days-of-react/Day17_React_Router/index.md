@@ -119,12 +119,122 @@ function App() {
 
 NavLink 组件是用于创建导航链接的组件。它继承自 React Router 的 Link 组件，并具有一些额外的功能。
 
+NavLink 的作用是在用户与你的应用程序进行导航时，提供一个可点击的链接，并根据当前活动的路由状态添加特定的样式或类名。这使得用户可以轻松地识别当前所处的页面或路由。
+
+它知道当前链接的状态："active", "pending", or "transitioning". 
+
+我们可以根据它当前的状态，来动态设置组件的 `className`。
+
+```js
+import { NavLink } from "react-router-dom";
+
+<NavLink
+  to="/messages"
+  className={({ isActive, isPending }) =>
+    isPending ? "pending" : isActive ? "active" : ""
+  }
+>
+  Messages
+</NavLink>;
+```
+
+在点击该组件时，不会触发刷新页面的操作，而是通过改变 hash 的方式来切换页面上的组件。
+
 ### Link
 
+Link 组件允许用户通过点击事件从当前页面导航到另外一个页面，呈现在页面上实际上就是一个 a 标签，其中包含指向其链接资源的真实 href。
+
+在 Link 组件中，需要制定目标路由路径，这样才能保证用户在点击链接时，React Router 会更新 URL 并渲染相应的路由组件。
+
+```js
+import * as React from "react";
+import { Link } from "react-router-dom";
+
+function UsersIndexPage({ users }) {
+  return (
+    <div>
+      <h1>Users</h1>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>
+            <Link to={user.id}>{user.name}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
 ### Navigate
+
+在 React Router v6 中，Navigate 组件被用于在组件内部进行编程式导航。与 Link 和 NavLink 不同，它不是一个可点击的链接，而是一个可以在组件内部触发导航的组件。
+
+它是 useNavigate 的组件包装器，并接受所有相同的参数作为 props。
+
+也就是说我们在使用这个组件时，它并不是呈现出来一个链接之类的让我们去点击，而是自动帮我们进行页面的跳转（重定向）：
+
+```js
+import * as React from "react";
+import { Navigate } from "react-router-dom";
+
+class LoginForm extends React.Component {
+  state = { user: null, error: null };
+
+  async handleSubmit(event) {
+    event.preventDefault();
+    try {
+      let user = await login(event.target);
+      this.setState({ user });
+    } catch (error) {
+      this.setState({ error });
+    }
+  }
+
+  render() {
+    let { user, error } = this.state;
+    return (
+      <div>
+        {error && <p>{error.message}</p>}
+        {user && (
+          <Navigate to="/dashboard" replace={true} />
+        )}
+        <form
+          onSubmit={(event) => this.handleSubmit(event)}
+        >
+          <input type="text" name="username" />
+          <input type="password" name="password" />
+        </form>
+      </div>
+    );
+  }
+}
+```
 
 ## 练习
 
 ### 练习1
 
+1. 在react中使用什么包来实现路由？
+
+> React Router
+
+2. react-router-dom 中的默认导出是什么？
+
+> 默认导出一个 router 对象，里面有：
+> - BrowserRouter
+> - HashRouter
+> - Link
+> - NavLink
+> - Route
+> - Routes
+>
+> 等等
+
+3. 以下组件（Route、NavLink、Routes、Navigate）有什么用？
+
+> 参见文章
+
 ### 练习2
+
+使用 React Router 实现一个页面，具备路由跳转等功能。
