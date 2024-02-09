@@ -14,7 +14,8 @@
     "Day8_States/*",
     "Day12_Forms/*",
     "Day15_Third_Party_Packages/*",
-    "Day18_Fetch_and_Axios/*"
+    "Day18_Fetch_and_Axios/*",
+    "Day19_Projects/*"
   ],
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
