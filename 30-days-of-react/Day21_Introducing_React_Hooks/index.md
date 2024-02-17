@@ -4,6 +4,10 @@
     - [Effect Hook](#effect-hook)
     - [Context Hook](#context-hook)
   - [Additional Hook](#additional-hook)
+    - [useReducer](#usereducer)
+    - [useCallback](#usecallback)
+    - [useMemo](#usememo)
+    - [useRef](#useref)
 - [练习](#练习)
   - [练习1](#练习1)
 
@@ -16,6 +20,7 @@ Hook 分为基本的一些 Hook 和一些具有附加功能的 Hook。
 ### 基础 Hook
 
 基础的 Hook 分为：
+
 - useState
 - useEffect
 - useContext
@@ -225,6 +230,372 @@ function Toolbar() {
 
 ### Additional Hook
 
+Additional Hooks 是指除了上述的 Hook 之外，React 还额外提供的一些 Hook，用于处理特定的场景或者实现特定的功能，它们包括：
+
+- useReducer
+- useCallback
+- useMemo
+- useRef
+- useImperativeHandle
+- useLayoutEffect
+- useDebugValue
+- useDeferredValue
+- useTransition
+- useId
+
+这里我们只介绍前四个常用的。
+
+#### useReducer
+
+useReducer 是 React 提供的一个 Hook，用于管理组件中复杂的状态逻辑。它可以替代 useState 来管理状态，并且常用于需要多个相关值来共同决定状态变化的场景，或者需要根据先前的状态来更新状态的场景。
+
+useReducer 接收两个参数：reducer 函数和初始状态。reducer 函数接收当前状态和要进行的操作（action），然后根据操作返回新的状态。通常，操作会包含一个 type 字段，用于指示进行何种类型的状态更新，也可能包含一些额外的数据，用于更新状态所需的信息。
+
+这是 useState 部分的计数器示例，重写为使用 reducer：
+
+```js
+const initialState = { count: 0 }
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    default:
+      throw new Error();
+  }
+}
+
+
+function Counter() {
+    const [state, dispatch] = useReducer(reducer, initialState)
+    return (
+        <>
+            Count: {state.count}
+            <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+            <button onClick={() => dispatch({type: 'increment'})}>+</button>
+        </>
+    )
+}
+```
+
+`useReducer` 可以用于模块级的公共状态管理。通过将 `useReducer` 与 Context API 结合，可以创建一个模块级的状态管理方案，使得多个组件可以共享和操作相同的状态。
+
+```js
+
+import React, { createContext, useContext, useReducer } from 'react';
+
+// 创建一个 Context 对象
+const ModuleContext = createContext();
+
+// 定义初始状态和 reducer 函数
+const initialState = {
+  count: 0,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 };
+    case 'decrement':
+      return { count: state.count - 1 };
+    default:
+      return state;
+  }
+}
+
+// 创建一个 Provider 组件，包裹需要共享状态的组件
+function ModuleProvider({ children }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <ModuleContext.Provider value={{ state, dispatch }}>
+      {children}
+    </ModuleContext.Provider>
+  );
+}
+
+// 自定义 hook 用于在子组件中使用共享状态
+function useModule() {
+  const context = useContext(ModuleContext);
+  if (!context) {
+    throw new Error('useModule must be used within a ModuleProvider');
+  }
+  return context;
+}
+
+// 在子组件中使用共享状态
+function ModuleComponent() {
+  const { state, dispatch } = useModule();
+
+  return (
+    <div>
+      Count: {state.count}
+      <button onClick={() => dispatch({ type: 'increment' })}>+</button>
+      <button onClick={() => dispatch({ type: 'decrement' })}>-</button>
+    </div>
+  );
+}
+
+// 在父组件中使用 Provider 包裹需要共享状态的子组件
+function App() {
+  return (
+    <ModuleProvider>
+      <ModuleComponent />
+    </ModuleProvider>
+  );
+}
+```
+
+> 在 React 中，`useContext` hook 只会返回传递给 `<Context.Provider>` 组件的 `value` 值。在我们的例子中，`<ModuleContext.Provider>` 的 `value` 是一个对象，包含了 `state` 和 `dispatch`。因此，在 `useModule` 中，我们可以直接获取到这个对象，从而在子组件中访问到 `state` 和 `dispatch`。
+
+需要注意的是，在 React 中，`useReducer` 是同步的，并不能直接处理异步调用。如果你需要在 `useReducer` 中处理异步操作，可以结合使用 `useEffect` 和其他异步库（如 Axios、fetch 等）来实现。
+
+```js
+import React, { createContext, useContext, useReducer, useEffect } from 'react';
+
+// 创建一个 Context 对象
+const ModuleContext = createContext();
+
+// 定义初始状态和 reducer 函数
+const initialState = {
+  loading: false,
+  data: null,
+  error: null,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'fetch_start':
+      return { ...state, loading: true };
+    case 'fetch_success':
+      return { loading: false, data: action.payload, error: null };
+    case 'fetch_error':
+      return { loading: false, data: null, error: action.payload };
+    default:
+      return state;
+  }
+}
+
+// 创建一个 Provider 组件，包裹需要共享状态的组件
+function ModuleProvider({ children }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <ModuleContext.Provider value={{ state, dispatch }}>
+      {children}
+    </ModuleContext.Provider>
+  );
+}
+
+// 自定义 hook 用于在子组件中使用共享状态
+function useModule() {
+  const context = useContext(ModuleContext);
+  if (!context) {
+    throw new Error('useModule must be used within a ModuleProvider');
+  }
+  return context;
+}
+
+// 在子组件中使用共享状态，并发起异步调用
+function ModuleComponent() {
+  const { state, dispatch } = useModule();
+
+  useEffect(() => {
+    dispatch({ type: 'fetch_start' });
+    fetchData()
+      .then((data) => {
+        dispatch({ type: 'fetch_success', payload: data });
+      })
+      .catch((error) => {
+        dispatch({ type: 'fetch_error', payload: error.message });
+      });
+  }, []); // 只在组件挂载时执行一次
+
+  return (
+    <div>
+      {state.loading ? <p>Loading...</p> : state.error ? <p>Error: {state.error}</p> : <p>Data: {state.data}</p>}
+    </div>
+  );
+}
+
+// 模拟异步数据获取
+function fetchData() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // 模拟异步操作
+      const randomNum = Math.floor(Math.random() * 10);
+      if (randomNum < 5) {
+        resolve('Success data');
+      } else {
+        reject(new Error('Failed to fetch data'));
+      }
+    }, 2000);
+  });
+}
+
+// 在父组件中使用 Provider 包裹需要共享状态的子组件
+function App() {
+  return (
+    <ModuleProvider>
+      <ModuleComponent />
+    </ModuleProvider>
+  );
+}
+```
+
+#### useCallback
+
+在 React 中，`useCallback` 是一个用于优化性能的 Hook，它用于返回一个稳定的记忆化函数。简单来说，`useCallback` 用于避免在每次渲染时都创建新的函数实例。
+
+当将函数作为 `prop` 传递给子组件时，如果该函数在父组件重新渲染时被创建了新的实例，可能会导致子组件不必要地重新渲染。这是因为子组件会检查传递给它的 `prop` 是否发生更改，包括函数类型的 prop。如果函数每次都是新的实例，那么子组件就会认为该 prop 发生了更改，即使实际上函数的行为没有发生变化。
+
+使用 `useCallback` 可以确保依赖项（如 state 或其他 prop）未发生变化时，返回相同的函数实例，以减少子组件的不必要渲染。
+
+> **如果函数只在当前组件被使用，那还需要使用 useCallback 吗？**
+> 
+> 如果函数只在当前组件被使用，那么使用 ```useCallback``` 并不是必须的，因为即使该函数在重新渲染时被创建了新的实例，也不会影响其他组件的渲染。
+> 
+> 但是，如果该函数需要作为 props 传递给子组件，或者在 useEffect 的依赖项数组中使用，那么使用 ```useCallback``` 仍然是一个优化性能的好方法。这是因为使用 ```useCallback``` 可以确保依赖项未发生变化时返回相同的函数实例，从而减少子组件的不必要渲染。
+> 
+> 另外，即使函数只在当前组件使用，使用 ```useCallback``` 仍然可以让代码更清晰易懂，尤其是在处理复杂逻辑或需要多次调用的情况下。
+> 
+> 综上所述，使用 ```useCallback``` 并不是必须的，但是它可以帮助我们优化性能和代码结构。
+
+`useCallback` 接受两个参数：回调函数和依赖项数组。当依赖项数组中的任何一个值发生变化时，`useCallback` 将返回一个新的记忆化函数。如果依赖项数组为空，则该回调函数只会在组件第一次渲染时创建，并且在后续渲染中始终返回同一个函数实例。
+
+```js
+
+import React, { useState, useCallback } from 'react';
+
+function ParentComponent() {
+  const [count, setCount] = useState(0);
+
+  // 使用 useCallback 包装回调函数，确保依赖项未发生变化时返回相同的函数实例
+  const handleClick = useCallback(() => {
+    setCount(count + 1);
+  }, [count]);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <ChildComponent onClick={handleClick} />
+    </div>
+  );
+}
+
+function ChildComponent({ onClick }) {
+  console.log('ChildComponent render');
+  return <button onClick={onClick}>Increment</button>;
+}
+```
+
+`useCallback(fn, deps) `相当于 `useMemo(() => fn, deps)`。
+
+#### useMemo
+
+`useMemo` 是 React 提供的一个 Hook，用于在**渲染过程中**对值进行记忆化处理，以避免不必要的重复计算。
+
+当我们需要根据某些特定的依赖项计算出一个数值，并且这个计算过程可能比较昂贵耗时时，可以使用 `useMemo` 来缓存计算结果，避免在每次重新渲染时都重新计算。
+
+`useMemo` 接受一个工厂函数和一个依赖项数组，并返回工厂函数的计算结果。只有在依赖项发生变化时，`useMemo` 才会重新计算值；否则，它会返回上一次的缓存值。
+
+如果未提供依赖项，则每次渲染时都会计算一个新值。
+
+```js
+import React, { useMemo } from 'react';
+
+function ExpensiveCalculationComponent({ a, b }) {
+  // 使用 useMemo 缓存计算结果，只有 a 或 b 变化时才重新计算
+  const result = useMemo(() => {
+    console.log('Calculating...');
+    return a * b;
+  }, [a, b]);
+
+  return <div>Result: {result}</div>;
+}
+
+function App() {
+  const [valueA, setValueA] = React.useState(5);
+  const [valueB, setValueB] = React.useState(10);
+
+  return (
+    <div>
+      <ExpensiveCalculationComponent a={valueA} b={valueB} />
+      <button onClick={() => setValueA(valueA + 1)}>Increment A</button>
+      <button onClick={() => setValueB(valueB + 1)}>Increment B</button>
+    </div>
+  );
+}
+
+export default App;
+```
+
+在使用 useMemo 时，有一些需要注意的地方：
+
+1. 性能优化：确保只有在需要时才使用 useMemo。不要过度优化，只有在存在明显的性能问题或计算开销较大时才使用 useMemo 进行优化。
+
+2. 依赖项数组：要明确指定 useMemo 的依赖项数组。依赖项数组中的变量发生变化时，才会触发 useMemo 中的工厂函数进行重新计算。如果依赖项数组未正确设置，可能会导致缓存的值不会在预期的时机进行更新。
+
+3. 不要滥用：避免在不必要的情况下滥用 useMemo。只有在确实需要缓存计算结果时才使用 useMemo，否则可能会增加代码复杂度，导致代码难以理解。
+
+4. 内存占用：虽然 useMemo 可以帮助避免不必要的重复计算，但缓存的值可能会占用一定的内存空间。因此，在处理大数据量或长列表时，需要谨慎使用 useMemo，以避免过多的内存占用。
+
+5. 与 useCallback 区分：记住 useMemo 用于缓存数值，而 useCallback 用于缓存回调函数。在使用时要根据具体场景选择合适的 Hook。
+
+6. 不处理副作用：useMemo 适用于对值进行缓存和记忆化计算，不应该用于处理副作用。如果要处理副作用，请在 useEffect 中进行。
+
+> 如果在 useMemo 中处理副作用，可能会导致一些问题。
+> 
+> 首先，useMemo 的目的是为了缓存计算结果，而不是处理副作用。在 useMemo 中处理副作用可能会导致代码难以理解和维护。
+> 
+> 其次，由于 useMemo 的执行时机是在组件渲染时进行的，而副作用可能会导致组件外部状态的改变，这样可能会导致应用程序状态出现问题。
+> 
+> 最后，由于 useMemo 的执行是在渲染阶段进行的，而副作用操作通常需要在组件挂载或卸载时进行，因此在 useMemo 中处理副作用很可能会导致不正确的执行时机，从而导致副作用无法正确地执行。
+> 
+> 综上所述，不建议在 useMemo 中处理副作用。如果需要处理副作用，应该使用 useEffect 来处理，以确保副作用的正确执行时机并处理好依赖关系。
+
+#### useRef
+
+useRef 是 React 提供的一个 Hook，用于在函数组件中创建持久化的引用。它类似于 class 组件中的 ref。
+
+useRef 返回一个可变的 ref 对象，该对象的 current 属性可以存储任意可变值。在组件的多次渲染之间，ref 对象的值保持不变。
+
+主要用途有两个：
+
+1. 访问 DOM 元素或自定义组件实例：可以使用 useRef 来获取组件中的 DOM 元素或自定义组件的实例。将 ref 对象赋给组件的 ref 属性，就可以在函数组件中访问相应的 DOM 元素或组件实例。
+
+2. 存储任意可变值：可以使用 useRef 来存储任意可变的值，而不会触发组件重新渲染。通过修改 ref 对象的 current 属性，可以在函数组件中保存和访问这个值。
+
+```js
+function TextInputWithFocusButton() {
+  const inputEl = useRef(null);
+  const onButtonClick = () => {
+    // `current` points to the mounted text input element
+    inputEl.current.focus();
+  };
+  return (
+    <>
+      <input ref={inputEl} type="text" />
+      <button onClick={onButtonClick}>Focus the input</button>
+    </>
+  );
+}
+```
+
+本质上，useRef 就像一个“盒子”，可以在其 .current 属性中保存可变值。  
+
+您可能熟悉 refs 主要是作为访问 DOM 的一种方式。如果使用 <div ref={myRef} /> 将 ref 对象传递给 React，每当该节点发生更改时，React 都会将其 .current 属性设置为相应的 DOM 节点。  
+
+然而，useRef() 的用途不仅仅是 ref 属性。它可以方便地保留任何可变值。
+
+> 改变 .current 属性不会导致重新渲染。
+
+因此，当需要存储和更新一些不影响组件渲染的状态时，可以使用 useRef 来实现。
+
 ## 练习
 
 ### 练习1
+
+将您编写的所有内容转换为 React hooks。
