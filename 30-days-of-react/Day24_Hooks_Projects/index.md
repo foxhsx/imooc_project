@@ -1,0 +1,1 @@
+1. 使用 `https://restcountries.com/v2/all` api 来构建一个类似的项目 [demo](https://www.30daysofreact.com/day-23/countries-data)
