@@ -1,0 +1,99 @@
+.wrapper {
+  margin: 25px auto;
+  min-height: calc(100vh - 50px);
+  padding: 30px;
+  width: 75%;
+  :global {
+    .country-header {
+      background: #f0f0f0;
+      padding: 1.5rem;
+      text-align: center;
+      h2 {
+        color: orange;
+        font-size: 4rem;
+        font-weight: 600;
+        letter-spacing: .25rem;
+        margin: .5rem auto;
+      }
+      .subtitle {
+        color: #555;
+        font-size: 1.6rem;
+        font-weight: 600;
+      }
+    }
+    .controls {
+      text-align: center;
+      width: 100%;
+      .search-input {
+        background: #faf6f6;
+        border: .2rem solid #f8e7e7;
+        border-radius: 3rem;
+        color: orange;
+        font-size: 2rem;
+        height: 5rem;
+        margin: 3rem auto;
+        outline: none;
+        text-indent: 2rem;
+        width: 50%;
+      }
+    }
+    .countries-wrapper {
+      background: rgb(240, 240, 240);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      justify-items: center;
+      margin: 1rem 0 3rem 0;
+      padding: 1rem;
+      .country {
+        max-width: 25rem;
+        min-width: 25rem;
+        text-align: center;
+        margin: 0.5rem;
+        padding: 2rem;
+        border-radius: 0.2rem;
+        background: white;
+        .country_flag {
+          height: 12rem;
+          width: 20rem;
+          text-align: center;
+          margin: auto;
+          img {
+            display: block;
+            margin: auto;
+            max-width: 75%;
+            max-height: 75%;
+            min-width: 75%;
+            min-height: 75%;
+            border-radius: 0.3rem;
+            box-shadow: 0 0 0.6rem 0.2rem rgb(241, 225, 225);
+          }
+        }
+        .country_name {
+          font-size: 1.6rem;
+          color: #ffa500;
+          letter-spacing: 0.075rem;
+          font-weight: bolder;
+          margin-bottom: 1rem;
+        }
+        p {
+          font-size: 1.6rem;
+          font-weight: 500;
+          padding: 0.2rem;
+          color: #747474;
+          text-align: left;
+          letter-spacing: 0.05rem;
+          word-break: break-all;
+        }
+        span {
+          font-weight: 600;
+        }
+        &:hover {
+          box-shadow: 0 0.1rem 1rem #cfc9c7;
+          transition: all 0.2s ease-in;
+          transform: scale(1.015);
+        }
+      }
+    }
+  }
+}

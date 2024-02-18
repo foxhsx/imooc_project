@@ -15,7 +15,8 @@
     "Day12_Forms/*",
     "Day15_Third_Party_Packages/*",
     "Day18_Fetch_and_Axios/*",
-    "Day19_Projects/*"
+    "Day19_Projects/*",
+    "Day24_Hooks_Projects/*"
   ],
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
@@ -23,6 +24,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.7",
     "classnames": "^2.5.1",
+    "lodash": "^4.17.21",
     "moment": "^2.30.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
