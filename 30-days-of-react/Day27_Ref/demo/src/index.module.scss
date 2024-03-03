@@ -1,0 +1,26 @@
+.colors-container {
+  button {
+    border: none;
+    padding: 5px 10px;
+    background-color: skyblue;
+    border-radius: 3px;
+    margin: 20px 20px 0 20px;
+  }
+  :global {
+    .colors-wrapper {
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      div {
+        width: 18.2%;
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+        margin: 10px 0px 10px 20px;
+        color: #fff;
+        font-size: 18px;
+        border-radius: 5px;
+      }
+    }
+  }
+}

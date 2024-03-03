@@ -16,7 +16,8 @@
     "Day15_Third_Party_Packages/*",
     "Day18_Fetch_and_Axios/*",
     "Day19_Projects/*",
-    "Day24_Hooks_Projects/*"
+    "Day24_Hooks_Projects/*",
+    "Day27_Ref/*"
   ],
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
